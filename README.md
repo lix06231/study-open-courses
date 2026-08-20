@@ -13,9 +13,23 @@
 
 ### Why this project exists
 
-Finding a famous course is easy. Finding the right course for one person—and turning its real content into a trustworthy, usable learning path—is much harder.
+This project began with a very practical problem.
 
-`study-open-courses` gives an agent a complete learning workflow. It can start from a goal such as “I want to understand AI agents without becoming a programmer,” or from a named course, book, PDF, playlist, podcast, interview, tutorial, or documentation set.
+I wanted to learn from high-quality courses on the internet, but I work during the day and take care of my child in the evening. It is difficult to find a long, uninterrupted block of time to sit down and watch hours—or sometimes dozens of hours—of video.
+
+What I needed was something I could read whenever time became available: a few pages during a commute, one lesson between tasks, or another section after my child had fallen asleep. It needed to work naturally on a phone or tablet and let me stop and continue without losing the learning thread.
+
+But I did not want a ten-hour course reduced to a few hundred words. Aggressive summarization often removes the parts that make a course genuinely useful: the relationships between concepts, the instructor's reasoning, essential examples, necessary context, and the practice required to move from “I understand this” to “I can use this.”
+
+That need became `study-open-courses`.
+
+Within lawful access and authorization boundaries, it attempts to locate trustworthy and sufficiently complete course material, then reconstruct video, audio, captions, notes, and other resources into a readable learning experience—while preserving the original knowledge structure, important explanations, examples, practice, and provenance.
+
+It is not designed to bypass or replace the original course, nor to redistribute copyrighted transcripts. It exists to answer a practical question for ordinary learners:
+
+> When I do not have a large block of time to watch a long course, how can I still use fragmented time to learn it as completely and reliably as possible?
+
+That is why this Skill checks integrity first, reconstructs the learning experience second, and only then decides what can safely be compressed. It can start from a goal such as “I want to understand AI agents without becoming a programmer,” or from a named course, book, PDF, playlist, podcast, interview, tutorial, or documentation set.
 
 It does more than summarize:
 
@@ -267,9 +281,23 @@ Released under the [MIT License](LICENSE).
 
 ### 为什么做这个项目
 
-找到一门“名气很大的课”并不难。真正困难的是：替一个具体的人找到此刻最合适的学习资源，拿到足够完整、可信的真实内容，再把它重构成一条确实能学会的路径。
+这个项目最初来自一个非常具体的困境。
 
-`study-open-courses` 是一套面向**人类学习**的通用 Agent Skill。它既可以从“我想学 AI Agent，但不是程序员”这样的学习目标开始，也可以直接处理用户指定的课程、书籍、PDF、视频系列、播客、访谈、教程或官方文档。
+我想学习网络上的优质课程，但白天需要上班，晚上还要带孩子，很难再留出一整段不被打断的时间，坐下来观看几个小时甚至几十个小时的视频课程。
+
+相比视频，我更需要一种可以随时拿出来阅读的学习材料：通勤时看几页，工作间隙读一节，孩子睡着后再继续。它应该适合手机和平板，也应该允许我随时停下来，再从上次的位置接着学习。
+
+但我不想要的，只是一份把十几个小时课程压缩成几百字的摘要。过度总结往往会丢掉课程真正重要的部分：概念之间的关系、讲师的推理过程、关键例子、必要的上下文，以及从“听懂”走向“学会”所需要的练习。
+
+于是有了 `study-open-courses`。
+
+它尝试在合法访问和授权范围内，找到可信且足够完整的课程内容，将视频、音频、字幕、讲义和其他学习资料重新组织成适合阅读的学习体验，同时保留原课程的知识结构、关键解释、例子、练习和来源信息。
+
+它不是为了绕过或取代原课程，也不是为了重新分发受版权保护的完整逐字稿。它想解决的是一个普通学习者很现实的问题：
+
+> 当我没有大块时间坐下来看完一门长课程时，怎样仍然能够利用碎片时间，尽可能完整、可靠地把它学下来？
+
+这也是这个 Skill 坚持“先检查完整性，再重构学习，最后才决定是否压缩”的原因。它既可以从“我想学 AI Agent，但不是程序员”这样的目标开始，也可以直接处理用户指定的课程、书籍、PDF、视频系列、播客、访谈、教程或官方文档。
 
 它不只是总结内容，而是完成一整条学习工作流：
 
