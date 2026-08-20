@@ -68,3 +68,25 @@ Specific additions justified by the baseline:
 - a required integrity manifest and provenance map;
 - reconstruction before optional compression;
 - a publishing contract that exposes sources, gaps, interpretation, omissions, and next steps.
+
+## Portable v3.1 baseline
+
+Date: 2026-08-20
+
+An independent evaluator received the published v3 `SKILL.md` and this scenario: a confirmed, lawfully accessible public video course; no transcript, notes, audio, or video supplied by the user; a playlist is available; and the host has web, media-download, and speech-to-text capabilities.
+
+**Result: FAIL.**
+
+The old skill says to continue looking for lawful transcripts, captions, notes, slides, documents, or media and lists authorized audio/video transcription as an ingestion option. It also checks transcript timing, speakers, OCR, and obvious recognition problems. However, the wording does not require the agent to inspect available host capabilities and use them before asking the user for missing material.
+
+The escape routes are observable in these clauses:
+
+- ingestion happens “when available and appropriate”;
+- when content cannot be acquired, the agent may “ask for the missing material”;
+- metadata-only reconstruction is a stop condition.
+
+The baseline therefore permits an agent to hand acquisition back to the user without first attempting captions or available ASR. Passing guidance must require autonomous capability discovery and lawful ingestion before that stop condition applies.
+
+### Portability audit
+
+The published README calls the project a “Codex Skill” and describes manual installation into Codex's skill directory. The published `SKILL.md` also requires “absolute local paths” and refers to a “PDF-specific skill.” Those phrases are not fatal to the learning workflow, but they tie packaging and delivery to one host's vocabulary. The portable revision must replace them with Agent Skills terminology and capability-dependent host-neutral language.
