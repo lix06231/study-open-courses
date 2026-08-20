@@ -1,0 +1,16 @@
+# Operating systems and editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Temporary and generated validation files
+*.tmp
+*.log
+__pycache__/
+.pytest_cache/
+
+# Local secrets
+.env
+.env.*
+!.env.example
