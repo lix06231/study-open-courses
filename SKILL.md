@@ -16,13 +16,33 @@ Turn trustworthy source material into something a person can actually learn from
 
 This is a learner-first workflow. It accepts multiple content types only when they serve a human learning goal. It is not a general-purpose summarizer, arbitrary content distiller, or model knowledge-ingestion pipeline.
 
+## Free-Access Processing Gate
+
+Classify every identifiable resource before Community Validation, any instructional-content access, or inclusion in a processing-primary candidate set. Only `free_access` sources enter the processing-primary candidate set.
+
+Record `access_class` and `processing_eligibility` for every candidate or named resource:
+
+| `access_class` | `processing_eligibility` | Required handling |
+|---|---|---|
+| `free_access` | `eligible` | Real instructional content is reachable without payment, subscription, trial, credits, institutional entitlement, or a purchased account. It may proceed subject to platform, copyright, and authorization rules. A free account login is allowed when no paid entitlement is involved. |
+| `paid_or_entitlement_gated` | `report_only` | Use public metadata and community evidence only. Never open gated lessons or use a paid authenticated session. |
+| `public_excerpt` | `eligible_limited` | Process only the excerpt's actual public coverage. Never infer the paid remainder or call the excerpt complete. |
+| `official_free_edition` | `eligible_as_separate_source` | Treat as a separate source with its own version, scope, completeness, validation, and provenance. |
+| `unknown` | `blocked_pending_classification` | Do not ingest. Resolve access status or continue discovery. |
+
+`report_only` forbids opening gated lessons; using a paid authenticated session; downloading; capturing; recording; ASR; OCR; extracting; translating; compressing; or reconstructing gated instructional content. This is a Skill policy, not a legal-rights estimate. User purchase, explicit authorization, lack of DRM, a logged-in browser, a deadline, personal-use intent, or technical feasibility cannot override it.
+
+For a goal-only task, an especially suitable `paid_or_entitlement_gated` resource may appear only in a clearly separate “paid option for manual study” note based on public metadata. State that payment is required, do not imply inspection of gated content, and continue looking for `free_access` alternatives.
+
 ## Route the request
 
 ### The user named a resource
 
 Assess that resource directly. Do not restart with generic recommendations.
 
-Record its validation strength, learner fit, suitability, access status, and content completeness. A user-specified resource with weak or unverifiable community validation may still be used; disclose the limitation and suggest a validated anchor or supplement only when that would materially improve learning reliability.
+Record `Discovery: not applicable` and `Candidate Ranking: not applicable`. Record validation strength and learner fit descriptively rather than as rejection gates, together with suitability, access class, processing eligibility, and content completeness. A user-specified resource with weak or unverifiable community validation may still be used; disclose the limitation and suggest a validated anchor or supplement only when that would materially improve learning reliability.
+
+Run the Free-Access Processing Gate before any instructional-content access. For a user-named `paid_or_entitlement_gated` resource, assess only public metadata and community evidence, explain the processing boundary, suggest studying the original manually if the learner chooses to purchase it, and offer `free_access` alternatives. User-authored notes, reflections, and short excerpts may support tutoring, but do not authorize bulk course reconstruction or paid-course exports.
 
 ### The user named only a learning goal
 
@@ -33,24 +53,27 @@ Reuse everything already known. Ask only questions that would change the resourc
 - What should they understand or be able to do afterward?
 - How much time can they invest?
 
-Then discover candidates. Prefer resources with an existing teaching structure, but allow a book, PDF, video or podcast series, tutorial, long interview, official documentation, or deliberate small source bundle when it fits better. Recommend one to three candidates with one clear primary choice.
+Then discover candidates, classify access before validation, and exclude every non-`free_access` source from the processing-primary candidate set. Prefer resources with an existing teaching structure, but allow a book, PDF, video or podcast series, tutorial, long interview, official documentation, or deliberate small source bundle when it fits better. Recommend one to three candidates with one clear primary choice.
+
+Before the learner confirms a Moderate `free_access` fallback, inspect only public metadata and a representative public sample needed for assessment. Do not bulk-acquire or reconstruct that resource. A reasonable search records discovery routes, evidence sources, candidates rejected, and why continued search is unlikely to change the decision.
 
 ## Follow the learner-first workflow
 
 Use the stages in order. A task may stop after recommendation or assessment when that is all the user requested.
 
 1. Learning Goal or named-resource intake
-2. Learning Resource Discovery
-3. Community Validation
-4. Learner Fit Ranking
-5. Learning Suitability
-6. Source Resolver
-7. Content Ingestion
-8. Integrity Check
-9. Evidence & Provenance
-10. Learning Reconstruction
-11. Learning Compression when useful
-12. Publishing
+2. Learning Resource Discovery (goal-only; `not applicable` for a named resource)
+3. Free-Access Processing Gate
+4. Community Validation
+5. Learner Fit Ranking (goal-only; `not applicable` for a named resource)
+6. Learning Suitability
+7. Source Resolver
+8. Content Ingestion
+9. Integrity Check
+10. Evidence & Provenance
+11. Learning Reconstruction
+12. Learning Compression when useful
+13. Publishing
 
 Do not reconstruct a faithful course from a landing page, syllabus, table of contents, review, or search snippet. Those are discovery metadata, not instructional content.
 
@@ -120,7 +143,7 @@ Suitability is not a quality judgment. A great novel can be a poor candidate for
 
 Keep acquisition separate from learning reconstruction.
 
-Whenever a named or identifiable resource's real content must be assessed, acquired, reconstructed, compressed, or published, read [references/source-acquisition.md](references/source-acquisition.md) before acquiring or processing it. This is required even when the resource has not become the primary recommendation and even when the user supplied no transcript, notes, or files.
+Whenever a named or identifiable resource's real content must be acquired, reconstructed, compressed, or published, first apply the Free-Access Processing Gate. If `processing_eligibility` permits the requested content work, read [references/source-acquisition.md](references/source-acquisition.md) and [references/execution-state.md](references/execution-state.md) before acquiring or processing it. This is required even when the resource has not become the primary recommendation and even when the user supplied no transcript, notes, or files. `report_only` resources never proceed to content work.
 
 The required outcome is one of:
 
@@ -135,6 +158,8 @@ Never bypass authentication, payment, DRM, regional restrictions, copyright boun
 ## Reconstruct learning
 
 ### Learning Reconstruction
+
+Use the run ledger and completion rules in [references/execution-state.md](references/execution-state.md). Reconstruction may be provisional while independent batches finish or dependencies are unresolved, but it must be visibly labeled provisional and revisable. Do not call a formal artifact complete until global integrity passes, no blocking item or unresolved status remains, and every coverage rollup matches the declared scope.
 
 Do not merely summarize the source in its original order. Rebuild it around the learner's target outcome:
 
@@ -181,6 +206,7 @@ Pause and explain the smallest required next input only when:
 - no candidate meets the primary-source validation gate and the user did not specify one;
 - allowed discovery and available acquisition capabilities were attempted, but only metadata remains for a requested faithful reconstruction;
 - a blocking source segment or prerequisite is missing;
+- the run ledger has a blocking item, unresolved status, or a coverage total that does not match the declared scope;
 - the requested compression would falsely imply replacement of an irreducible work;
 - access, copyright, platform rules, authorization, or unavailable host capabilities block the requested ingestion or publication.
 
