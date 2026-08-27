@@ -42,7 +42,7 @@ Assess that resource directly. Do not restart with generic recommendations.
 
 Record `Discovery: not applicable` and `Candidate Ranking: not applicable`. Record validation strength and learner fit descriptively rather than as rejection gates, together with suitability, access class, processing eligibility, and content completeness. A user-specified resource with weak or unverifiable community validation may still be used; disclose the limitation and suggest a validated anchor or supplement only when that would materially improve learning reliability.
 
-Run the Free-Access Processing Gate before any instructional-content access. For a user-named `paid_or_entitlement_gated` resource, assess only public metadata and community evidence, explain the processing boundary, suggest studying the original manually if the learner chooses to purchase it, and offer `free_access` alternatives. User-authored notes, reflections, and short excerpts may support tutoring, but do not authorize bulk course reconstruction or paid-course exports.
+Run the Free-Access Processing Gate before any instructional-content access. For a user-named `paid_or_entitlement_gated` resource, assess only public metadata and community evidence, explain the processing boundary, suggest studying the original manually if the learner chooses to purchase it, and offer `free_access` alternatives. Only content already publicly accessible and classified `eligible_limited` may be processed as an excerpt, and only to its actual public coverage. User-authored notes and reflections may support tutoring only when they do not reproduce gated instructional content. A purchase, login, authorization, or copied gated excerpt never creates an exception.
 
 ### The user named only a learning goal
 
