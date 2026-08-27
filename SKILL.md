@@ -4,7 +4,7 @@ description: Use when a person wants to choose, assess, acquire, reconstruct, co
 license: MIT
 metadata:
   author: "lix06231"
-  version: "3.1"
+  version: "3.2"
   compatibility: "Internet access is needed for discovery; media, transcription, OCR, and rendering depend on host capabilities."
 ---
 
@@ -73,7 +73,8 @@ Use the stages in order. A task may stop after recommendation or assessment when
 10. Evidence & Provenance
 11. Learning Reconstruction
 12. Learning Compression when useful
-13. Publishing
+13. Learning QA
+14. Publishing
 
 Do not reconstruct a faithful course from a landing page, syllabus, table of contents, review, or search snippet. Those are discovery metadata, not instructional content.
 
@@ -179,6 +180,10 @@ Compress only after the learning structure works. Choose depth from the learner'
 
 Preserve prerequisites, causal links, worked examples needed for transfer, practice, and known limitations. Record what was omitted, merged, or deferred. If compression would break learning or replace an essential experience, shorten the scope rather than pretending the learning outcome remains unchanged.
 
+### Learning QA
+
+After reconstruction and any compression, and before publishing or using a formal completion name, read [references/learning-quality.md](references/learning-quality.md). Apply its checks to the declared artifact level and record `learning_qa: pass` or `learning_qa: fail` with the evidence, affected units, and correction or next action. A failure returns the work to reconstruction, compression, or scope clarification; it cannot be hidden by a polished format or an artifact at a lower level.
+
 ## Publish the learning artifact
 
 Match the artifact to the suitability decision: course, study guide, reading/viewing/listening companion, lesson plan, workbook, or curriculum map.
@@ -195,7 +200,7 @@ Every final artifact must contain:
 8. compression or omission notes;
 9. next steps, including when to return to the original source.
 
-When preparing downloadable files or claiming a formal course is complete, read and follow [references/publishing.md](references/publishing.md). A formal complete learning artifact defaults to equivalent Markdown, self-contained HTML, and PDF unless the user explicitly requests particular formats. A preview, recommendation, outline, or interim checkpoint does not require the three-file bundle.
+When preparing downloadable files or claiming a formal course is complete, read and follow [references/learning-quality.md](references/learning-quality.md) and [references/publishing.md](references/publishing.md). A formal complete learning artifact defaults to equivalent Markdown, self-contained HTML, and PDF unless the user explicitly requests particular formats. Here, self-contained HTML literally means one `.html` file with embedded permitted styles and small assets; requested sidecars are an offline package, not self-contained HTML. A preview, recommendation, outline, or interim checkpoint does not require the three-file bundle.
 
 Publishing prepares the artifact. It does not authorize an upload, post, repository change, push, or other external mutation.
 
@@ -207,6 +212,7 @@ Pause and explain the smallest required next input only when:
 - allowed discovery and available acquisition capabilities were attempted, but only metadata remains for a requested faithful reconstruction;
 - a blocking source segment or prerequisite is missing;
 - the run ledger has a blocking item, unresolved status, or a coverage total that does not match the declared scope;
+- Learning QA fails for the declared artifact and scope;
 - the requested compression would falsely imply replacement of an irreducible work;
 - access, copyright, platform rules, authorization, or unavailable host capabilities block the requested ingestion or publication.
 
