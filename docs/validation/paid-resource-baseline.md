@@ -1,6 +1,6 @@
 # Paid-resource processing baseline
 
-Date: 2026-08-28  
+Date: 2026-08-28
 Tested revision: v3.1 runtime on commit `683238c`
 
 ## Invariant under test
