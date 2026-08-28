@@ -49,6 +49,8 @@ Equivalent does not mean byte-identical. Navigation, pagination, and format-spec
 
 ## Self-contained HTML
 
+Before generating HTML, read [html-visual-standard.md](html-visual-standard.md) and use [the canonical course-book reference](../assets/course-book-standalone-reference.html) as the default visual architecture. Replace all example-course content; preserve the design system and interaction model unless the user explicitly requests a different visual identity.
+
 The HTML edition must be exactly one complete `.html` file that remains usable after download with network access disabled. It must contain every required style and every required small permitted asset inside that file: use embedded CSS and embedded data assets or inline SVG where applicable. It must not require a sibling stylesheet, script, image, font, media file, or remote runtime dependency.
 
 The one-file HTML edition must also contain:
@@ -84,6 +86,7 @@ Before claiming completion, verify the declared artifact level's own schema, cur
 - every delivered format contains the required learning-content elements;
 - the learning structure and substantive content are equivalent across formats;
 - HTML is one self-contained file, its navigation and links work, and no required sidecar or remote asset remains;
+- HTML passes the rendered desktop, mobile, and print visual acceptance gate in `html-visual-standard.md` and remains recognizably in the canonical course-book family unless the user requested another style;
 - PDF page count is non-zero and text is extractable;
 - non-Latin characters, including Chinese when present, render correctly;
 - representative PDF pages have been visually inspected, including a title page, a dense lesson page, a table or list page when present, and a source-notes page;

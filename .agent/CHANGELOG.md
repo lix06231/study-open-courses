@@ -18,4 +18,5 @@
 - Added a fresh GREEN execution-policy evaluation at runtime commit `e473aa7` and retrospective v3.1 replay evidence pinned to `683238c`, preserving old PASS outcomes and identifying unavailable timestamps/session IDs instead of inventing them.
 - Corrected the final `official_free_edition` routing contradiction: separately resolved official free editions now enter the processing-primary candidate set consistently. Marked the earlier evaluator result as invalid evidence for that scenario rather than overstating it.
 - Hardened v3.2.1 course-delivery intent: “write/make/create a course” now locks a formal reconstructed artifact and three primary files by default. Agents may not downgrade it to an outline or replace the single Markdown/HTML/PDF files with chapter folders or a multi-page site.
+- Added the v3.2.2 canonical course-book HTML template and visual acceptance gate, based on the user's approved `course-book-standalone.html` design.
 - Kept release boundaries unchanged: no push, merge, publication, release, or installed-copy synchronization was authorized or performed.

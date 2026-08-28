@@ -4,7 +4,7 @@ description: Use when a person wants to choose, assess, acquire, reconstruct, co
 license: MIT
 metadata:
   author: "lix06231"
-  version: "3.2.1"
+  version: "3.2.2"
   compatibility: "Internet access is needed for discovery; media, transcription, OCR, and rendering depend on host capabilities."
 ---
 
@@ -213,7 +213,7 @@ Only a `reconstructed learning artifact` or another artifact claiming learner-re
 
 Metadata indexes, source coverage maps, and curriculum maps follow their own schemas and completion gates in the references; they do not need invented explanations, exercises, or learner-ready teaching. A `report_only` resource may therefore be delivered honestly as `metadata index complete` when that level's scope, provenance, QA, and blockers pass.
 
-When preparing downloadable files or claiming a formal reconstructed course is complete, read and follow [references/learning-quality.md](references/learning-quality.md) and [references/publishing.md](references/publishing.md). Unless the user explicitly requests different formats, a formal reconstructed course requires exactly three primary deliverables derived from one canonical master: one complete Markdown file, one literally single-file self-contained HTML document, and one complete PDF. Split lesson files, a multi-page HTML site, an asset directory, and per-chapter PDFs may be optional extras only; they never replace the three primary files. Earlier artifact levels and previews use the smallest useful format only when the user explicitly requested that lower artifact level or a disclosed blocker prevents the course.
+When preparing downloadable files or claiming a formal reconstructed course is complete, read and follow [references/learning-quality.md](references/learning-quality.md), [references/publishing.md](references/publishing.md), and—for the HTML edition—[references/html-visual-standard.md](references/html-visual-standard.md). Unless the user explicitly requests different formats, a formal reconstructed course requires exactly three primary deliverables derived from one canonical master: one complete Markdown file, one literally single-file self-contained HTML document, and one complete PDF. Split lesson files, a multi-page HTML site, an asset directory, and per-chapter PDFs may be optional extras only; they never replace the three primary files. The HTML must use the course-book visual family defined by the reference template; raw Markdown styling, generic landing pages, dashboards, and arbitrary multi-page themes fail delivery. Earlier artifact levels and previews use the smallest useful format only when the user explicitly requested that lower artifact level or a disclosed blocker prevents the course.
 
 Publishing prepares the artifact. It does not authorize an upload, post, repository change, push, or other external mutation.
 
