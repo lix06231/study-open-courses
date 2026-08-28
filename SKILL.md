@@ -73,7 +73,7 @@ Use the stages in order. A task may stop after recommendation or assessment when
 10. Evidence & Provenance
 11. Learning Reconstruction
 12. Learning Compression when useful
-13. Learning QA
+13. Learning QA at the declared artifact level
 14. Publishing
 
 Do not reconstruct a faithful course from a landing page, syllabus, table of contents, review, or search snippet. Those are discovery metadata, not instructional content.
@@ -182,7 +182,7 @@ Preserve prerequisites, causal links, worked examples needed for transfer, pract
 
 ### Learning QA
 
-After reconstruction and any compression, and before publishing or using a formal completion name, read [references/learning-quality.md](references/learning-quality.md). Apply its checks to the declared artifact level and record `learning_qa: pass` or `learning_qa: fail` with the evidence, affected units, and correction or next action. A failure returns the work to reconstruction, compression, or scope clarification; it cannot be hidden by a polished format or an artifact at a lower level.
+Before using any exact artifact-level completion name—`metadata index complete`, `source coverage map complete`, `curriculum map complete`, or `reconstructed learning artifact complete`—read [references/learning-quality.md](references/learning-quality.md), even when the work has not reached reconstruction. Apply the matching artifact-level schema/profile and every learner-facing check that is applicable to the declared level; early levels must record why any full learner check is not applicable, rather than omit it. A reconstructed learning artifact, or any artifact claiming learner-ready teaching, must pass the full learner-facing check set. Record the single gate result `learning_qa: pass` or `learning_qa: fail` with the profile, evidence, affected units, and correction or next action. Every exact completion name requires `learning_qa: pass`; a failure returns the work to reconstruction, compression, or scope clarification and cannot be hidden by a polished format or an artifact at a lower level.
 
 ## Publish the learning artifact
 

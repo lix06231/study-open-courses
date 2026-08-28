@@ -6,14 +6,16 @@ Read this reference whenever an eligible resource's real instructional content w
 
 Keep the artifact level explicit. These are different deliverables, not stages that may be silently treated as the same result:
 
-| Artifact level | What it establishes | What it does not establish |
-|---|---|---|
-| **metadata index** | Resource identity, version, canonical order, expected items, and public metadata. | That instructional content was acquired, verified, or reconstructed. |
-| **source coverage map** | The acquired source set, item-level coverage, provenance, integrity status, and gaps. | A learner-ready curriculum or reconstructed teaching. |
-| **curriculum map** | A learner outcome, prerequisites, dependency-aware sequence, and planned units mapped to sources. | That every planned unit has been reconstructed or verified as a final learning artifact. |
-| **reconstructed learning artifact** | Learner-ready explanations, practice, checks for understanding, provenance, and visible limitations for the declared scope. | Completion beyond its declared scope or of any other artifact level. |
+| Artifact level | What it establishes | What it does not establish | Learning QA profile required before its exact completion name |
+|---|---|---|---|
+| **metadata index** | Resource identity, version, canonical order, expected items, and public metadata. | That instructional content was acquired, verified, or reconstructed. | `metadata_index` profile and applicable learner-facing checks |
+| **source coverage map** | The acquired source set, item-level coverage, provenance, integrity status, and gaps. | A learner-ready curriculum or reconstructed teaching. | `source_coverage_map` profile and applicable learner-facing checks |
+| **curriculum map** | A learner outcome, prerequisites, dependency-aware sequence, and planned units mapped to sources. | That every planned unit has been reconstructed or verified as a final learning artifact. | `curriculum_map` profile and applicable learner-facing checks |
+| **reconstructed learning artifact** | Learner-ready explanations, practice, checks for understanding, provenance, and visible limitations for the declared scope. | Completion beyond its declared scope or of any other artifact level. | `reconstructed_learning_artifact` profile and the full learner-facing check set |
 
 Use only these exact completion names: `metadata index complete`, `source coverage map complete`, `curriculum map complete`, and `reconstructed learning artifact complete`. “Complete” modifies only the named artifact level; never turn one completion into a claim that a later or broader artifact is complete.
+
+Each exact completion name is independently gated. Before using it, record `learning_qa: pass` for its matching profile in [learning-quality.md](learning-quality.md). The profile and applicable-check result are scoped to that artifact level; a pass at an early level never substitutes for QA at a later level. The full learner-facing check set is required when the artifact makes learner-ready teaching claims; early levels run their corresponding profile/schema and explicitly record any inherently non-applicable learner checks with a reason.
 
 ## Run ledger
 
@@ -75,7 +77,8 @@ Before using an exact completion name, confirm all of the following for that nam
 2. no item with `blocking_impact: blocking` remains;
 3. no required item has an unresolved status, error, dependency, or next action;
 4. all five coverage totals and `X/Y` rollups match the declared scope and the level's claim;
-5. global integrity passes before finalization; and
-6. required checkpoints, including publishing verification when publishing is claimed, are recorded.
+5. global integrity passes before finalization;
+6. `learning_qa: pass` is recorded for the matching artifact-level profile, with the full learner-facing check set when applicable and explicit reasons for any early-level non-applicable checks; and
+7. required checkpoints, including publishing verification when publishing is claimed, are recorded.
 
 If any condition fails, report the precise checkpoint, item, coverage mismatch, or narrower artifact that is honestly available. Do not use an unqualified “complete.”
