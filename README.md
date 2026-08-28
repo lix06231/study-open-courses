@@ -251,12 +251,12 @@ The repository follows the open [Agent Skills specification](https://agentskills
 |---|---|
 | Agent Skills package structure | Compatible |
 | Discovery through the `skills` CLI | Supported by the CLI for the agent identifiers shown above |
-| Codex behavior | Tested for the core workflow and delivery decisions |
+| Current Codex evaluator behavior | Fresh simulated evaluators passed the documented v3.2 paid-access, acquisition, execution, Learning QA, HTML, and PDF scenarios; static and structural checks also passed |
 | Claude Code, Gemini CLI, Cursor behavior | Structurally installable; full behavior not yet independently verified by this project |
 | Caption extraction, downloads, ASR, OCR | Depends on lawful access and the host's available tools |
 | HTML and PDF generation | Depends on the host's document/rendering capabilities |
 
-Installation compatibility does not guarantee identical tools or behavior. The skill is designed to degrade honestly: it names the missing capability and the exact remaining work instead of pretending a partial result is complete.
+Installation compatibility does not guarantee identical tools or behavior. The fresh evaluator results are evidence for the tested contexts, not a promise for every model, host, tool set, or future version. Static checks verify that mandatory routes exist in the written Skill; simulated behavior checks verify what fresh evaluators actually decided in the recorded scenarios. The skill is designed to degrade honestly: it names the missing capability and the exact remaining work instead of pretending a partial result is complete.
 
 ### Safety and copyright boundaries
 
@@ -542,12 +542,12 @@ Skill 不会简单地沿原顺序缩写。它先围绕学习者目标重新建�
 |---|---|
 | Agent Skills 目录与文件结构 | 兼容 |
 | 通过 `skills` CLI 发现和安装 | CLI 支持上文列出的 Agent 标识 |
-| Codex 核心流程与交付决策 | 已进行行为验证 |
+| 当前 Codex 评测行为 | fresh 模拟评测已通过 v3.2 的付费访问、获取、执行、Learning QA、HTML 与 PDF 场景；静态和结构检查也已通过 |
 | Claude Code、Gemini CLI、Cursor 的完整行为 | 可以按结构安装；本项目尚未逐一完成独立行为验证 |
 | 字幕提取、媒体获取、ASR、OCR | 取决于合法访问条件和宿主提供的工具 |
 | HTML 与 PDF 生成 | 取决于宿主提供的文档和渲染能力 |
 
-能安装不等于所有宿主拥有相同工具或表现完全一致。Skill 的降级方式是如实说明缺少的能力和剩余工作，而不是把半成品包装成完成品。
+能安装不等于所有宿主拥有相同工具或表现完全一致。fresh evaluator 的结果只证明已记录的模拟评测场景，不承诺所有模型、宿主、工具组合或未来版本都会一致。静态检查证明 Skill 文本里存在强制路径，模拟行为检查证明 fresh evaluator 在记录场景中实际做出的决定。Skill 的降级方式是如实说明缺少的能力和剩余工作，而不是把半成品包装成完成品。
 
 ### 安全与版权边界
 

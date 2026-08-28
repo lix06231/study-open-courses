@@ -11,4 +11,6 @@
 - Added complete speech/visual/practice/attachment acquisition, visual-only teaching checks, stronger ASR verification, translation verification, and expanded source-manifest fields.
 - Added artifact-level Learning QA before every exact completion label, plus literal one-file HTML and damaged-PDF failure rules.
 - Updated the English and Chinese README for v3.2 and added `docs/validation/v3.2-results.md` with decision-scenario and mechanical validation evidence.
+- Added representative verbatim evidence from three fresh simulated evaluator groups covering paid-resource pressure, access classification, resumption, multimodal gaps, ASR, translation, deadlines, Learning QA, self-contained HTML, and damaged PDF behavior.
+- Corrected README validation wording to distinguish simulated evaluator behavior from static/structural checks and from untested hosts or models; synchronized completed implementation-plan checkboxes and project state.
 - Kept release boundaries unchanged: no push, merge, publication, release, or installed-copy synchronization was authorized or performed.

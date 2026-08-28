@@ -11,7 +11,8 @@
 - [x] Add video visual-channel ingestion, ASR verification, and translation verification.
 - [x] Add artifact-level Learning QA before every exact completion name.
 - [x] Clarify named-resource, Moderate fallback, scope narrowing, HTML, and PDF failure behavior.
-- [x] Update the English and Chinese README and record v3.2 decision-scenario evidence.
+- [x] Update the English and Chinese README and record both fresh simulated behavior evidence and static decision-table evidence.
+- [x] Run fresh paid-access, access-classification, execution-state, Learning QA, HTML, and PDF evaluator scenarios.
 - [x] Run Skill structure, link, placeholder, secret-pattern, and Git diff verification.
 - [x] Create scoped local implementation commits. Do not push.
-- [ ] Complete a fresh independent whole-branch review before any release or installed-copy synchronization.
+- [ ] Obtain a clean independent re-review after the Task 5 evidence/state consistency fixes, before any release or installed-copy synchronization.
