@@ -13,4 +13,5 @@
 - Updated the English and Chinese README for v3.2 and added `docs/validation/v3.2-results.md` with decision-scenario and mechanical validation evidence.
 - Added representative verbatim evidence from three fresh simulated evaluator groups covering paid-resource pressure, access classification, resumption, multimodal gaps, ASR, translation, deadlines, Learning QA, self-contained HTML, and damaged PDF behavior.
 - Corrected README validation wording to distinguish simulated evaluator behavior from static/structural checks and from untested hosts or models; synchronized completed implementation-plan checkboxes and project state.
+- Persisted stable raw evaluator reports with complete prompts and returned outputs, model/reasoning identity, date/time zone, exact tested commit `f789cb0`, and the later evidence-recording boundary.
 - Kept release boundaries unchanged: no push, merge, publication, release, or installed-copy synchronization was authorized or performed.

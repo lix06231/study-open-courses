@@ -24,6 +24,7 @@ Paid instructional content is report-only. Public metadata may support mentionin
 ## Evidence and boundaries
 
 - RED evidence: `docs/validation/paid-resource-baseline.md`
-- GREEN fresh simulated evaluator reports, static decision matrix, and mechanical checks: `docs/validation/v3.2-results.md`
+- GREEN summary, static decision matrix, and mechanical checks: `docs/validation/v3.2-results.md`
+- Stable raw evaluator inputs/outputs and run metadata: `docs/validation/evaluators/`
 - Design and implementation plan: `docs/superpowers/specs/2026-08-28-v3.2-execution-hardening-design.md` and `docs/superpowers/plans/2026-08-28-v3.2-execution-hardening.md`
 - Do not push, merge, publish, create a release, or synchronize the installed Skill without separate user authorization.
