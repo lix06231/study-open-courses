@@ -25,7 +25,7 @@ The run-level record must include:
 
 - `run_id`, start and last-updated time;
 - canonical resource identity, version or edition, source URLs or local identifiers, and `access_class` / `processing_eligibility`;
-- learner, outcome, declared scope, target artifact level, and deadline if one exists;
+- learner, outcome, declared scope, `requested_artifact_level`, target artifact level, `delivery_contract`, any explicit user format override, and deadline if one exists;
 - declared expected item list and canonical order;
 - artifact status, integrity status, checkpoint status, and the exact completion name when one is justified;
 - the five coverage totals and rollups below;
@@ -33,6 +33,8 @@ The run-level record must include:
 - for a Moderate fallback: `confirmation_status` (`pending`, `confirmed`, or `invalidated`), `confirmed_scope`, `confirmed_at` or `confirmation_evidence`, and the confirmed resource identity, edition, and source-set revision;
 - `qa_profile`, aggregate `learning_qa`, per-check `qa_result`, `qa_evidence`, `failed_checks`, and the `artifact_revision` tested;
 - scope changes, their reason, excluded items, learner impact, and learner acceptance when formal scope is narrowed.
+
+For a request to create a course, `requested_artifact_level` is `reconstructed learning artifact` and the default `delivery_contract` is `three_primary_files`. Neither field may be reduced on resume or during implementation without an explicit user instruction. A blocker changes completion status, not the user's requested artifact.
 
 Maintain one item record for every expected lesson, chapter, episode, page range, exercise, attachment, or other required component. Each item record must include `item_id`, title, expected order, source locator, `item_status`, `attempt_count`, `last_error`, `blocking_impact`, and `next_action`, plus the item's acquired, processed, verified, and reconstructed coverage. Keep failed or deferred items in the ledger; do not erase them to make a rollup appear complete.
 

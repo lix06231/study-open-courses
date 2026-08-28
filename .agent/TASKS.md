@@ -19,3 +19,5 @@
 - [x] Preserve retrospective v3.1 replay evidence without relabeling old PASS behavior as RED.
 - [ ] Re-run the official-free-edition primary scenario against the final corrected runtime; the other seven fresh execution-policy scenarios passed against `e473aa7`.
 - [ ] Obtain a clean independent re-review of this concentrated fix wave before any release or installed-copy synchronization.
+- [x] Harden course-creation intent and the exact three-primary-file contract in v3.2.1.
+- [ ] Run an independent Kilo regression using “帮我写一份课程” after Kilo is configured to load the shared v3.2.1 Skill.

@@ -8,11 +8,13 @@ Publishing means preparing and validating the artifact. It never authorizes an e
 
 | Request state | Required delivery |
 |---|---|
-| **Formal complete learning artifact** | Create three downloadable files: Markdown (`.md`), one literally self-contained HTML file (`.html`), and PDF (`.pdf`). |
+| **Formal complete reconstructed course** | Create exactly three primary downloadable files: one complete Markdown (`.md`), one literally self-contained HTML (`.html`), and one complete PDF (`.pdf`). |
 | **Quick preview, outline, recommendation, or interim checkpoint** | Return the smallest useful format, normally Markdown in chat or as a file. |
 | **User explicitly requests particular format or formats** | Deliver exactly those formats; do not add unwanted formats. |
 
-A request to complete, finish, publish, make the full course, or provide a downloadable final course counts as a formal complete artifact unless the user explicitly narrows the output.
+A request to write, make, create, generate, build, produce, or turn material into a course counts as a formal reconstructed-course request unless the user explicitly asks only for a recommendation, preview, syllabus, outline, curriculum map, course plan, sample lesson, or checkpoint. The words “complete”, “full”, “final”, “downloadable”, and explicit format names are not required. The Agent may not choose the lower row merely because it is faster, because source work is unfinished, or because the user did not name formats.
+
+If a real blocker prevents the formal course, preserve the requested contract, deliver only honestly completed partial work, identify the missing primary files, and do not call the course complete. Do not relabel the request as a preview after work begins.
 
 A preview may be called a completed preview. It must not be called a formally completed course.
 
@@ -39,7 +41,9 @@ For formal three-format delivery:
 1. write Markdown as the canonical content master;
 2. derive HTML and PDF from the same approved content rather than rewriting them independently;
 3. preserve equivalent title, unit order, explanations, examples, exercises, checks, source notes, integrity gaps, compression notes, and next steps;
-4. return downloadable links or file paths supported by the host for all three files.
+4. return downloadable links or file paths supported by the host for all three primary files;
+5. treat split Markdown lessons, multi-page HTML, asset folders, and per-chapter PDFs only as optional extras when requested or useful; and
+6. never count those extras as substitutes for the one complete `.md`, one complete `.html`, and one complete `.pdf`.
 
 Equivalent does not mean byte-identical. Navigation, pagination, and format-specific styling may differ while the learning substance remains the same.
 
@@ -76,6 +80,7 @@ Before claiming completion, verify the declared artifact level's own schema, cur
 
 - `learning_qa: pass` is recorded for the declared artifact and scope;
 - every required file exists and is non-empty, while recognizing that this alone never establishes completion;
+- the three primary-file count and types are exactly one complete Markdown, one complete single-file HTML, and one complete PDF unless the user explicitly changed the format contract;
 - every delivered format contains the required learning-content elements;
 - the learning structure and substantive content are equivalent across formats;
 - HTML is one self-contained file, its navigation and links work, and no required sidecar or remote asset remains;
@@ -98,3 +103,4 @@ When a required format cannot be produced:
 4. report partial progress without claiming formal completion.
 
 Do not silently downgrade a formal complete delivery to Markdown only.
+Do not silently downgrade it to a folder of Markdown lessons, a multi-page HTML site, an offline package, or a set of chapter PDFs. Those may accompany, but cannot replace, the three primary files.

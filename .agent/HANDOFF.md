@@ -8,6 +8,7 @@
 - Remote changes: none authorized or performed
 - Runtime version in this repository: 3.2
 - Implementation status: Tasks 1-5 implemented. The final whole-branch findings were addressed, including a later correction to the official-free-edition primary routing contradiction. Fresh execution-policy scenarios passed except that the original official-free-edition result was invalidated by the contradiction and is now explicitly marked as such; the corrected text has structural verification but has not been re-run through a fresh behavior evaluator. Final verification remains before release consideration.
+- v3.2.1 adds a hard delivery-intent contract after a Kilo run downgraded “帮我写一份课程” and substituted multi-file HTML/PDF output. Kilo's uncommitted v3.1 runtime overwrite was backed up before restoring v3.2.
 - Installed copy: not synchronized; `C:\Users\lee\.codex\skills\study-open-courses` remains outside this task's authorized write scope
 
 ## Key decision

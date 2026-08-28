@@ -4,7 +4,7 @@ description: Use when a person wants to choose, assess, acquire, reconstruct, co
 license: MIT
 metadata:
   author: "lix06231"
-  version: "3.2"
+  version: "3.2.1"
   compatibility: "Internet access is needed for discovery; media, transcription, OCR, and rendering depend on host capabilities."
 ---
 
@@ -35,6 +35,17 @@ Record `access_class` and `processing_eligibility` for every candidate or named 
 For a goal-only task, an especially suitable `paid_or_entitlement_gated` resource may appear only in a clearly separate “paid option for manual study” note based on public metadata. State that payment is required, do not imply inspection of gated content, and continue looking for `free_access` alternatives.
 
 ## Route the request
+
+### Lock the requested artifact before doing work
+
+Interpret a request to **write, make, create, generate, build, produce, or turn material into a course**—including Chinese expressions such as “写一份课程”, “做一门课程”, “生成课程”, “制作课程”, or “整理成课程”—as a request for a formal `reconstructed learning artifact`. This default applies even when the user does not say “complete”, “full”, “final”, “downloadable”, or name output formats.
+
+Do not silently downgrade that request to a recommendation, preview, syllabus, outline, curriculum map, course plan, sample lesson, or interim checkpoint. A lower artifact level is allowed only when:
+
+- the user explicitly asks for that lower-level deliverable; or
+- a real blocker prevents the formal course, in which case report partial progress and the blocker without claiming the requested course is complete.
+
+Before acquisition, persist `requested_artifact_level` and `delivery_contract` in the run ledger. For a formal reconstructed course, set `delivery_contract: three_primary_files` unless the user explicitly requests different formats. A later Agent or resumed run must preserve this contract; changing it requires an explicit user instruction, not Agent judgment.
 
 ### The user named a resource
 
@@ -202,7 +213,7 @@ Only a `reconstructed learning artifact` or another artifact claiming learner-re
 
 Metadata indexes, source coverage maps, and curriculum maps follow their own schemas and completion gates in the references; they do not need invented explanations, exercises, or learner-ready teaching. A `report_only` resource may therefore be delivered honestly as `metadata index complete` when that level's scope, provenance, QA, and blockers pass.
 
-When preparing downloadable files or claiming a formal reconstructed course is complete, read and follow [references/learning-quality.md](references/learning-quality.md) and [references/publishing.md](references/publishing.md). A formal complete reconstructed learning artifact defaults to equivalent Markdown, self-contained HTML, and PDF unless the user explicitly requests particular formats. Here, self-contained HTML literally means one `.html` file with embedded permitted styles and small assets; requested sidecars are an offline package, not self-contained HTML. Earlier artifact levels and previews use the smallest useful format unless the user requests more.
+When preparing downloadable files or claiming a formal reconstructed course is complete, read and follow [references/learning-quality.md](references/learning-quality.md) and [references/publishing.md](references/publishing.md). Unless the user explicitly requests different formats, a formal reconstructed course requires exactly three primary deliverables derived from one canonical master: one complete Markdown file, one literally single-file self-contained HTML document, and one complete PDF. Split lesson files, a multi-page HTML site, an asset directory, and per-chapter PDFs may be optional extras only; they never replace the three primary files. Earlier artifact levels and previews use the smallest useful format only when the user explicitly requested that lower artifact level or a disclosed blocker prevents the course.
 
 Publishing prepares the artifact. It does not authorize an upload, post, repository change, push, or other external mutation.
 
