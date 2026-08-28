@@ -1,6 +1,6 @@
 # Execution State, Coverage, and Completion
 
-Read this reference whenever an eligible resource's real instructional content will be acquired, reconstructed, compressed, or published. Apply the Free-Access Processing Gate in `SKILL.md` first: a `report_only` resource never enters this workflow.
+Read this reference whenever eligible real instructional content will be assessed, acquired, reconstructed, compressed, or published, and whenever any exact artifact-level completion name will be used. Apply the Free-Access Processing Gate in `SKILL.md` first. A `report_only` resource may have a public-metadata ledger and metadata-index completion, but never enters instructional-content acquisition or processing.
 
 ## Artifact levels
 
@@ -19,7 +19,7 @@ Each exact completion name is independently gated. Before using it, record `lear
 
 ## Run ledger
 
-Create or resume one run ledger for the declared resource, scope, and artifact level. Keep it with the working record so a later run can continue from verified work rather than rediscovering or reprocessing it.
+Create or resume one run ledger for the declared resource, scope, and artifact level. Store it at a durable, user-visible project or task location recorded in the handoff; chat-only memory is not a ledger. Persist it atomically after every state mutation and checkpoint so a later run can continue from verified work rather than rediscovering or reprocessing it.
 
 The run-level record must include:
 
@@ -30,6 +30,8 @@ The run-level record must include:
 - artifact status, integrity status, checkpoint status, and the exact completion name when one is justified;
 - the five coverage totals and rollups below;
 - discovery routes, evidence sources, rejected candidates, and why continued search was unlikely to change a Moderate fallback decision when applicable;
+- for a Moderate fallback: `confirmation_status` (`pending`, `confirmed`, or `invalidated`), `confirmed_scope`, `confirmed_at` or `confirmation_evidence`, and the confirmed resource identity, edition, and source-set revision;
+- `qa_profile`, aggregate `learning_qa`, per-check `qa_result`, `qa_evidence`, `failed_checks`, and the `artifact_revision` tested;
 - scope changes, their reason, excluded items, learner impact, and learner acceptance when formal scope is narrowed.
 
 Maintain one item record for every expected lesson, chapter, episode, page range, exercise, attachment, or other required component. Each item record must include `item_id`, title, expected order, source locator, `item_status`, `attempt_count`, `last_error`, `blocking_impact`, and `next_action`, plus the item's acquired, processed, verified, and reconstructed coverage. Keep failed or deferred items in the ledger; do not erase them to make a rollup appear complete.
@@ -52,7 +54,9 @@ The item rows and rollups must agree. A changed denominator requires an explicit
 
 ## Resume, batches, and checkpoints
 
-Resume first. Before starting a new run or retrying work, read the current ledger, verify the resource identity and scope, preserve completed item records, and continue from the earliest incomplete, failed, or stale checkpoint. Do not reacquire, reprocess, or re-verify an item solely because a run restarted unless its version, evidence, or quality note requires it.
+Resume first. Before starting a new run or retrying work, read the durable ledger, verify the resource identity, edition, source set, scope, and artifact revision, preserve completed item records, and continue from the earliest incomplete, failed, or stale checkpoint. For a Moderate fallback, stop before acquisition unless its persisted confirmation is `confirmed` and matches all of those values; any resource, edition, source-set, or scope change makes it `invalidated` and requires fresh confirmation. Do not reacquire, reprocess, or re-verify an item solely because a run restarted unless its version, evidence, or quality note requires it.
+
+Any mutation to artifact content, declared scope, source coverage, source-set revision, or edition makes an earlier Learning QA pass stale. Set the aggregate result to `stale`, retain its prior evidence and failed-check history, increment or replace `artifact_revision`, persist the mutation, and re-run the matching QA profile before completion or publishing.
 
 Process independent items in batches when useful, but isolate failures. Record the failed item's error, attempt count, blocking impact, and next action; continue independent non-blocking items. Do not let a successful batch erase a failed item, and do not label a batch or whole artifact complete merely because other items succeeded.
 
@@ -61,7 +65,8 @@ Record a checkpoint after each of these boundaries:
 1. **acquisition:** source set, acquisition rollup, failed items, and next actions;
 2. **integrity:** integrity result, verified rollup, blocking classification, and scope decision;
 3. **reconstruction:** reconstructed rollup, provisional status if applicable, dependencies, and revision work;
-4. **publishing:** requested formats, format-level verification, remaining blockers, and exact artifact-level completion name if justified.
+4. **Learning QA:** profile, artifact revision, aggregate result, per-check results and evidence, failed checks, corrections, and invalidation reason when stale;
+5. **publishing:** requested formats, format-level verification, remaining blockers, and exact artifact-level completion name if justified.
 
 ## Provisional work and deadline scope
 
@@ -71,14 +76,11 @@ When a deadline requires a smaller deliverable, freeze the scope explicitly befo
 
 ## Formal completion gate
 
-Before using an exact completion name, confirm all of the following for that named artifact level:
+Before using any exact completion name, the declared artifact level and scope must be explicit; provenance must support every claim at that level; its matching QA profile must record a current `learning_qa: pass` for the current `artifact_revision`; and no blocker relevant to that level may remain. Then apply the level-specific gate:
 
-1. its declared scope and item rows are current;
-2. no item with `blocking_impact: blocking` remains;
-3. no required item has an unresolved status, error, dependency, or next action;
-4. all five coverage totals and `X/Y` rollups match the declared scope and the level's claim;
-5. global integrity passes before finalization;
-6. `learning_qa: pass` is recorded for the matching artifact-level profile, with the full learner-facing check set when applicable and explicit reasons for any early-level non-applicable checks; and
-7. required checkpoints, including publishing verification when publishing is claimed, are recorded.
+- **metadata index:** canonical identity/order, edition/version, access classification, public metadata sources, expected-item basis, uncertainty, and scope are recorded. Instructional-content integrity, acquired/verified coverage, explanations, practice, and publishing formats are not required. This is the only completion level available to a `report_only` resource.
+- **source coverage map:** expected items and required channels for the declared eligible scope are itemized; acquired, processed, and verified rollups reconcile; unresolved coverage or provenance gaps affecting the map are blocking. Reconstruction, exercises, learner explanations, and three-format publishing are not required.
+- **curriculum map:** learner/outcome, prerequisites, dependency order, planned concepts/practice, time assumptions, source mapping, and plan-versus-built limitations pass. Final teaching explanations, completed exercises, full source reconstruction, and three-format publishing are not required.
+- **reconstructed learning artifact:** global integrity for the declared scope passes; all required coverage rollups, including reconstructed coverage, reconcile; no required item is unresolved; the full learner-facing QA profile passes; and publishing verification passes for every requested or default formal format.
 
 If any condition fails, report the precise checkpoint, item, coverage mismatch, or narrower artifact that is honestly available. Do not use an unqualified “complete.”

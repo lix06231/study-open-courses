@@ -20,7 +20,7 @@ Classify each identified resource and each distinct source edition before any in
 
 ## Autonomous acquisition contract
 
-The user does not need to supply transcripts, downloads, notes, or files before work can begin. Autonomous acquisition of a resource's full declared scope begins **only after** the Free-Access Processing Gate records `processing_eligibility: eligible`. For `eligible_limited`, acquire only the declared public excerpt scope. For `eligible_as_separate_source`, first resolve the free edition as a separate resource, then acquire only that edition's declared scope. Neither case authorizes access to a paid remainder. `report_only` and `blocked_pending_classification` never enter content acquisition.
+The user does not need to supply transcripts, downloads, notes, or files before work can begin. Autonomous acquisition begins **only after** the Free-Access Processing Gate records a permitted eligibility: `eligible` for the declared free-access scope, `eligible_limited` for the public excerpt alone, or `eligible_as_separate_source` for the separately resolved official free edition. For a Moderate fallback, it also requires a durable `confirmation_status: confirmed` whose `confirmed_scope`, resource, edition, and source-set revision match the acquisition plan; acquisition and every resume must stop if confirmation is missing, pending, or invalidated. Any change to those values invalidates confirmation. For `eligible_limited`, acquire only the declared public excerpt scope. For `eligible_as_separate_source`, first resolve the free edition as a separate resource, then acquire only that edition's declared scope. An official free edition may become the goal-only processing primary when validation and learner fit support it, but its manifest, coverage, and claims must remain separate from every paid edition. Neither case authorizes access to a paid remainder. `report_only` and `blocked_pending_classification` never enter content acquisition.
 
 When the resource is identifiable:
 
@@ -33,7 +33,7 @@ When the resource is identifiable:
 
 Do not ask the user to download, copy, transcribe, or OCR material that the host can lawfully access and process. Do not call missing user-provided material a blocker until the permitted acquisition paths have been checked.
 
-This contract does not grant new permissions. Never bypass logins, payment, DRM, regional restrictions, technical access controls, platform terms, copyright limits, or the paid-resource boundary. Never ask the user to paste a password, session token, cookie, or other reusable credential. If a **free-access** source needs a user-controlled free login and the host supports it, ask the user to sign in there and confirm when access is ready.
+This contract does not grant new permissions. Never bypass logins, payment, DRM, regional restrictions, technical access controls, platform terms, copyright limits, or the paid-resource boundary. Never ask the user to paste a password, session token, cookie, or other reusable credential. Initiate a user-controlled authentication handoff only after recording `free_access` / `eligible` and confirming that the account grants no payment, subscription, trial, credits, institutional entitlement, or purchase-linked access. Never request or initiate authentication for `report_only` or `blocked_pending_classification`.
 
 ## Source Resolver
 

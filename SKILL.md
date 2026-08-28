@@ -27,7 +27,7 @@ Record `access_class` and `processing_eligibility` for every candidate or named 
 | `free_access` | `eligible` | Real instructional content is reachable without payment, subscription, trial, credits, institutional entitlement, or a purchased account. It may proceed subject to platform, copyright, and authorization rules. A free account login is allowed when no paid entitlement is involved. |
 | `paid_or_entitlement_gated` | `report_only` | Use public metadata and community evidence only. Never open gated lessons or use a paid authenticated session. |
 | `public_excerpt` | `eligible_limited` | Process only the excerpt's actual public coverage. Never infer the paid remainder or call the excerpt complete. |
-| `official_free_edition` | `eligible_as_separate_source` | Treat as a separate source with its own version, scope, completeness, validation, and provenance. |
+| `official_free_edition` | `eligible_as_separate_source` | Treat as a separate source with its own version, scope, completeness, validation, and provenance. It may be the goal-only processing primary when it satisfies validation and learner fit; never merge its coverage with a paid edition. |
 | `unknown` | `blocked_pending_classification` | Do not ingest. Resolve access status or continue discovery. |
 
 `report_only` forbids opening gated lessons; using a paid authenticated session; downloading; capturing; recording; ASR; OCR; extracting; translating; compressing; or reconstructing gated instructional content. This is a Skill policy, not a legal-rights estimate. User purchase, explicit authorization, lack of DRM, a logged-in browser, a deadline, personal-use intent, or technical feasibility cannot override it.
@@ -55,7 +55,7 @@ Reuse everything already known. Ask only questions that would change the resourc
 
 Then discover candidates, classify access before validation, and exclude every non-`free_access` source from the processing-primary candidate set. Prefer resources with an existing teaching structure, but allow a book, PDF, video or podcast series, tutorial, long interview, official documentation, or deliberate small source bundle when it fits better. Recommend one to three candidates with one clear primary choice.
 
-Before the learner confirms a Moderate `free_access` fallback, inspect only public metadata and a representative public sample needed for assessment. Do not bulk-acquire or reconstruct that resource. A reasonable search records discovery routes, evidence sources, candidates rejected, and why continued search is unlikely to change the decision.
+Before the learner confirms a Moderate `free_access` fallback, inspect only public metadata and a representative public sample needed for assessment. Do not bulk-acquire or reconstruct that resource. Persist the decision as `confirmation_status`, `confirmed_scope`, and `confirmed_at` or `confirmation_evidence` in the run ledger. Acquisition and every resumed run must verify that confirmation is present and still matches the resource, edition, source set, and scope. Any change to those values invalidates the confirmation and requires a fresh learner decision. A reasonable search records discovery routes, evidence sources, candidates rejected, and why continued search is unlikely to change the decision.
 
 ## Follow the learner-first workflow
 
@@ -144,7 +144,7 @@ Suitability is not a quality judgment. A great novel can be a poor candidate for
 
 Keep acquisition separate from learning reconstruction.
 
-Whenever a named or identifiable resource's real content must be acquired, reconstructed, compressed, or published, first apply the Free-Access Processing Gate. If `processing_eligibility` permits the requested content work, read [references/source-acquisition.md](references/source-acquisition.md) and [references/execution-state.md](references/execution-state.md) before acquiring or processing it. This is required even when the resource has not become the primary recommendation and even when the user supplied no transcript, notes, or files. `report_only` resources never proceed to content work.
+Whenever a named or identifiable resource's real instructional content must be assessed, acquired, reconstructed, compressed, or published, first apply the Free-Access Processing Gate. An assessment based only on discovery metadata or community evidence does not trigger content acquisition. If actual instructional content is necessary for the requested assessment and `processing_eligibility` permits that limited work, read [references/source-acquisition.md](references/source-acquisition.md) and [references/execution-state.md](references/execution-state.md) before accessing or processing it; acquire only the representative scope required for the assessment unless the user requested broader work. This is required even when the resource has not become the primary recommendation and even when the user supplied no transcript, notes, or files. `report_only` resources never proceed to content work.
 
 The required outcome is one of:
 
@@ -154,7 +154,7 @@ The required outcome is one of:
 
 If lawful access is available and the host has useful capabilities, continue through text extraction, caption discovery, OCR, media access, or speech-to-text without asking the user to perform those solvable steps. “No material was supplied” is not itself a blocker.
 
-Never bypass authentication, payment, DRM, regional restrictions, copyright boundaries, platform rules, or the user's authorization. Never ask the user to reveal a password, session token, cookie, or other reusable credential; when supported, ask them to authenticate through the host or browser they control and then confirm access.
+Never bypass authentication, payment, DRM, regional restrictions, copyright boundaries, platform rules, or the user's authorization. Never ask the user to reveal a password, session token, cookie, or other reusable credential. A browser or host authentication handoff is permitted only after the resource is classified `free_access` / `eligible` and the login confers no payment, subscription, trial, credits, institutional entitlement, or purchase-linked access. For `report_only`, never initiate or request authentication; continue with public metadata and free alternatives only.
 
 ## Reconstruct learning
 
@@ -182,13 +182,13 @@ Preserve prerequisites, causal links, worked examples needed for transfer, pract
 
 ### Learning QA
 
-Before using any exact artifact-level completion name—`metadata index complete`, `source coverage map complete`, `curriculum map complete`, or `reconstructed learning artifact complete`—read [references/learning-quality.md](references/learning-quality.md), even when the work has not reached reconstruction. Apply the matching artifact-level schema/profile and every learner-facing check that is applicable to the declared level; early levels must record why any full learner check is not applicable, rather than omit it. A reconstructed learning artifact, or any artifact claiming learner-ready teaching, must pass the full learner-facing check set. Record the single gate result `learning_qa: pass` or `learning_qa: fail` with the profile, evidence, affected units, and correction or next action. Every exact completion name requires `learning_qa: pass`; a failure returns the work to reconstruction, compression, or scope clarification and cannot be hidden by a polished format or an artifact at a lower level.
+Before using any exact artifact-level completion name—`metadata index complete`, `source coverage map complete`, `curriculum map complete`, or `reconstructed learning artifact complete`—read [references/learning-quality.md](references/learning-quality.md), even when the work has not reached reconstruction. Apply the matching artifact-level schema/profile and every learner-facing check that is applicable to the declared level; early levels must record why any full learner check is not applicable, rather than omit it. A reconstructed learning artifact, or any artifact claiming learner-ready teaching, must pass the full learner-facing check set. Persist the aggregate gate result `learning_qa: pass`, `fail`, or `stale`, plus per-check `qa_result: pass|fail|not_applicable`, profile, evidence, failed checks, artifact revision, and next action. Every exact completion name requires a current `learning_qa: pass`; a failure or stale result returns the work to reconstruction, compression, scope clarification, or re-QA and cannot be hidden by a polished format or an artifact at a lower level.
 
 ## Publish the learning artifact
 
 Match the artifact to the suitability decision: course, study guide, reading/viewing/listening companion, lesson plan, workbook, or curriculum map.
 
-Every final artifact must contain:
+Only a `reconstructed learning artifact` or another artifact claiming learner-ready teaching must contain all of the following:
 
 1. learner and outcome;
 2. prerequisites and expected time;
@@ -200,7 +200,9 @@ Every final artifact must contain:
 8. compression or omission notes;
 9. next steps, including when to return to the original source.
 
-When preparing downloadable files or claiming a formal course is complete, read and follow [references/learning-quality.md](references/learning-quality.md) and [references/publishing.md](references/publishing.md). A formal complete learning artifact defaults to equivalent Markdown, self-contained HTML, and PDF unless the user explicitly requests particular formats. Here, self-contained HTML literally means one `.html` file with embedded permitted styles and small assets; requested sidecars are an offline package, not self-contained HTML. A preview, recommendation, outline, or interim checkpoint does not require the three-file bundle.
+Metadata indexes, source coverage maps, and curriculum maps follow their own schemas and completion gates in the references; they do not need invented explanations, exercises, or learner-ready teaching. A `report_only` resource may therefore be delivered honestly as `metadata index complete` when that level's scope, provenance, QA, and blockers pass.
+
+When preparing downloadable files or claiming a formal reconstructed course is complete, read and follow [references/learning-quality.md](references/learning-quality.md) and [references/publishing.md](references/publishing.md). A formal complete reconstructed learning artifact defaults to equivalent Markdown, self-contained HTML, and PDF unless the user explicitly requests particular formats. Here, self-contained HTML literally means one `.html` file with embedded permitted styles and small assets; requested sidecars are an offline package, not self-contained HTML. Earlier artifact levels and previews use the smallest useful format unless the user requests more.
 
 Publishing prepares the artifact. It does not authorize an upload, post, repository change, push, or other external mutation.
 

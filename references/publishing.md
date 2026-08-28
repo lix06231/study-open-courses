@@ -16,9 +16,11 @@ A request to complete, finish, publish, make the full course, or provide a downl
 
 A preview may be called a completed preview. It must not be called a formally completed course.
 
-## Required learning content
+## Required content by artifact level
 
-Every final artifact contains:
+Metadata indexes, source coverage maps, and curriculum maps use their artifact-specific schemas in [learning-quality.md](learning-quality.md). They need only the format requested by the user or the smallest useful durable format; they do not require invented instructional explanations, exercises, learner checks, or the three-format course bundle. A `report_only` resource may publish a metadata index when that level's gate passes.
+
+Every reconstructed learning artifact or other learner-ready teaching artifact contains:
 
 1. learner and outcome;
 2. prerequisites and expected time;
@@ -70,7 +72,7 @@ Use available document or PDF capabilities for creation and visual inspection. D
 
 ## Pre-delivery verification
 
-Before claiming completion, verify:
+Before claiming completion, verify the declared artifact level's own schema, current QA pass, provenance, scope, and absence of blockers. Apply the remaining file and format checks only to formats actually required for that artifact level. For a formal reconstructed learning artifact, verify:
 
 - `learning_qa: pass` is recorded for the declared artifact and scope;
 - every required file exists and is non-empty, while recognizing that this alone never establishes completion;

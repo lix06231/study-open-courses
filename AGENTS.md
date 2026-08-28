@@ -10,7 +10,7 @@
 ## Authoritative files
 
 - `SKILL.md` and `references/` are the authoritative runtime source because the repository must remain directly installable as an Agent Skill.
-- `docs/validation/` stores behavioral evidence. A claim that the Skill is fixed requires a recorded RED failure and GREEN result.
+- `docs/validation/` stores behavioral evidence. Prospective behavior changes require recorded RED evidence before implementation and fresh GREEN evidence afterward. Retrospective replay may document a frozen older version only when clearly labeled as post-hoc simulation, with the exact frozen commit, inputs, outputs, evaluator identity, and limits; preserve old PASS results and never rewrite them as RED.
 - `deliverables/` is reserved for validated release packages and reports; do not duplicate working source there.
 
 ## Paid-resource boundary
