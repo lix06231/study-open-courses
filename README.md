@@ -151,7 +151,7 @@ A resource is not considered proven because it has a large view count, a prestig
 
 Evidence is reported as **Strong**, **Moderate**, **Weak**, or **Unverifiable**. Weak or unverifiable resources are normally supplements; a user-specified resource can still be assessed and, only when access-eligible, processed with its limitation disclosed.
 
-A proactive processing-primary recommendation requires both free-access eligibility and Strong validation. A Strong paid candidate may be disclosed separately as a paid manual-study option, but it cannot displace or become the processing source; discovery continues for free-access alternatives. If a reasonable search finds only a Moderate free-access option, the skill labels that limitation and asks the learner to accept the fallback before acquisition or reconstruction.
+A proactive processing-primary recommendation requires both free-access eligibility and Strong validation. A Strong paid candidate may be disclosed separately as a paid manual-study option, but it cannot displace or become the processing source; discovery continues for free-access alternatives. An official free edition can be the processing primary when it passes these gates, but it stays a separate edition whose coverage is never merged with the paid version. If a reasonable search finds only a Moderate free-access option, the skill labels that limitation and asks the learner to accept the fallback before acquisition or reconstruction. That confirmation is stored with its scope and source revision; a resumed run must ask again if either changed.
 
 #### 2. Learner Fit ranks admitted candidates
 
@@ -182,7 +182,7 @@ The skill requires the agent to inspect its available capabilities and follow th
 
 If only media is available and the host can lawfully access and transcribe it, the agent should do so without asking you to perform the download or transcription. The resulting transcript is checked for lesson boundaries, missing or duplicated segments, language, timestamps, speaker changes, names, technical terms, numbers, formulas, and code.
 
-Free account login may be used only when no paid entitlement is involved. Payment, subscription, trial, credits, institutional entitlement, or purchase-linked access makes the instructional content report-only: the agent does not open the lesson or use a paid logged-in session, even with permission. Public previews and official free editions are separate sources limited to their actual public scope. It never asks you to paste passwords, session tokens, or cookies.
+Free account login may be used only when no paid entitlement is involved. The Agent may start a browser sign-in handoff only after recording that free-access classification. Payment, subscription, trial, credits, institutional entitlement, or purchase-linked access makes the instructional content report-only: the Agent neither asks you to authenticate nor opens the lesson or uses a paid logged-in session, even with permission. Public previews and official free editions are separate sources limited to their actual public scope. It never asks you to paste passwords, session tokens, or cookies.
 
 Automatic acquisition is therefore a required decision process, not a promise that every host can download or transcribe every source.
 
@@ -192,7 +192,7 @@ A course page, syllabus, table of contents, review, or search result is metadata
 
 Before rewriting, the skill creates a source manifest and checks expected versus acquired items, order, duplicates, truncation, conflicting editions, ASR/OCR and translation quality, attachments, diagrams, demonstrations, exercises, and prerequisites. Video is treated as both speech and visual teaching: slides, code, diagrams, demonstrations, and visual-only explanations are independently inspected and mapped. Whole-resource integrity or formal-completion requests default to all canonical lessons, pages, appendices, exercises, and relevant companion items; scope can narrow only for a real disclosed blocker accepted by the learner. Expected, acquired, processed, verified, and reconstructed coverage are counted separately. Gaps are classified as blocking or non-blocking. Missing lessons are never silently invented.
 
-Long work uses a persistent run ledger with per-item status, attempts, errors, blocking impact, and next action. A resumed run starts from that ledger instead of repeating successful work. Deadline pressure freezes an honest smaller scope; it never converts unresolved or failed items into completed coverage.
+Long work uses a persistent run ledger stored in a durable project/task location, with per-item status, attempts, errors, blocking impact, confirmation state, QA evidence, artifact revision, and next action. It is saved after each mutation and checkpoint. A resumed run starts from that ledger instead of repeating successful work. A change to content, scope, edition, or source coverage invalidates the old QA pass; a changed Moderate scope/source also invalidates the old learner confirmation. Deadline pressure freezes an honest smaller scope; it never converts unresolved or failed items into completed coverage.
 
 The final work keeps a source map that separates:
 
@@ -214,7 +214,7 @@ The skill does not shrink the original in place. It first rebuilds a learning se
 
 Only then does it compress, based on the learner's available time. Prerequisites, causal links, transfer-critical examples, practice, and limitations must survive. When compression would break learning, the scope becomes smaller rather than the claim becoming larger.
 
-Before any exact completion label, the matching artifact-level Learning QA must pass. The four levels are **metadata index**, **source coverage map**, **curriculum map**, and **reconstructed learning artifact**. Each has its own minimum schema; only the final level claims learner-ready teaching. QA checks traceability, prerequisite order, source accuracy, labeled synthesis, examples, feedback, compression integrity, time assumptions, and visible limitations.
+Before any exact completion label, the matching artifact-level Learning QA must pass for the current artifact revision. Per-check results include pass, fail, or justified not-applicable, and failures remain in the ledger through correction. The four levels are **metadata index**, **source coverage map**, **curriculum map**, and **reconstructed learning artifact**. Each has its own minimum schema and blockers: an honest report-only resource can finish at metadata index; early levels do not invent teaching content, practice, or formats they do not claim. Only the final level requires full learner-ready teaching and its formal publishing bundle.
 
 ### Output contract
 
@@ -440,7 +440,7 @@ Publishing
 
 验证结果分为 **强验证、中等验证、弱验证、无法验证**。弱验证或无法验证的资源通常只做补充；如果是用户自己指定，仍然可以评估，并且只有在访问资格允许时才能在明确说明局限后处理。
 
-主动推荐的处理主源必须同时满足“免费可处理”和“强验证”。强验证的付费资源只能单独披露为用户自行付费学习的选项，不能挤掉免费处理源；Agent 还要继续寻找免费替代。如果合理搜索后只有中等验证的免费资源，Skill 会明确说明局限，并在用户确认后才开始获取或重构，不会静默升级。
+主动推荐的处理主源必须同时满足“免费可处理”和“强验证”。强验证的付费资源只能单独披露为用户自行付费学习的选项，不能挤掉免费处理源；Agent 还要继续寻找免费替代。官方永久免费版通过这些门槛后可以成为处理主源，但必须保持为独立 edition，绝不能把它的覆盖范围与付费新版合并。如果合理搜索后只有中等验证的免费资源，Skill 会明确说明局限，并在用户确认后才开始获取或重构；确认会连同范围和来源版本写入账本，恢复时只要范围或来源变了就必须重新确认。
 
 #### 2. 学习适配负责排名
 
@@ -473,7 +473,7 @@ Skill 会要求 Agent 先检查自己具备的能力，然后按以下顺序寻�
 
 如果只有音视频，而宿主 Agent 能够合法访问并转录，它应该自行完成，不应先让用户下载或转录。转录结果还要检查课节边界、缺失和重复片段、语言、时间轴、说话人变化、人名、术语、数字、公式和代码。
 
-免费账号登录只有在不涉及付费权益时才允许。付款、订阅、试用、点数、机构权益或购买关联访问都会让教学内容变成“仅报告”：即使用户许可，Agent 也不会打开课节或利用付费登录状态。公开试看和官方免费版是独立来源，只能按真实公开范围使用。Agent 不会要求你粘贴密码、会话令牌或 Cookie。
+免费账号登录只有在不涉及付费权益时才允许，而且 Agent 只有先记录为“免费可处理”后才能发起浏览器登录交接。付款、订阅、试用、点数、机构权益或购买关联访问都会让教学内容变成“仅报告”：Agent 不会要求用户去认证，也不会打开课节或利用付费登录状态，即使用户许可也不例外。公开试看和官方免费版是独立来源，只能按真实公开范围使用。Agent 不会要求你粘贴密码、会话令牌或 Cookie。
 
 所以，“主动获取”是一套必须执行的决策流程，不是承诺每个 Agent 都能下载或转录互联网上的任何内容。
 
@@ -483,7 +483,7 @@ Skill 会要求 Agent 先检查自己具备的能力，然后按以下顺序寻�
 
 重构前，Skill 会建立来源清单，核对预期与实际取得的课节、顺序、重复、截断、版本冲突、ASR/OCR 与翻译质量、附件、图表、演示、练习和先修依赖。视频同时包含语音与视觉教学：幻灯片、代码、图示、操作演示和无口播画面都要独立检查并映射。整份资源完整性评估或正式完整成果默认覆盖所有规范课节、页面、附录、练习及相关配套材料；只有遇到真实阻塞、明确说明影响并取得学习者接受后才能缩小范围。预期、已取得、已处理、已核验和已重构覆盖分别计算。缺口分为阻塞与非阻塞，绝不悄悄编造缺失课节。
 
-长任务会把每一项的状态、尝试次数、最近错误、阻塞影响和下一步写入执行账本。恢复时从账本继续，不重复已经成功的工作。截止时间压力只能冻结一个诚实的较小范围，不能把未解决或失败项目改写成完成。
+长任务会把执行账本保存在可持续读取的项目或任务位置，并在每次状态变化和检查点后更新。账本包括每一项的状态、尝试次数、最近错误、阻塞影响、确认状态、QA 证据、成果修订号和下一步。恢复时从账本继续，不重复已经成功的工作；内容、范围、edition 或来源覆盖变化会让旧 QA 失效，中等验证资源的范围或来源变化也会让旧确认失效。截止时间压力只能冻结一个诚实的较小范围，不能把未解决或失败项目改写成完成。
 
 最终成果还要保留来源映射，并区分：
 
@@ -505,7 +505,7 @@ Skill 不会简单地沿原顺序缩写。它先围绕学习者目标重新建�
 
 然后才根据时间决定压缩深度。先修知识、因果关系、关键例子、练习和限制不能被压没。如果压缩会破坏学习，就缩小课程范围，而不是夸大学习结果。
 
-使用任何精确完成名称前，必须通过对应成果层级的 Learning QA。四个层级是：**元数据索引**、**来源覆盖图**、**课程结构图**和**重构学习成果**。每一级都有独立的最低内容结构，只有最后一级可以声称已经形成可学习的教学内容。QA 会检查目标可追溯、先修顺序、来源准确、综合内容标注、例子、反馈方法、压缩完整性、时间估算假设和可见限制。
+使用任何精确完成名称前，必须让当前成果修订版通过对应层级的 Learning QA。每项检查可记录通过、失败或有理由的不适用，失败记录在修正后也要保留。四个层级是：**元数据索引**、**来源覆盖图**、**课程结构图**和**重构学习成果**。每一级都有独立的最低内容结构和阻塞条件：仅报告的付费资源可以诚实完成元数据索引；早期层级不需要虚构其并未声称拥有的教学解释、练习或格式。只有最后一级需要完整可学习内容和正式发布格式。
 
 ### 交付格式
 

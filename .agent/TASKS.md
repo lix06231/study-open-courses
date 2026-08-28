@@ -15,4 +15,7 @@
 - [x] Run fresh paid-access, access-classification, execution-state, Learning QA, HTML, and PDF evaluator scenarios.
 - [x] Run Skill structure, link, placeholder, secret-pattern, and Git diff verification.
 - [x] Create scoped local implementation commits. Do not push.
-- [ ] Obtain a clean independent re-review after the Task 5 evidence/state consistency fixes, before any release or installed-copy synchronization.
+- [x] Address the final whole-branch review findings with explicit runtime state and artifact-level gates.
+- [x] Preserve retrospective v3.1 replay evidence without relabeling old PASS behavior as RED.
+- [x] Run a fresh GREEN evaluator against the final runtime-rule commit.
+- [ ] Obtain a clean independent re-review of this concentrated fix wave before any release or installed-copy synchronization.

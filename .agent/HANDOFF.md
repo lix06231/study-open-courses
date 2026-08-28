@@ -7,7 +7,7 @@
 - Repository root: `D:\Lix-Agent\02-Shared-Projects\study-open-courses`
 - Remote changes: none authorized or performed
 - Runtime version in this repository: 3.2
-- Implementation status: Tasks 1-5 implemented; fresh simulated behavioral, static, and structural checks passed. Task 5 independent review findings were addressed in fix round 1; clean re-review remains before release consideration
+- Implementation status: Tasks 1-5 implemented. The final whole-branch review findings were addressed in runtime commit `e473aa7`; fresh execution-policy GREEN scenarios passed. Final structural verification and a clean re-review of this fix wave remain before release consideration
 - Installed copy: not synchronized; `C:\Users\lee\.codex\skills\study-open-courses` remains outside this task's authorized write scope
 
 ## Key decision
@@ -20,6 +20,8 @@ Paid instructional content is report-only. Public metadata may support mentionin
 2. Check that a paid Strong candidate cannot displace a free-access processing candidate.
 3. Check that previews and official free editions remain limited to their real public coverage.
 4. Check that long-course state, multimodal coverage, Learning QA, and completion naming cannot be skipped.
+5. Verify Moderate confirmation and QA pass invalidation after scope, source, edition, or artifact revision changes.
+6. Verify early artifact levels do not inherit reconstructed-course content or publishing requirements.
 
 ## Evidence and boundaries
 
