@@ -7,7 +7,7 @@
 - Repository root: `D:\Lix-Agent\02-Shared-Projects\study-open-courses`
 - Remote changes: none authorized or performed
 - Runtime version in this repository: 3.2
-- Implementation status: Tasks 1-5 implemented. The final whole-branch review findings were addressed in runtime commit `e473aa7`; fresh execution-policy GREEN scenarios passed. Final structural verification and a clean re-review of this fix wave remain before release consideration
+- Implementation status: Tasks 1-5 implemented. The final whole-branch findings were addressed, including a later correction to the official-free-edition primary routing contradiction. Fresh execution-policy scenarios passed except that the original official-free-edition result was invalidated by the contradiction and is now explicitly marked as such; the corrected text has structural verification but has not been re-run through a fresh behavior evaluator. Final verification remains before release consideration.
 - Installed copy: not synchronized; `C:\Users\lee\.codex\skills\study-open-courses` remains outside this task's authorized write scope
 
 ## Key decision

@@ -18,7 +18,7 @@ This is a learner-first workflow. It accepts multiple content types only when th
 
 ## Free-Access Processing Gate
 
-Classify every identifiable resource before Community Validation, any instructional-content access, or inclusion in a processing-primary candidate set. Only `free_access` sources enter the processing-primary candidate set.
+Classify every identifiable resource before Community Validation, any instructional-content access, or inclusion in a processing-primary candidate set. Only eligible free sources enter the processing-primary candidate set: `free_access` / `eligible`, or an `official_free_edition` / `eligible_as_separate_source` after that edition has been resolved as an independent source.
 
 Record `access_class` and `processing_eligibility` for every candidate or named resource:
 
@@ -53,9 +53,9 @@ Reuse everything already known. Ask only questions that would change the resourc
 - What should they understand or be able to do afterward?
 - How much time can they invest?
 
-Then discover candidates, classify access before validation, and exclude every non-`free_access` source from the processing-primary candidate set. Prefer resources with an existing teaching structure, but allow a book, PDF, video or podcast series, tutorial, long interview, official documentation, or deliberate small source bundle when it fits better. Recommend one to three candidates with one clear primary choice.
+Then discover candidates and classify access before validation. Exclude every source except `free_access` / `eligible` and separately resolved `official_free_edition` / `eligible_as_separate_source` candidates from the processing-primary candidate set. Prefer resources with an existing teaching structure, but allow a book, PDF, video or podcast series, tutorial, long interview, official documentation, or deliberate small source bundle when it fits better. Recommend one to three candidates with one clear primary choice.
 
-Before the learner confirms a Moderate `free_access` fallback, inspect only public metadata and a representative public sample needed for assessment. Do not bulk-acquire or reconstruct that resource. Persist the decision as `confirmation_status`, `confirmed_scope`, and `confirmed_at` or `confirmation_evidence` in the run ledger. Acquisition and every resumed run must verify that confirmation is present and still matches the resource, edition, source set, and scope. Any change to those values invalidates the confirmation and requires a fresh learner decision. A reasonable search records discovery routes, evidence sources, candidates rejected, and why continued search is unlikely to change the decision.
+Before the learner confirms a Moderate eligible-free fallback (`free_access` or a separately resolved `official_free_edition`), inspect only public metadata and a representative public sample needed for assessment. Do not bulk-acquire or reconstruct that resource. Persist the decision as `confirmation_status`, `confirmed_scope`, and `confirmed_at` or `confirmation_evidence` in the run ledger. Acquisition and every resumed run must verify that confirmation is present and still matches the resource, edition, source set, and scope. Any change to those values invalidates the confirmation and requires a fresh learner decision. A reasonable search records discovery routes, evidence sources, candidates rejected, and why continued search is unlikely to change the decision.
 
 ## Follow the learner-first workflow
 

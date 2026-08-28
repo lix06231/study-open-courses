@@ -1,5 +1,7 @@
 # Fresh execution-policy GREEN evaluation
 
+> Evidence correction (2026-08-28): the evaluator's official-free-edition expectation below was correct, but runtime commit `e473aa7` still contained two contradictory `free_access`-only routing sentences in `SKILL.md`. That scenario is not runtime GREEN evidence for `e473aa7`. A later correction makes both routing sentences admit a separately resolved `official_free_edition`; this report preserves the evaluator output rather than overstating the earlier commit.
+
 - Canonical task name: `/root/final_fix_wave/green_runtime_rules`
 - Model: `gpt-5.6-luna`
 - Reasoning: `high`
@@ -107,4 +109,4 @@ Result: **PASS**. Basis: `references/learning-quality.md:9-13`; `references/exec
 
 ## Result
 
-All eight scenario groups passed. The tested runtime commit covers paid-auth refusal, persisted Moderate confirmation and invalidation, official-free-edition primary routing, metadata versus actual-content assessment, report-only metadata completion, level-specific gates, durable QA failure, and revision-triggered stale QA.
+The evaluator returned PASS for all eight groups, but later source review invalidated the official-free-edition primary result because tested commit `e473aa7` contained contradictory routing sentences. Seven groups remain valid GREEN evidence: paid-auth refusal, persisted Moderate confirmation and invalidation, metadata versus actual-content assessment, report-only metadata completion, level-specific gates, durable QA failure, and revision-triggered stale QA. The official-free-edition routing was corrected afterward and requires a replacement fresh behavior run if behavioral release evidence is required.
