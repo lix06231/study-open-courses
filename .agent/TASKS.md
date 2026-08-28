@@ -6,11 +6,12 @@
 - [x] Verify file counts, bytes, SHA-256 parity, Git history, branches, and object integrity.
 - [x] Remove the verified A-drive main repository and linked worktree.
 - [x] Record paid-course RED behavior showing that v3.1 permits paid-login transcription.
-- [ ] Add the paid-resource processing gate to the runtime entrypoint and acquisition reference.
-- [ ] Add execution state, artifact levels, coverage accounting, checkpoints, and batch failure records.
-- [ ] Add video visual-channel ingestion, ASR verification, and translation verification.
-- [ ] Add post-reconstruction Learning QA.
-- [ ] Clarify named-resource, Moderate fallback, scope narrowing, HTML, and PDF failure behavior.
-- [ ] Update README and validation evidence.
-- [ ] Run structural, behavioral, link, placeholder, and Git diff verification.
-- [ ] Create local commits. Do not push.
+- [x] Add the paid-resource processing gate to the runtime entrypoint and acquisition reference.
+- [x] Add execution state, artifact levels, coverage accounting, checkpoints, and batch failure records.
+- [x] Add video visual-channel ingestion, ASR verification, and translation verification.
+- [x] Add artifact-level Learning QA before every exact completion name.
+- [x] Clarify named-resource, Moderate fallback, scope narrowing, HTML, and PDF failure behavior.
+- [x] Update the English and Chinese README and record v3.2 decision-scenario evidence.
+- [x] Run Skill structure, link, placeholder, secret-pattern, and Git diff verification.
+- [x] Create scoped local implementation commits. Do not push.
+- [ ] Complete a fresh independent whole-branch review before any release or installed-copy synchronization.

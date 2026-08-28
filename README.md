@@ -5,6 +5,8 @@
 
 **A learner-first Agent Skill that finds a proven resource, acquires the real material, and rebuilds it into something a human can actually learn from.**
 
+Current repository version: **3.2** — execution hardening for free-access processing, resumable work, multimodal coverage, Learning QA, and literal format gates.
+
 [English](#english) · [简体中文](#简体中文)
 
 > **Popularity is a filter, not the ranking.** Community validation decides what is credible enough to recommend; learner fit decides what comes first.
@@ -34,6 +36,8 @@ That is why this Skill checks integrity first, reconstructs the learning experie
 It does more than summarize:
 
 - it asks only the learner questions that can change the choice;
+- it classifies access before ranking and processes instructional content only when it is genuinely free-access;
+- it may disclose an especially suitable paid resource as a manual-study option, but never opens, captures, transcribes, translates, or reconstructs its gated lessons and keeps looking for free alternatives;
 - it filters proactive recommendations through real community validation;
 - it ranks validated resources by the learner's level, outcome, time, language, access, and constraints;
 - it decides whether the source should become a course, a companion guide, or remain irreplaceable;
@@ -41,7 +45,9 @@ It does more than summarize:
 - it finds text, transcripts, captions, media, or scans and processes them with available host capabilities;
 - it checks missing lessons, duplicates, versions, ASR/OCR errors, and provenance before reconstruction;
 - it rebuilds the material around learning dependencies, explanations, examples, practice, and understanding checks;
-- it publishes a complete course in Markdown, self-contained HTML, and PDF by default.
+- it checkpoints long work in a run ledger and measures expected, acquired, processed, verified, and reconstructed coverage;
+- it runs artifact-level Learning QA before using any exact completion label;
+- it publishes a complete course in Markdown, literally one-file self-contained HTML, and visually verified PDF by default.
 
 The intended reader is a person trying to learn—not a model waiting to ingest compressed knowledge.
 
@@ -107,6 +113,9 @@ Learning goal or named resource
 Resource discovery
                 │
                 ▼
+Free-Access Processing Gate
+                │
+                ▼
 Community Validation ── admission gate
                 │
                 ▼
@@ -128,20 +137,25 @@ Learning Reconstruction
 Learning Compression, when useful
                 │
                 ▼
+Artifact-level Learning QA
+                │
+                ▼
 Publishing
 ```
+
+For a named resource, discovery and competitive ranking are not applicable, but access classification, descriptive validation, learner fit, integrity, and QA still apply. A paid or entitlement-gated named resource remains report-only even if the learner bought it, is logged in, or authorizes processing.
 
 #### 1. Community Validation admits candidates
 
 A resource is not considered proven because it has a large view count, a prestigious logo, or an impressive syllabus. The skill looks for sustained adoption, substantive learner feedback, independent community discussion, repeated recommendations, credible expertise, time-tested reputation, and freshness where the subject changes quickly.
 
-Evidence is reported as **Strong**, **Moderate**, **Weak**, or **Unverifiable**. Weak or unverifiable resources are normally supplements, although a user-specified resource can still be processed with its limitation disclosed.
+Evidence is reported as **Strong**, **Moderate**, **Weak**, or **Unverifiable**. Weak or unverifiable resources are normally supplements; a user-specified resource can still be assessed and, only when access-eligible, processed with its limitation disclosed.
 
-A proactive primary recommendation requires Strong validation. If a reasonable search finds only Moderate options, the skill labels that limitation and asks the learner to accept the fallback rather than silently promoting it.
+A proactive processing-primary recommendation requires both free-access eligibility and Strong validation. A Strong paid candidate may be disclosed separately as a paid manual-study option, but it cannot displace or become the processing source; discovery continues for free-access alternatives. If a reasonable search finds only a Moderate free-access option, the skill labels that limitation and asks the learner to accept the fallback before acquisition or reconstruction.
 
 #### 2. Learner Fit ranks admitted candidates
 
-Once candidates pass the validation gate, the skill compares prerequisites, desired outcome, time, clarity, completeness, freshness, language, cost, registration, region, and accessibility. A famous advanced course should lose to a proven beginner course when the learner is a beginner.
+Once eligible candidates pass the validation gate, the skill compares prerequisites, desired outcome, time, clarity, completeness, freshness, language, registration, region, and accessibility. A famous advanced course should lose to a proven beginner course when the learner is a beginner. Cost never converts paid instructional content into a processable source.
 
 #### 3. Learning Suitability protects the original
 
@@ -155,7 +169,7 @@ A guide to *To Live* can provide historical context, character relationships, qu
 
 ### What happens when you provide no files
 
-Once a named resource is identifiable—or a primary recommendation is confirmed—“the user did not provide materials” is not a blocker when its real content must be assessed or processed.
+Once an eligible named resource is identifiable—or a free-access primary recommendation is confirmed—“the user did not provide materials” is not a blocker when its real content must be assessed or processed.
 
 The skill requires the agent to inspect its available capabilities and follow this source order:
 
@@ -168,7 +182,7 @@ The skill requires the agent to inspect its available capabilities and follow th
 
 If only media is available and the host can lawfully access and transcribe it, the agent should do so without asking you to perform the download or transcription. The resulting transcript is checked for lesson boundaries, missing or duplicated segments, language, timestamps, speaker changes, names, technical terms, numbers, formulas, and code.
 
-The agent pauses only for a real blocker: authentication, payment, DRM, region restrictions, copyright or permission ambiguity, inaccessible material, unavailable host capabilities, or a missing dependency that changes the learning outcome. It never asks you to paste passwords, session tokens, or cookies; when the host supports it, you authenticate in the interface you control.
+Free account login may be used only when no paid entitlement is involved. Payment, subscription, trial, credits, institutional entitlement, or purchase-linked access makes the instructional content report-only: the agent does not open the lesson or use a paid logged-in session, even with permission. Public previews and official free editions are separate sources limited to their actual public scope. It never asks you to paste passwords, session tokens, or cookies.
 
 Automatic acquisition is therefore a required decision process, not a promise that every host can download or transcribe every source.
 
@@ -176,7 +190,9 @@ Automatic acquisition is therefore a required decision process, not a promise th
 
 A course page, syllabus, table of contents, review, or search result is metadata. It cannot support a faithful reconstruction by itself.
 
-Before rewriting, the skill creates a source manifest and checks expected versus acquired items, order, duplicates, truncation, conflicting editions, ASR/OCR quality, attachments, diagrams, exercises, and prerequisites. Whole-resource integrity or formal-completion requests default to all canonical lessons, pages, appendices, exercises, and relevant companion items; scope can narrow only for a real disclosed blocker accepted by the learner. For scanned material, processed pages and visually verified pages are tracked separately, and final units map back to precise page or slide ranges. Gaps are classified as blocking or non-blocking. Missing lessons are never silently invented.
+Before rewriting, the skill creates a source manifest and checks expected versus acquired items, order, duplicates, truncation, conflicting editions, ASR/OCR and translation quality, attachments, diagrams, demonstrations, exercises, and prerequisites. Video is treated as both speech and visual teaching: slides, code, diagrams, demonstrations, and visual-only explanations are independently inspected and mapped. Whole-resource integrity or formal-completion requests default to all canonical lessons, pages, appendices, exercises, and relevant companion items; scope can narrow only for a real disclosed blocker accepted by the learner. Expected, acquired, processed, verified, and reconstructed coverage are counted separately. Gaps are classified as blocking or non-blocking. Missing lessons are never silently invented.
+
+Long work uses a persistent run ledger with per-item status, attempts, errors, blocking impact, and next action. A resumed run starts from that ledger instead of repeating successful work. Deadline pressure freezes an honest smaller scope; it never converts unresolved or failed items into completed coverage.
 
 The final work keeps a source map that separates:
 
@@ -198,6 +214,8 @@ The skill does not shrink the original in place. It first rebuilds a learning se
 
 Only then does it compress, based on the learner's available time. Prerequisites, causal links, transfer-critical examples, practice, and limitations must survive. When compression would break learning, the scope becomes smaller rather than the claim becoming larger.
 
+Before any exact completion label, the matching artifact-level Learning QA must pass. The four levels are **metadata index**, **source coverage map**, **curriculum map**, and **reconstructed learning artifact**. Each has its own minimum schema; only the final level claims learner-ready teaching. QA checks traceability, prerequisite order, source accuracy, labeled synthesis, examples, feedback, compression integrity, time assumptions, and visible limitations.
+
 ### Output contract
 
 | Request | Delivery |
@@ -206,7 +224,7 @@ Only then does it compress, based on the learner's available time. Prerequisites
 | Recommendation, outline, preview, or checkpoint | Smallest useful format; files are optional |
 | Explicit format request | Exactly the requested format or formats |
 
-The three formal formats derive from one canonical content master and must contain equivalent lessons, exercises, checks, sources, gaps, and compression notes. HTML navigation and local assets are verified. PDF text extraction, page count, multilingual fonts, representative pages, tables, clipping, blank pages, and page breaks are checked before completion is claimed.
+The three formal formats derive from one canonical content master and must contain equivalent lessons, exercises, checks, sources, gaps, and compression notes. Self-contained HTML literally means one offline-usable `.html` file with required styles and small permitted assets embedded; an asset folder is an offline package, not self-contained HTML. PDF text extraction, page count, multilingual fonts, representative rendered pages, tables, clipping, blank pages, and page breaks are checked before completion is claimed. A visibly damaged PDF fails delivery even when the file exists and has text.
 
 If a required renderer is unavailable, the skill reports the blocked format and remaining work. It does not silently deliver Markdown only and call the course complete.
 
@@ -242,6 +260,8 @@ Installation compatibility does not guarantee identical tools or behavior. The s
 
 ### Safety and copyright boundaries
 
+- Paid or entitlement-gated instructional content is report-only: no gated lesson access, authenticated paid-session use, download, capture, recording, ASR, OCR, extraction, translation, compression, or reconstruction, even after purchase or explicit authorization.
+- An especially suitable paid resource may be disclosed from public metadata as a manual-study option with payment stated, while discovery continues for free-access alternatives.
 - No bypassing logins, payment, DRM, regional controls, or platform restrictions.
 - No implied access to material that was not actually acquired.
 - No raw or near-complete copyrighted transcript redistribution without the necessary rights.
@@ -256,7 +276,9 @@ The skill may use lawfully accessed material to create original learning explana
 study-open-courses/
 ├── SKILL.md                         # Portable workflow and routing
 ├── references/
-│   ├── source-acquisition.md        # Source resolution, ASR/OCR, integrity, provenance
+│   ├── execution-state.md           # Artifact levels, ledger, coverage, resume, completion
+│   ├── source-acquisition.md        # Access gate, multimodal acquisition, ASR/OCR/translation
+│   ├── learning-quality.md          # Artifact-level schemas and Learning QA
 │   └── publishing.md                # MD/HTML/PDF delivery and validation
 ├── docs/
 │   ├── superpowers/                 # Design and implementation records
@@ -278,6 +300,8 @@ Released under the [MIT License](LICENSE).
 ---
 
 ## 简体中文
+
+当前仓库版本：**3.2**——重点强化免费访问处理边界、可恢复执行、多模态覆盖、Learning QA 和明确的格式完成门槛。
 
 ### 为什么做这个项目
 
@@ -302,6 +326,8 @@ Released under the [MIT License](LICENSE).
 它不只是总结内容，而是完成一整条学习工作流：
 
 - 只补问真正会改变资源选择的问题；
+- 在排名前先判断访问类型，只处理真正免费可访问的教学内容；
+- 特别合适的付费资源可以作为“用户自行付费学习”的选项披露，但 Agent 不打开、不抓取、不录制、不转写、不 OCR、不翻译、不重构付费课节，并继续寻找免费替代；
 - 先用真实的大众验证筛掉不够可靠的主动推荐；
 - 再按学习者水平、目标、时间、语言和访问条件排序；
 - 判断应该重构成课程、做成伴读/伴看指南，还是不应替代原作；
@@ -309,7 +335,9 @@ Released under the [MIT License](LICENSE).
 - 利用宿主 Agent 具备的能力寻找正文、字幕、媒体或扫描件并处理；
 - 在重构前检查缺课、重复、版本冲突、ASR/OCR 错误和来源映射；
 - 围绕学习依赖、解释、例子、练习和理解检查重新组织内容；
-- 正式完整课程默认交付 Markdown、自包含 HTML 和 PDF。
+- 长任务用执行账本做检查点，分别计算预期、已取得、已处理、已核验和已重构覆盖；
+- 任何精确完成名称都必须先通过对应成果层级的 Learning QA；
+- 正式完整课程默认交付 Markdown、真正单文件的自包含 HTML 和经过视觉检查的 PDF。
 
 它服务的是一个真正想学会东西的人，而不是等待被注入压缩知识的模型。
 
@@ -374,6 +402,9 @@ npx skills add lix06231/study-open-courses -g -a cursor -y
 资源发现
         │
         ▼
+免费访问处理门槛
+        │
+        ▼
 Community Validation ── 准入门槛
         │
         ▼
@@ -395,20 +426,25 @@ Learning Reconstruction
 Learning Compression（需要时）
         │
         ▼
+对应成果层级的 Learning QA
+        │
+        ▼
 Publishing
 ```
+
+如果用户直接指定资源，不再做发现和竞争性排名，但仍要做访问分类、描述性验证、学习适配、完整性检查和 QA。即使用户已经购买、处于登录状态或明确授权，付费或权益门槛内的课节仍然只能报告，不能交给 Agent 处理。
 
 #### 1. 大众验证负责入围
 
 播放量很大、学校很有名、大纲写得漂亮，都不能单独证明一份资源适合作为主学习源。Skill 会综合长期学习人数或读者、完成反馈、独立社区讨论、多个来源的重复推荐、专业信誉、时间积累，以及快速变化领域的时效性。
 
-验证结果分为 **强验证、中等验证、弱验证、无法验证**。弱验证或无法验证的资源通常只做补充；如果是用户自己指定，仍然可以处理，但必须明确说明局限。
+验证结果分为 **强验证、中等验证、弱验证、无法验证**。弱验证或无法验证的资源通常只做补充；如果是用户自己指定，仍然可以评估，并且只有在访问资格允许时才能在明确说明局限后处理。
 
-主动推荐的主学习源必须达到强验证。如果经过合理搜索后只有中等验证选项，Skill 会明确说明没有找到强验证资源，并在用户确认后才把它作为退而求其次的主源，不会静默升级。
+主动推荐的处理主源必须同时满足“免费可处理”和“强验证”。强验证的付费资源只能单独披露为用户自行付费学习的选项，不能挤掉免费处理源；Agent 还要继续寻找免费替代。如果合理搜索后只有中等验证的免费资源，Skill 会明确说明局限，并在用户确认后才开始获取或重构，不会静默升级。
 
 #### 2. 学习适配负责排名
 
-候选资源通过准入门槛后，再比较先修要求、学习结果、可投入时间、讲解质量、完整性、版本时效、语言、费用、注册、地区和无障碍条件。
+符合处理资格的候选资源通过准入门槛后，再比较先修要求、学习结果、可投入时间、讲解质量、完整性、版本时效、语言、注册、地区和无障碍条件。费用信息可以帮助用户决定是否自行购买，但不能把付费教学内容变成 Agent 可处理的来源。
 
 因此，对一个非技术小白来说，经过验证的入门课程应该排在名气更大但难度过高的课程前面。
 
@@ -424,7 +460,7 @@ Publishing
 
 ### 用户没有提供任何文件时会发生什么
 
-只要用户指定的资源能够被识别，或者主学习资源已经确认，当任务需要评估或处理真实内容时，“用户没有给材料”本身就不是停止理由。
+只要用户指定的免费可处理资源能够被识别，或者免费主学习资源已经确认，当任务需要评估或处理真实内容时，“用户没有给材料”本身就不是停止理由。
 
 Skill 会要求 Agent 先检查自己具备的能力，然后按以下顺序寻找内容：
 
@@ -437,7 +473,7 @@ Skill 会要求 Agent 先检查自己具备的能力，然后按以下顺序寻�
 
 如果只有音视频，而宿主 Agent 能够合法访问并转录，它应该自行完成，不应先让用户下载或转录。转录结果还要检查课节边界、缺失和重复片段、语言、时间轴、说话人变化、人名、术语、数字、公式和代码。
 
-只有真正遇到阻塞才暂停：登录、付费、DRM、地区限制、版权或授权不清、资源不可访问、宿主没有相应工具，或者关键缺失会改变课程目标。Agent 不会要求你粘贴密码、会话令牌或 Cookie；宿主支持时，应由你在自己控制的界面完成登录。
+免费账号登录只有在不涉及付费权益时才允许。付款、订阅、试用、点数、机构权益或购买关联访问都会让教学内容变成“仅报告”：即使用户许可，Agent 也不会打开课节或利用付费登录状态。公开试看和官方免费版是独立来源，只能按真实公开范围使用。Agent 不会要求你粘贴密码、会话令牌或 Cookie。
 
 所以，“主动获取”是一套必须执行的决策流程，不是承诺每个 Agent 都能下载或转录互联网上的任何内容。
 
@@ -445,7 +481,9 @@ Skill 会要求 Agent 先检查自己具备的能力，然后按以下顺序寻�
 
 课程页面、syllabus、目录、评测文章和搜索结果都只是元数据，不能冒充课程正文。
 
-重构前，Skill 会建立来源清单，核对预期与实际取得的课节、顺序、重复、截断、版本冲突、ASR/OCR 质量、附件、图表、练习和先修依赖。整份资源完整性评估或正式完整成果默认覆盖所有规范课节、页面、附录、练习及相关配套材料；只有遇到真实阻塞、明确说明影响并取得学习者接受后才能缩小范围。扫描材料会分别记录“已处理页面”和“已视觉核验页面”，最终单元必须映射到具体页码或幻灯片范围。缺口分为阻塞与非阻塞，绝不悄悄编造缺失课节。
+重构前，Skill 会建立来源清单，核对预期与实际取得的课节、顺序、重复、截断、版本冲突、ASR/OCR 与翻译质量、附件、图表、演示、练习和先修依赖。视频同时包含语音与视觉教学：幻灯片、代码、图示、操作演示和无口播画面都要独立检查并映射。整份资源完整性评估或正式完整成果默认覆盖所有规范课节、页面、附录、练习及相关配套材料；只有遇到真实阻塞、明确说明影响并取得学习者接受后才能缩小范围。预期、已取得、已处理、已核验和已重构覆盖分别计算。缺口分为阻塞与非阻塞，绝不悄悄编造缺失课节。
+
+长任务会把每一项的状态、尝试次数、最近错误、阻塞影响和下一步写入执行账本。恢复时从账本继续，不重复已经成功的工作。截止时间压力只能冻结一个诚实的较小范围，不能把未解决或失败项目改写成完成。
 
 最终成果还要保留来源映射，并区分：
 
@@ -467,6 +505,8 @@ Skill 不会简单地沿原顺序缩写。它先围绕学习者目标重新建�
 
 然后才根据时间决定压缩深度。先修知识、因果关系、关键例子、练习和限制不能被压没。如果压缩会破坏学习，就缩小课程范围，而不是夸大学习结果。
 
+使用任何精确完成名称前，必须通过对应成果层级的 Learning QA。四个层级是：**元数据索引**、**来源覆盖图**、**课程结构图**和**重构学习成果**。每一级都有独立的最低内容结构，只有最后一级可以声称已经形成可学习的教学内容。QA 会检查目标可追溯、先修顺序、来源准确、综合内容标注、例子、反馈方法、压缩完整性、时间估算假设和可见限制。
+
 ### 交付格式
 
 | 用户请求 | 交付方式 |
@@ -475,7 +515,7 @@ Skill 不会简单地沿原顺序缩写。它先围绕学习者目标重新建�
 | 推荐、提纲、预览或中间检查 | 使用最小有用格式，不强制生成文件 |
 | 明确指定格式 | 只交付用户指定的一种或多种格式 |
 
-正式三格式必须来自同一份内容母版，课程结构、解释、练习、理解检查、来源、缺口和压缩说明保持一致。HTML 会检查目录导航与本地资源；PDF 会检查文字可提取性、页数、多语言字体、代表页面、表格、裁切、空白页和分页。
+正式三格式必须来自同一份内容母版，课程结构、解释、练习、理解检查、来源、缺口和压缩说明保持一致。“自包含 HTML”字面上就是一个离线可用的 `.html` 文件，必要样式和允许的小素材必须嵌入；带资源文件夹的是离线包，不能叫自包含 HTML。PDF 会检查文字可提取性、页数、多语言字体、代表性渲染页面、表格、裁切、空白页和分页。PDF 即使存在且能提取文字，只要画面明显损坏就算失败。
 
 如果宿主没有某个必需的渲染能力，Skill 会明确报告被阻塞的格式和剩余工作，不会只交付 Markdown 却声称正式课程已经完成。
 
@@ -511,6 +551,8 @@ Skill 不会简单地沿原顺序缩写。它先围绕学习者目标重新建�
 
 ### 安全与版权边界
 
+- 付费或权益门槛内的教学内容只能报告：即使已经购买或明确授权，也不能打开受限课节、使用付费登录状态、下载、抓取、录制、ASR、OCR、提取、翻译、压缩或重构；
+- 特别合适的付费资源可以根据公开元数据披露为用户自行付费学习的选项，必须说明需要付费，并继续寻找免费替代；
 - 不绕过登录、付费、DRM、地区和平台限制；
 - 不假装已经取得实际没有访问到的内容；
 - 没有相应权利时，不重新分发完整或近乎完整的版权字幕、逐字稿或 OCR 文本；
@@ -525,7 +567,9 @@ Skill 可以在合法访问范围内，把材料用于原创解释、练习、�
 study-open-courses/
 ├── SKILL.md                         # 通用工作流与路由
 ├── references/
-│   ├── source-acquisition.md        # 来源解析、ASR/OCR、完整性、可追溯性
+│   ├── execution-state.md           # 成果层级、执行账本、覆盖、恢复与完成门槛
+│   ├── source-acquisition.md        # 访问门槛、多模态获取、ASR/OCR/翻译
+│   ├── learning-quality.md          # 各成果层级结构与 Learning QA
 │   └── publishing.md                # MD/HTML/PDF 交付与验证
 ├── docs/
 │   ├── superpowers/                 # 设计与实施记录

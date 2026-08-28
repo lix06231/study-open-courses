@@ -6,3 +6,9 @@
 - Verified 100 files, 235,848 bytes, zero SHA-256 mismatches, HEAD `683238c`, and a clean `git fsck` before deleting the A-drive copies.
 - Designated Codex as Primary Agent and started the v3.2 execution-hardening work on branch `codex/v3.2-execution-hardening`.
 - Recorded a new paid-course baseline: v3.1 allows an Agent to use an authenticated paid course and transcribe it when the user authorizes access.
+- Added the v3.2 Free-Access Processing Gate. Paid and entitlement-gated instructional content is report-only even after purchase, login, or explicit authorization; especially suitable paid resources may be disclosed only as manual-study options while free alternatives are sought.
+- Added explicit artifact levels, persistent run-ledger state, five coverage totals, resume-first execution, batch failure isolation, provisional reconstruction, and deadline scope freeze.
+- Added complete speech/visual/practice/attachment acquisition, visual-only teaching checks, stronger ASR verification, translation verification, and expanded source-manifest fields.
+- Added artifact-level Learning QA before every exact completion label, plus literal one-file HTML and damaged-PDF failure rules.
+- Updated the English and Chinese README for v3.2 and added `docs/validation/v3.2-results.md` with decision-scenario and mechanical validation evidence.
+- Kept release boundaries unchanged: no push, merge, publication, release, or installed-copy synchronization was authorized or performed.
