@@ -81,6 +81,7 @@ Use available document or PDF capabilities for creation and visual inspection. D
 Before claiming completion, verify the declared artifact level's own schema, current QA pass, provenance, scope, and absence of blockers. Apply the remaining file and format checks only to formats actually required for that artifact level. For a formal reconstructed learning artifact, verify:
 
 - `learning_qa: pass` is recorded for the declared artifact and scope;
+- `scripts/seal_course_pack.py` has bound the current QA record to the exact Markdown, standalone HTML, and PDF hashes;
 - every required file exists and is non-empty, while recognizing that this alone never establishes completion;
 - the three primary-file count and types are exactly one complete Markdown, one complete single-file HTML, and one complete PDF unless the user explicitly changed the format contract;
 - every delivered format contains the required learning-content elements;

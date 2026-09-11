@@ -1,5 +1,14 @@
 # Project changelog
 
+## 2026-09-11
+
+- Upgraded the runtime Skill to v4.1.0 with a deterministic init/build/seal/validate contract.
+- Added machine-readable run-ledger and Learning QA templates, item-derived coverage reconciliation, source-locator validation, and exact artifact revision/hash binding.
+- Added canonical Markdown output, all-local-image inlining for standalone HTML, forced-open answers in the temporary PDF print copy, and course-pack path containment.
+- Added `seal_course_pack.py` and eight regression scenarios covering valid completion and critical false-completion failures.
+- Passed Skill structure validation, Python syntax checks, all regression scenarios, and source-to-installed-copy SHA-256 parity before repository synchronization.
+- Preserved the previous installed v3.2.2 Skill as a dated backup. The user separately authorized pushing this v4.1 branch; merge and release publication remain unperformed.
+
 ## 2026-08-28
 
 - Migrated the existing Git repository to `D:\Lix-Agent\02-Shared-Projects\study-open-courses` as a shared project.

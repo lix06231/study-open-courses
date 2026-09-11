@@ -1,0 +1,15 @@
+interface:
+  display_name: Study Open Courses
+  short_description: Match open courses to learners and build study sprints
+  default_prompt: Use $study-open-courses to assess my goal and current level, find
+    the newest suitable complete open course, and build a study sprint for my available
+    time.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

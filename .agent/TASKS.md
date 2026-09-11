@@ -1,5 +1,17 @@
 # Tasks
 
+## v4.1 deterministic course-pack pipeline
+
+- [x] Add a deterministic execution contract to the runtime entrypoint.
+- [x] Initialize machine-readable run-ledger and Learning QA records.
+- [x] Reconcile expected item rows with acquired, processed, verified, and reconstructed totals.
+- [x] Generate canonical Markdown and offline standalone HTML from one chapter master.
+- [x] Expand `<details>` answers in the temporary PDF print copy.
+- [x] Seal QA to exact Markdown, HTML, and PDF hashes.
+- [x] Reject stale QA, fake locators, remote runtime images, post-QA mutations, and path escapes.
+- [x] Pass eight pipeline regression scenarios, Skill structure validation, Python syntax checks, and installed-copy hash verification.
+- [ ] Push `codex/v4.1-deterministic-pipeline` to GitHub.
+
 ## v3.2 execution hardening
 
 - [x] Migrate the repository from `A:\Code\study-open-courses` to the shared project path.

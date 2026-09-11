@@ -21,6 +21,8 @@ Each exact completion name is independently gated. Before using it, record `lear
 
 Create or resume one run ledger for the declared resource, scope, and artifact level. Store it at a durable, user-visible project or task location recorded in the handoff; chat-only memory is not a ledger. Persist it atomically after every state mutation and checkpoint so a later run can continue from verified work rather than rediscovering or reprocessing it.
 
+For a course pack, use the machine-readable `run-ledger.json` created by `scripts/init_course_pack.py`. Follow [run-ledger-schema.md](run-ledger-schema.md) for item and QA fields. Keep the required learning and format checks in `evidence/learning-qa.json`; `scripts/validate_course_pack.py` treats missing fields, mismatched revisions or hashes, optimistic rollups, unresolved items, or absent review evidence as completion failures. Each `expected_items` row must retain failed or deferred work rather than deleting it.
+
 The run-level record must include:
 
 - `run_id`, start and last-updated time;

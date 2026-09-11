@@ -13,4 +13,4 @@
 
 ## Current version goal
 
-Version 3.2 hardens real execution: paid-resource exclusion, explicit artifact levels and coverage, resumable long-running work, multimodal video handling, ASR and translation verification, post-reconstruction Learning QA, and unambiguous publishing checks.
+Version 4.1 makes the course-pack path deterministic: initialized machine-readable state, item-derived coverage totals, verifiable source locators, artifact-revision and hash binding, canonical Markdown, offline standalone HTML, printable answers, path containment, and regression-tested completion validation.

@@ -5,7 +5,7 @@
 
 **A learner-first Agent Skill that finds a proven resource, acquires the real material, and rebuilds it into something a human can actually learn from.**
 
-Current repository version: **3.2** — execution hardening for free-access processing, resumable work, multimodal coverage, Learning QA, and literal format gates.
+Current repository version: **4.1.0** — deterministic course-pack execution with machine-readable state, reconciled coverage, sealed QA, offline artifact checks, and regression-tested completion gates.
 
 [English](#english) · [简体中文](#简体中文)
 
@@ -251,7 +251,7 @@ The repository follows the open [Agent Skills specification](https://agentskills
 |---|---|
 | Agent Skills package structure | Compatible |
 | Discovery through the `skills` CLI | Supported by the CLI for the agent identifiers shown above |
-| Current Codex evaluator behavior | Fresh simulated evaluators passed the documented v3.2 paid-access, acquisition, execution, Learning QA, HTML, and PDF scenarios; static and structural checks also passed |
+| Current Codex evidence | The documented v3.2 simulated policy scenarios remain the latest behavior evaluation; v4.1.0 additionally passes eight deterministic pipeline regressions plus Skill structure and Python syntax checks |
 | Claude Code, Gemini CLI, Cursor behavior | Structurally installable; full behavior not yet independently verified by this project |
 | Caption extraction, downloads, ASR, OCR | Depends on lawful access and the host's available tools |
 | HTML and PDF generation | Depends on the host's document/rendering capabilities |
@@ -275,11 +275,16 @@ The skill may use lawfully accessed material to create original learning explana
 ```text
 study-open-courses/
 ├── SKILL.md                         # Portable workflow and routing
+├── agents/openai.yaml               # UI metadata and invocation policy
+├── scripts/                         # Initialize, build, seal, and validate course packs
+├── tests/                           # Completion-gate regression tests
+├── assets/                          # Course-book design and runtime assets
 ├── references/
 │   ├── execution-state.md           # Artifact levels, ledger, coverage, resume, completion
+│   ├── run-ledger-schema.md         # Machine-readable item and QA record contract
 │   ├── source-acquisition.md        # Access gate, multimodal acquisition, ASR/OCR/translation
 │   ├── learning-quality.md          # Artifact-level schemas and Learning QA
-│   └── publishing.md                # MD/HTML/PDF delivery and validation
+│   └── publishing-spec.md           # Deterministic MD/HTML/PDF build and validation
 ├── docs/
 │   ├── superpowers/                 # Design and implementation records
 │   └── validation/                  # Behavioral validation evidence
@@ -301,7 +306,7 @@ Released under the [MIT License](LICENSE).
 
 ## 简体中文
 
-当前仓库版本：**3.2**——重点强化免费访问处理边界、可恢复执行、多模态覆盖、Learning QA 和明确的格式完成门槛。
+当前仓库版本：**4.1.0**——新增机器可读状态、覆盖率对账、QA 成品封存、离线文件检查和经过回归验证的确定性课程包流程。
 
 ### 为什么做这个项目
 
@@ -542,7 +547,7 @@ Skill 不会简单地沿原顺序缩写。它先围绕学习者目标重新建�
 |---|---|
 | Agent Skills 目录与文件结构 | 兼容 |
 | 通过 `skills` CLI 发现和安装 | CLI 支持上文列出的 Agent 标识 |
-| 当前 Codex 评测行为 | fresh 模拟评测已通过 v3.2 的付费访问、获取、执行、Learning QA、HTML 与 PDF 场景；静态和结构检查也已通过 |
+| 当前 Codex 证据 | v3.2 的模拟策略场景仍是最新行为评测；v4.1.0 另外通过 8 个确定性流程回归，以及 Skill 结构和 Python 语法检查 |
 | Claude Code、Gemini CLI、Cursor 的完整行为 | 可以按结构安装；本项目尚未逐一完成独立行为验证 |
 | 字幕提取、媒体获取、ASR、OCR | 取决于合法访问条件和宿主提供的工具 |
 | HTML 与 PDF 生成 | 取决于宿主提供的文档和渲染能力 |
@@ -566,11 +571,16 @@ Skill 可以在合法访问范围内，把材料用于原创解释、练习、�
 ```text
 study-open-courses/
 ├── SKILL.md                         # 通用工作流与路由
+├── agents/openai.yaml               # UI 元数据与调用策略
+├── scripts/                         # 初始化、构建、封存与验收课程包
+├── tests/                           # 完成门槛回归测试
+├── assets/                          # 课程书视觉与运行资源
 ├── references/
 │   ├── execution-state.md           # 成果层级、执行账本、覆盖、恢复与完成门槛
+│   ├── run-ledger-schema.md         # 机器可读的项目与 QA 记录契约
 │   ├── source-acquisition.md        # 访问门槛、多模态获取、ASR/OCR/翻译
 │   ├── learning-quality.md          # 各成果层级结构与 Learning QA
-│   └── publishing.md                # MD/HTML/PDF 交付与验证
+│   └── publishing-spec.md           # 确定性的 MD/HTML/PDF 构建与验收
 ├── docs/
 │   ├── superpowers/                 # 设计与实施记录
 │   └── validation/                  # 行为验证证据
