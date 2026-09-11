@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>可持续创作者：从选题、格式到个人品牌</title><style>
+:root {
+  --ink: #18201d; --muted: #64706b; --paper: #fbfaf6; --panel: #f0eee6;
+  --line: #d9ddd6; --accent: #146c5a; --accent-soft: #dff1ea;
+  --warm: #9b5d27; --sidebar: 18rem; color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; color: var(--ink); background: var(--paper);
+  font-family: Inter, "Noto Sans CJK SC", "Microsoft YaHei", system-ui, sans-serif;
+  line-height: 1.75;
+}
+.sidebar {
+  position: fixed; inset: 0 auto 0 0; width: var(--sidebar); padding: 2rem 1.25rem;
+  overflow-y: auto; border-right: 1px solid var(--line); background: #f4f2eb; z-index: 3;
+}
+.sidebar-title { font-weight: 800; line-height: 1.3; margin-bottom: 1.25rem; }
+.search-label { display: grid; gap: .35rem; color: var(--muted); font-size: .8rem; }
+#toc-search {
+  width: 100%; padding: .65rem .75rem; border: 1px solid var(--line);
+  border-radius: .55rem; background: white;
+}
+nav { display: grid; gap: .15rem; margin-top: 1rem; }
+nav a {
+  color: #33413b; padding: .35rem .45rem; border-radius: .35rem;
+  text-decoration: none; font-size: .88rem;
+}
+nav a:hover, nav a.active { background: var(--accent-soft); color: var(--accent); }
+.toc-level-3 { padding-left: 1.25rem; color: var(--muted); }
+main { margin-left: var(--sidebar); }
+.cover, .front-matter, .chapter { max-width: 58rem; margin: 0 auto; padding: 5rem 3.5rem; }
+.cover {
+  min-height: 72vh; display: grid; align-content: center; border-bottom: 1px solid var(--line);
+}
+.eyebrow, .chapter-kicker {
+  color: var(--accent); font-weight: 800; letter-spacing: .12em; font-size: .76rem;
+}
+.cover h1 {
+  margin: 1rem 0 .5rem; font-family: "Noto Serif CJK SC", "Songti SC", Georgia, serif;
+  font-size: clamp(2.4rem, 6vw, 5.2rem); line-height: 1.05;
+}
+.subtitle { max-width: 42rem; color: var(--muted); font-size: 1.25rem; }
+.metadata { color: var(--muted); font-size: .9rem; }
+.edition-grid, .publication-grid {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem 1.5rem;
+  margin: 2rem 0 0; max-width: 46rem;
+}
+.edition-grid div, .publication-grid div {
+  padding-top: .65rem; border-top: 1px solid var(--line);
+}
+dt { color: var(--muted); font-size: .78rem; font-weight: 700; }
+dd { margin: .2rem 0 0; }
+.front-matter { border-bottom: 1px solid var(--line); }
+.publication-note p { max-width: 46rem; }
+.publication-grid { grid-template-columns: 1fr; }
+.contents-list { display: grid; gap: .25rem; margin-top: 2rem; }
+.contents-row {
+  display: flex; align-items: baseline; gap: .55rem; padding: .25rem 0;
+  color: var(--ink); text-decoration: none;
+}
+.contents-row.toc-level-1 { margin-top: .55rem; font-weight: 800; }
+.contents-row.toc-level-2 { padding-left: 1.25rem; color: var(--muted); }
+.contents-row .leader { flex: 1; border-bottom: 1px dotted var(--line); }
+.toc-page { min-width: 2ch; text-align: right; font-variant-numeric: tabular-nums; }
+.chapter { border-bottom: 1px solid var(--line); }
+h1, h2, h3, h4 { scroll-margin-top: 2rem; line-height: 1.3; }
+h2 {
+  margin-top: 3.5rem; font-family: "Noto Serif CJK SC", "Songti SC", Georgia, serif;
+  font-size: 2rem;
+}
+h3 { margin-top: 2.5rem; font-size: 1.35rem; }
+p, li { max-width: 46rem; }
+a { color: var(--accent); }
+blockquote, .provenance {
+  margin: 1.4rem 0; padding: 1rem 1.2rem; border-left: .25rem solid var(--accent);
+  background: var(--accent-soft); border-radius: 0 .5rem .5rem 0;
+}
+.provenance p { margin: .3rem 0 0; }
+.ai-supplement, .current-context-update { border-color: var(--warm); background: #f8eadc; }
+.uncertain { border-color: #a64040; background: #f8e0e0; }
+pre, code { font-family: "SFMono-Regular", Consolas, monospace; }
+pre {
+  overflow-x: auto; padding: 1rem; color: #eff7f2; background: #1d2924;
+  border-radius: .6rem;
+}
+code { font-size: .9em; }
+:not(pre) > code { padding: .12em .35em; background: var(--panel); border-radius: .25rem; }
+.table-wrap { overflow-x: auto; margin: 1.5rem 0; }
+table { width: 100%; border-collapse: collapse; font-size: .94rem; }
+th, td {
+  padding: .7rem .8rem; border: 1px solid var(--line); text-align: left; vertical-align: top;
+}
+th { background: var(--panel); }
+figure { margin: 2rem 0; }
+figure img {
+  display: block; max-width: 100%; height: auto; margin: 0 auto; border-radius: .45rem;
+}
+figcaption { margin-top: .55rem; color: var(--muted); font-size: .88rem; text-align: center; }
+details {
+  margin: 1rem 0; padding: .8rem 1rem; border: 1px solid var(--line);
+  border-radius: .5rem; background: white;
+}
+summary { cursor: pointer; font-weight: 700; }
+.qa-item {
+  margin: 1rem 0; padding: .9rem 1rem; border: 1px solid var(--line);
+  border-radius: .5rem; background: white;
+}
+.qa-question { font-weight: 700; }
+.qa-link, .qa-back { font-size: .88rem; }
+.answers-appendix { max-width: 58rem; margin: 0 auto; padding: 5rem 3.5rem; }
+.answer-item { margin: 2rem 0; padding-top: 1rem; border-top: 1px solid var(--line); }
+.answer-label { color: var(--accent); }
+.answer-summary { font-weight: 700; }
+.nav-toggle { display: none; }
+@media (max-width: 860px) {
+  .sidebar {
+    transform: translateX(-100%); transition: transform .2s ease; box-shadow: 0 0 2rem #0002;
+  }
+  .sidebar.open { transform: translateX(0); }
+  main { margin-left: 0; }
+  .cover, .front-matter, .chapter, .answers-appendix { padding: 4rem 1.35rem; }
+  .edition-grid { grid-template-columns: 1fr; }
+  .nav-toggle {
+    display: block; position: fixed; top: .8rem; left: .8rem; z-index: 4;
+    border: 0; border-radius: 50%; width: 2.7rem; height: 2.7rem;
+    background: var(--accent); color: white;
+  }
+}
+@media print {
+  @page { size: A4; margin: 18mm 16mm 20mm; }
+  body { background: white; font-size: 10.5pt; }
+  .sidebar, .nav-toggle { display: none !important; }
+  main { margin: 0; }
+  .cover, .front-matter, .chapter, .answers-appendix { max-width: none; padding: 0; border: 0; }
+  .cover { min-height: 250mm; page-break-after: always; }
+  .front-matter { page-break-after: always; }
+  .chapter { page-break-before: always; }
+  .answers-appendix { page-break-before: always; }
+  h2, h3 { break-after: avoid; }
+  figure, pre, blockquote, .provenance { break-inside: avoid; }
+  .table-wrap { break-inside: auto; }
+  thead { display: table-header-group; }
+  tr { break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+  details > * { display: block !important; }
+  summary { list-style: none; }
+  .qa-item, .answer-item { break-inside: avoid; }
+}
+
+</style></head>
+<body>
+<button class="nav-toggle" aria-label="Toggle table of contents">☰</button>
+<aside class="sidebar"><div class="sidebar-title">可持续创作者：从选题、格式到个人品牌</div>
+<label class="search-label">搜索章节与小节<input id="toc-search" type="search" placeholder="搜索章节与小节"></label>
+<nav><a class="toc-level-1" href="#chapter-1">使用说明：你不是来学自媒体常识的</a>
+<a class="toc-level-2" href="#c1-2-这门课解决什么">这门课解决什么</a>
+<a class="toc-level-2" href="#c1-3-学习者适配说明">学习者适配说明</a>
+<a class="toc-level-2" href="#c1-4-来源-证据与边界">来源、证据与边界</a>
+<a class="toc-level-2" href="#c1-5-一周建议安排">一周建议安排</a>
+<a class="toc-level-2" href="#c1-6-先做一个三分钟基准记录">先做一个三分钟基准记录</a>
+<a class="toc-level-1" href="#chapter-2">第一章 定位、记忆与可重复格式</a>
+<a class="toc-level-2" href="#c2-2-流量不是品牌-重复也不等于无聊">流量不是品牌，重复也不等于无聊</a>
+<a class="toc-level-2" href="#c2-3-格式是一组稳定变量">格式是一组稳定变量</a>
+<a class="toc-level-2" href="#c2-4-引擎格式与作品格式">引擎格式与作品格式</a>
+<a class="toc-level-2" href="#c2-5-三个适合你的格式原型">三个适合你的格式原型</a>
+<a class="toc-level-2" href="#c2-10-随堂练习-完成一张格式卡">随堂练习：完成一张格式卡</a>
+<a class="toc-level-2" href="#c2-11-本章检查点">本章检查点</a>
+<a class="toc-level-1" href="#chapter-3">第二章 用异常样本研究选题</a>
+<a class="toc-level-2" href="#c3-2-好选题不是-想到的-而是-观察后生成的">好选题不是“想到的”，而是“观察后生成的”</a>
+<a class="toc-level-2" href="#c3-3-第一步-先写清-这次想吸引谁">第一步：先写清“这次想吸引谁”</a>
+<a class="toc-level-2" href="#c3-4-第二步-怎样寻找异常样本">第二步：怎样寻找异常样本</a>
+<a class="toc-level-2" href="#c3-5-第三步-迁移结构-而不是换名词抄标题">第三步：迁移结构，而不是换名词抄标题</a>
+<a class="toc-level-2" href="#c3-9-第四步-发布前验证">第四步：发布前验证</a>
+<a class="toc-level-2" href="#c3-10-ai补充-为你的每日雷达增加三类证据">AI补充：为你的每日雷达增加三类证据</a>
+<a class="toc-level-2" href="#c3-11-练习-建立15条样本表">练习：建立15条样本表</a>
+<a class="toc-level-2" href="#c3-12-本章检查点">本章检查点</a>
+<a class="toc-level-1" href="#chapter-4">第三章 受众扩圈与包装</a>
+<a class="toc-level-2" href="#c4-2-专业内容为什么经常只在圈内传播">专业内容为什么经常只在圈内传播</a>
+<a class="toc-level-2" href="#c4-3-三层受众不是三种内容深度">三层受众不是三种内容深度</a>
+<a class="toc-level-2" href="#c4-4-包装是内容的一部分">包装是内容的一部分</a>
+<a class="toc-level-2" href="#c4-5-核心-泛兴趣-新受众改写法">核心—泛兴趣—新受众改写法</a>
+<a class="toc-level-2" href="#c4-6-诅咒-知道得越多-标题越容易写窄">诅咒：知道得越多，标题越容易写窄</a>
+<a class="toc-level-2" href="#c4-7-练习-一题三写">练习：一题三写</a>
+<a class="toc-level-2" href="#c4-8-本章检查点">本章检查点</a>
+<a class="toc-level-1" href="#chapter-5">第四章 教程型内容的双重任务</a>
+<a class="toc-level-2" href="#c5-2-搜索答案和推荐观看-是两个不同场景">搜索答案和推荐观看，是两个不同场景</a>
+<a class="toc-level-2" href="#c5-3-目的地感-主页要像一套课程-不像杂物抽屉">目的地感：主页要像一套课程，不像杂物抽屉</a>
+<a class="toc-level-2" href="#c5-4-平台风险与内容过期">平台风险与内容过期</a>
+<a class="toc-level-2" href="#c5-5-教程体验设计">教程体验设计</a>
+<a class="toc-level-2" href="#c5-6-练习-一份素材-两种成片">练习：一份素材，两种成片</a>
+<a class="toc-level-2" href="#c5-7-本章检查点">本章检查点</a>
+<a class="toc-level-1" href="#chapter-6">第五章 短视频的故事与留存</a>
+<a class="toc-level-2" href="#c6-2-短视频不是长视频的压缩版">短视频不是长视频的压缩版</a>
+<a class="toc-level-2" href="#c6-3-五段式观点短视频">五段式观点短视频</a>
+<a class="toc-level-2" href="#c6-4-每一段都要推进-而不是只换说法">每一段都要推进，而不是只换说法</a>
+<a class="toc-level-2" href="#c6-5-个人性不是讲私生活-而是让选择有主人">个人性不是讲私生活，而是让选择有主人</a>
+<a class="toc-level-2" href="#c6-6-留存数据不能单独解释内容质量">留存数据不能单独解释内容质量</a>
+<a class="toc-level-2" href="#c6-7-平台迁移提醒">平台迁移提醒</a>
+<a class="toc-level-2" href="#c6-8-练习-做一次删减测试">练习：做一次删减测试</a>
+<a class="toc-level-2" href="#c6-9-本章检查点">本章检查点</a>
+<a class="toc-level-1" href="#chapter-7">第六章 创作系统与结课项目</a>
+<a class="toc-level-2" href="#c7-2-把五套方法装进一条工作流">把五套方法装进一条工作流</a>
+<a class="toc-level-2" href="#c7-3-你的内容组合-不应该只有一种成功">你的内容组合，不应该只有一种成功</a>
+<a class="toc-level-2" href="#c7-4-结课项目-从15个想法到一条可拍作品">结课项目：从15个想法到一条可拍作品</a>
+<a class="toc-level-2" href="#c7-9-复盘模板-不要只问-为什么没爆">复盘模板：不要只问“为什么没爆”</a>
+<a class="toc-level-2" href="#c7-10-综合测验">综合测验</a>
+<a class="toc-level-2" href="#c7-11-五分钟结课复习">五分钟结课复习</a>
+<a class="toc-level-2" href="#c7-12-来源">来源</a></nav></aside>
+<main><header class="cover"><div class="eyebrow">SELF-CONTAINED STUDY EDITION</div>
+<h1>可持续创作者：从选题、格式到个人品牌</h1><p class="subtitle">从 YouTube 创作者与播客经验重构的一周实战课</p>
+<dl class="edition-grid"><div><dt>课程版本</dt><dd>2026 私人学习版</dd></div>
+<div><dt>资料范围</dt><dd>完整课程 · 6/6 学习单元</dd></div>
+<div><dt>文档版本</dt><dd>1.0</dd></div>
+<div><dt>生成日期</dt><dd>2026-08-20</dd></div>
+<div><dt>事实核验截至</dt><dd>2026-08-20</dd></div><div><dt>作者/编辑</dt><dd>Lix × ChatGPT</dd></div></dl></header>
+<section class="front-matter publication-note"><h2>版本与使用说明</h2>
+<p>原课内容来自课程证据；补充解释与现状更新会单独标注。</p><dl class="publication-grid">
+<div><dt>课程来源</dt><dd>Creator Science 公开逐字稿：Colin &amp; Samir、Richard/1of10、Paddy Galloway、Thomas Frank、Jenny Hoyos；正文保留来源与时间点。</dd></div>
+<div><dt>使用与权利说明</dt><dd>课程正文为独立撰写的解释与练习；原始访谈、视频和播客权利归各自权利人所有。</dd></div>
+<div><dt>课程发布日期</dt><dd>2023-10-10—2026-08-11</dd></div>
+<div><dt>分享模式</dt><dd>private-study</dd></div></dl></section>
+<section class="front-matter print-toc"><h2>目录</h2>
+<div class="contents-list"><a class="contents-row toc-level-1" href="#chapter-1"><span>使用说明：你不是来学自媒体常识的</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c1-2-这门课解决什么"><span>这门课解决什么</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c1-3-学习者适配说明"><span>学习者适配说明</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c1-4-来源-证据与边界"><span>来源、证据与边界</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c1-5-一周建议安排"><span>一周建议安排</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c1-6-先做一个三分钟基准记录"><span>先做一个三分钟基准记录</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-1" href="#chapter-2"><span>第一章 定位、记忆与可重复格式</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c2-2-流量不是品牌-重复也不等于无聊"><span>流量不是品牌，重复也不等于无聊</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c2-3-格式是一组稳定变量"><span>格式是一组稳定变量</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c2-4-引擎格式与作品格式"><span>引擎格式与作品格式</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c2-5-三个适合你的格式原型"><span>三个适合你的格式原型</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c2-10-随堂练习-完成一张格式卡"><span>随堂练习：完成一张格式卡</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c2-11-本章检查点"><span>本章检查点</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-1" href="#chapter-3"><span>第二章 用异常样本研究选题</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c3-2-好选题不是-想到的-而是-观察后生成的"><span>好选题不是“想到的”，而是“观察后生成的”</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c3-3-第一步-先写清-这次想吸引谁"><span>第一步：先写清“这次想吸引谁”</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c3-4-第二步-怎样寻找异常样本"><span>第二步：怎样寻找异常样本</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c3-5-第三步-迁移结构-而不是换名词抄标题"><span>第三步：迁移结构，而不是换名词抄标题</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c3-9-第四步-发布前验证"><span>第四步：发布前验证</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c3-10-ai补充-为你的每日雷达增加三类证据"><span>AI补充：为你的每日雷达增加三类证据</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c3-11-练习-建立15条样本表"><span>练习：建立15条样本表</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c3-12-本章检查点"><span>本章检查点</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-1" href="#chapter-4"><span>第三章 受众扩圈与包装</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c4-2-专业内容为什么经常只在圈内传播"><span>专业内容为什么经常只在圈内传播</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c4-3-三层受众不是三种内容深度"><span>三层受众不是三种内容深度</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c4-4-包装是内容的一部分"><span>包装是内容的一部分</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c4-5-核心-泛兴趣-新受众改写法"><span>核心—泛兴趣—新受众改写法</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c4-6-诅咒-知道得越多-标题越容易写窄"><span>诅咒：知道得越多，标题越容易写窄</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c4-7-练习-一题三写"><span>练习：一题三写</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c4-8-本章检查点"><span>本章检查点</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-1" href="#chapter-5"><span>第四章 教程型内容的双重任务</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c5-2-搜索答案和推荐观看-是两个不同场景"><span>搜索答案和推荐观看，是两个不同场景</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c5-3-目的地感-主页要像一套课程-不像杂物抽屉"><span>目的地感：主页要像一套课程，不像杂物抽屉</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c5-4-平台风险与内容过期"><span>平台风险与内容过期</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c5-5-教程体验设计"><span>教程体验设计</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c5-6-练习-一份素材-两种成片"><span>练习：一份素材，两种成片</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c5-7-本章检查点"><span>本章检查点</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-1" href="#chapter-6"><span>第五章 短视频的故事与留存</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c6-2-短视频不是长视频的压缩版"><span>短视频不是长视频的压缩版</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c6-3-五段式观点短视频"><span>五段式观点短视频</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c6-4-每一段都要推进-而不是只换说法"><span>每一段都要推进，而不是只换说法</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c6-5-个人性不是讲私生活-而是让选择有主人"><span>个人性不是讲私生活，而是让选择有主人</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c6-6-留存数据不能单独解释内容质量"><span>留存数据不能单独解释内容质量</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c6-7-平台迁移提醒"><span>平台迁移提醒</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c6-8-练习-做一次删减测试"><span>练习：做一次删减测试</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c6-9-本章检查点"><span>本章检查点</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-1" href="#chapter-7"><span>第六章 创作系统与结课项目</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c7-2-把五套方法装进一条工作流"><span>把五套方法装进一条工作流</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c7-3-你的内容组合-不应该只有一种成功"><span>你的内容组合，不应该只有一种成功</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c7-4-结课项目-从15个想法到一条可拍作品"><span>结课项目：从15个想法到一条可拍作品</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c7-9-复盘模板-不要只问-为什么没爆"><span>复盘模板：不要只问“为什么没爆”</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c7-10-综合测验"><span>综合测验</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c7-11-五分钟结课复习"><span>五分钟结课复习</span><span class="leader"></span><span class="toc-page"></span></a><a class="contents-row toc-level-2" href="#c7-12-来源"><span>来源</span><span class="leader"></span><span class="toc-page"></span></a></div></section>
+<section class="chapter" id="chapter-1" data-chapter="1"><div class="chapter-kicker">Chapter 01</div><h1 id="c1-1-使用说明-你不是来学自媒体常识的">使用说明：你不是来学自媒体常识的</h1>
+<h2 id="c1-2-这门课解决什么">这门课解决什么</h2>
+<p>这不是一门“注册账号—选择赛道—坚持更新”的入门课。你已经有真实发布经验，知道怎样拍摄、剪辑、写文案，也已经形成了反割韭菜、反焦虑和“把 AI 黑话翻译给普通人”的立场。现在真正的瓶颈，是把零散的好想法变成一个能被观众识别、能长期生产、又不会把自己耗干的内容系统。</p>
+<p>结课时，你要拿出四项证据：</p>
+<ol>
+<li>一句可以指导取舍的账号价值承诺；</li>
+<li>三张可重复内容格式卡；</li>
+<li>十五个经过样本研究和受众判断的候选选题；</li>
+<li>一条完成标题、开头、结构和拍摄清单的可执行作品。</li>
+</ol>
+<h2 id="c1-3-学习者适配说明">学习者适配说明</h2>
+<p><strong>已确认的起点：</strong>你是职业媒体人和摄影师，已有平台运营、视频生产和镜头表达经验；当前主做 AI/科技内容，具备独立观点，但系列化和稳定更新仍在形成中。</p>
+<p><strong>本课程的关键适配：</strong>压缩基础设备、剪辑和账号注册；提高选题判断、结构迁移、观点边界和复盘的比重；练习全部落到你的 AI/科技账号，而不是做抽象测验。</p>
+<p><strong>时间假设：</strong>一周约 4小时40分钟。阅读约35分钟，随堂练习约100分钟，结课项目约120分钟，复习约25分钟。若时间不足，优先完成第一至三章与结课项目。</p>
+<h2 id="c1-4-来源-证据与边界">来源、证据与边界</h2>
+<p>课程基于五组能够读取公开逐字稿的 Creator Science 访谈：Colin &amp; Samir、Richard/1of10、Paddy Galloway、Thomas Frank、Jenny Hoyos。正文用自己的语言重构教学，不复刻原始表达。</p>
+<blockquote><strong>平台边界</strong>：YouTube 的点击、观看和长尾搜索机制，不能原样等同于小红书或抖音。课程只迁移稳定的底层问题：谁会感兴趣、为什么点开、为什么继续、看完记住什么。涉及具体推荐机制的判断，必须用你自己的平台数据复核。</blockquote>
+<h2 id="c1-5-一周建议安排">一周建议安排</h2>
+<div class="table-wrap"><table><thead><tr>
+<th>天</th>
+<th>学习任务</th>
+<th>产出</th>
+</tr></thead><tbody>
+<tr>
+<td>第1天</td>
+<td>第一章</td>
+<td>价值承诺＋三个格式雏形</td>
+</tr>
+<tr>
+<td>第2天</td>
+<td>第二章</td>
+<td>15个异常样本观察表</td>
+</tr>
+<tr>
+<td>第3天</td>
+<td>第三章</td>
+<td>5个选题的三层受众改写</td>
+</tr>
+<tr>
+<td>第4天</td>
+<td>第四章</td>
+<td>一个教程选题的搜索版与推荐版</td>
+</tr>
+<tr>
+<td>第5天</td>
+<td>第五章</td>
+<td>一条60—120秒结构稿</td>
+</tr>
+<tr>
+<td>第6—7天</td>
+<td>第六章</td>
+<td>完整创作简报并拍摄一条</td>
+</tr>
+</tbody></table></div>
+<h2 id="c1-6-先做一个三分钟基准记录">先做一个三分钟基准记录</h2>
+<p>不要想“正确答案”，直接写下：</p>
+<ul>
+<li>观众为什么应该关注你，而不是只收藏某一条教程？</li>
+<li>最近一条你认为“有你的味道”的作品是什么？味道具体来自哪里？</li>
+<li>如果未来只能保留一个系列，你会保留哪个？</li>
+</ul>
+<p>结课后重新回答。前后答案的差异，就是本课程是否改变了你的判断。</p></section><section class="chapter" id="chapter-2" data-chapter="2"><div class="chapter-kicker">Chapter 02</div><h1 id="c2-1-第一章-定位-记忆与可重复格式">第一章 定位、记忆与可重复格式</h1>
+<h2 id="c2-2-流量不是品牌-重复也不等于无聊">流量不是品牌，重复也不等于无聊</h2>
+<p>Colin &amp; Samir 在 2025 年的访谈中把问题从“怎样获得更多播放”改成了“看完以后观众是否记得你”。他们观察到，内容供给极度过剩，同一领域里存在大量近似内容。趋势可以让创作者偶尔搭上顺风车，却很难建立长期信任。可重复格式之所以重要，不只是降低生产难度，而是让观众形成识别。</p>
+<p>这里要区分三件事：</p>
+<ul>
+<li><strong>领域</strong>：你谈论 AI 和科技；</li>
+<li><strong>价值承诺</strong>：你帮助普通人穿过营销话术，理解技术究竟意味着什么；</li>
+<li><strong>格式</strong>：你反复用什么过程兑现这个承诺。</li>
+</ul>
+<p>“我做 AI 内容”不能指导选题取舍。“我用真实测试和清晰原理，帮普通人判断一个 AI 热点值不值得学、值不值得焦虑”则可以。</p>
+<blockquote><strong>原课讲解</strong>：Colin 认为，人们在短视频流里一天看过大量内容，重复出现的格式、开场、视觉信号和价值观，会提高回忆概率。Samir 将品牌概括为长期一致性，并认为格式是抵达一致性的路径。（Colin &amp; Samir，约 01:32—08:14）</blockquote>
+<h2 id="c2-3-格式是一组稳定变量">格式是一组稳定变量</h2>
+<div class="table-wrap"><table><thead><tr>
+<th>变量</th>
+<th>问题</th>
+<th>Lix示例</th>
+</tr></thead><tbody>
+<tr>
+<td>目标观众</td>
+<td>这次主要服务谁</td>
+<td>会用ChatGPT但不知道下一步的人</td>
+</tr>
+<tr>
+<td>固定冲突</td>
+<td>每期反复解决什么矛盾</td>
+<td>“博主说很简单”与真实实施成本</td>
+</tr>
+<tr>
+<td>开场动作</td>
+<td>怎样快速进入问题</td>
+<td>先给反常识判断，再展示亲测证据</td>
+</tr>
+<tr>
+<td>推进结构</td>
+<td>中间怎样不断前进</td>
+<td>现象→反驳→原理→现实边界</td>
+</tr>
+<tr>
+<td>价值兑现</td>
+<td>看完得到什么</td>
+<td>能作出使用、学习或放弃的判断</td>
+</tr>
+<tr>
+<td>识别信号</td>
+<td>观众怎样认出系列</td>
+<td>固定标题句式、桌面实测、克制封面</td>
+</tr>
+</tbody></table></div>
+<h2 id="c2-4-引擎格式与作品格式">引擎格式与作品格式</h2>
+<p>Colin &amp; Samir 同时提醒：真正热爱的重型作品未必适合作为稳定商业引擎。他们把高频、可运营的访谈和通讯，与耗费大量心力的纪录片项目区分开来。前者维持稳定，后者保留实验和表达空间。（约 12:00—16:27）</p>
+<ul>
+<li><strong>引擎格式</strong>：一至两天能完成，承担稳定更新。例如“一个AI黑话，普通人到底需不需要懂”。</li>
+<li><strong>作品格式</strong>：需要深入研究或长期实测，承担代表作。例如完整实测一套AI工作台，再拆解小白真正会卡在哪里。</li>
+</ul>
+<p>如果把所有内容都按代表作做，你会无法稳定发布；如果全部按流水线做，你会失去创作满足感和个人判断。</p>
+<h2 id="c2-5-三个适合你的格式原型">三个适合你的格式原型</h2>
+<h3 id="c2-6-格式a-反常识祛魅">格式A：反常识祛魅</h3>
+<p>开场给出一个与流行说法相反的判断；随后替观众提出最合理的反驳；用具体案例拆开隐藏前提；最后给出有边界的结论。适合观点视频。</p>
+<h3 id="c2-7-格式b-真实实施成本">格式B：真实实施成本</h3>
+<p>先展示“别人说一键完成”的承诺；完整跑一遍；记录登录、付费、部署、稳定性和维护成本；最后说明适合谁、不适合谁。适合工具实测。</p>
+<h3 id="c2-8-格式c-普通人翻译器">格式C：普通人翻译器</h3>
+<p>从一个生活类比进入，但不让类比代替原理；解释术语之间的关系；指出类比在哪些地方失效；最后回到实际选择。适合 Agent、Skill、MCP 等概念。</p>
+<h2 id="c2-9-常见误区">常见误区</h2>
+<ol>
+<li><strong>把固定文案当格式。</strong>同一句口头禅不能补救价值和结构的不稳定。</li>
+<li><strong>太早追求视觉统一。</strong>封面颜色一致，但内容承诺不一致，仍然不会形成品牌。</li>
+<li><strong>把一致性理解为不许实验。</strong>正确结构是稳定引擎周围保留20%—30%的实验空间。</li>
+<li><strong>用更新频率代替可持续性。</strong>格式必须符合你真实的工作和育儿时间。</li>
+</ol>
+<h2 id="c2-10-随堂练习-完成一张格式卡">随堂练习：完成一张格式卡</h2>
+<p>从上面三个原型中选择一个，写出六个变量，并回答：连续做十期后，观众会因为什么认出它？第十期还能变化的部分是什么？单期制作超过多长时间，这个格式就无法成为引擎？</p>
+<details><summary>参考判断</summary>
+<p>一张合格格式卡不是越固定越好。它应固定观众、冲突和价值兑现，允许题材、案例、叙事素材和视觉手段变化。若只能靠反复换热点维持新鲜，它仍然只是选题集合。</p>
+</details>
+<h2 id="c2-11-本章检查点">本章检查点</h2>
+<p>你可以继续学习，如果你能不用“AI博主”“知识博主”这类领域标签，清楚说出：你为谁、反复解决什么判断问题、用什么稳定过程解决。</p></section><section class="chapter" id="chapter-3" data-chapter="3"><div class="chapter-kicker">Chapter 03</div><h1 id="c3-1-第二章-用异常样本研究选题">第二章 用异常样本研究选题</h1>
+<h2 id="c3-2-好选题不是-想到的-而是-观察后生成的">好选题不是“想到的”，而是“观察后生成的”</h2>
+<p>Richard/1of10 把创作前的工作拆成四个阶段：确定受众、寻找异常样本、重新组合、发布前验证。这个方法最有价值的地方，不是承诺预测爆款，而是把“我觉得大家会喜欢”变成一组可检查的假设。</p>
+<blockquote><strong>原课讲解</strong>：Richard 将选题系统概括为 audience identification、outlier research、idea remixing、validation，并提醒错误受众带来的爆量可能损害频道后续表现。（访谈约 01:12—25:28）</blockquote>
+<h2 id="c3-3-第一步-先写清-这次想吸引谁">第一步：先写清“这次想吸引谁”</h2>
+<p>受众不是年龄、城市和收入，而是进入内容时所处的情境。</p>
+<p>例如“25—35岁职场人”太宽泛；以下描述才可指导创作：</p>
+<ul>
+<li>已经会用 ChatGPT，但不知道 Agent 与聊天有什么实际区别；</li>
+<li>看到别人展示一键工作台，既心动又担心自己做不出来；</li>
+<li>被“AI淘汰人类”的内容弄得焦虑，希望得到可信判断；</li>
+<li>想系统学习AI，却分不清课程、教程和营销资料。</li>
+</ul>
+<p>一条内容可以被很多人看到，但创作时必须有一个优先情境。否则标题会同时讨好所有人，最后没有一个人觉得“这就是在说我”。</p>
+<h2 id="c3-4-第二步-怎样寻找异常样本">第二步：怎样寻找异常样本</h2>
+<p>异常样本不是“播放量最高”，而是相对于账号正常水平显著超出的作品。研究时记录：</p>
+<div class="table-wrap"><table><thead><tr>
+<th>观察项</th>
+<th>不要只写</th>
+<th>应该记录</th>
+</tr></thead><tbody>
+<tr>
+<td>题材</td>
+<td>AI Agent</td>
+<td>普通人第一次搭建Agent时的隐性成本</td>
+</tr>
+<tr>
+<td>标题结构</td>
+<td>很夸张</td>
+<td>先给承诺，再暗示反转</td>
+</tr>
+<tr>
+<td>开场</td>
+<td>节奏快</td>
+<td>前8秒出现结果、疑问和证据</td>
+</tr>
+<tr>
+<td>情绪</td>
+<td>焦虑</td>
+<td>怕落后＋怕花冤枉时间</td>
+</tr>
+<tr>
+<td>价值兑现</td>
+<td>干货多</td>
+<td>看完能决定“做/不做”</td>
+</tr>
+<tr>
+<td>评论信号</td>
+<td>评论多</td>
+<td>大量人追问同一个实施难点</td>
+</tr>
+</tbody></table></div>
+<p>按五个范围找样本：自己账号、同赛道、相邻赛道、赛道之外、现实与文化素材。跨赛道研究的目的，是寻找结构，而不是复制陌生领域的结论。</p>
+<h2 id="c3-5-第三步-迁移结构-而不是换名词抄标题">第三步：迁移结构，而不是换名词抄标题</h2>
+<p>三种基础迁移方法：</p>
+<h3 id="c3-6-升级">升级</h3>
+<p>增加范围、时长、困难或后果。例如把“一次测试”升级为“连续使用30天后，哪些习惯真的留下了”。升级必须带来新证据，不能只升级数字。</p>
+<h3 id="c3-7-反转">反转</h3>
+<p>从观众默认相信的方向切入相反判断。例如“费曼学习法并不适合所有初学者”。反转后必须解释原观点成立的条件，否则只是抬杠。</p>
+<h3 id="c3-8-兴趣主题替换">兴趣主题替换</h3>
+<p>保留故事结构，更换核心对象。例如把“我按照网红理财法生活30天”迁移成“我按AI博主的一键工作流工作一周”。保留的是实测与落差，不是原文案。</p>
+<h2 id="c3-9-第四步-发布前验证">第四步：发布前验证</h2>
+<p>用五个问题过滤候选选题：</p>
+<ol>
+<li>我能指出至少一个已经被验证的相似结构吗？</li>
+<li>这个题吸引来的观众，还会想看我下一条吗？</li>
+<li>我有什么一手经历、测试或判断，避免成为信息搬运？</li>
+<li>标题承诺能否被正文真正兑现？</li>
+<li>如果去掉热点名词，这个问题仍然成立吗？</li>
+</ol>
+<p>通过四项以上进入脚本；通过两项以下回到研究；三项则做低成本试拍或图文测试。</p>
+<h2 id="c3-10-ai补充-为你的每日雷达增加三类证据">AI补充：为你的每日雷达增加三类证据</h2>
+<p>热点雷达不应只输出“发生了什么”，还应输出：</p>
+<ul>
+<li><strong>需求证据</strong>：评论区和搜索中，人们反复问什么；</li>
+<li><strong>结构证据</strong>：哪些表达方式明显跑出账号基线；</li>
+<li><strong>身份证据</strong>：这个题为什么适合由你讲，而不是任何AI账号讲。</li>
+</ul>
+<p>这会把雷达从新闻摘要器变成创作决策器。</p>
+<h2 id="c3-11-练习-建立15条样本表">练习：建立15条样本表</h2>
+<p>选择5条同赛道、5条相邻赛道、5条赛道外异常作品。每条只写六项：原始问题、目标情境、标题结构、开场承诺、主要情绪、可迁移结构。最后生成五个新选题，但每个必须标明它迁移了什么、加入了什么新证据。</p>
+<details><summary>错误示例与修正</summary>
+<p>错误：“别人拍《我用AI工作30天》，我改成《我用Codex工作30天》。”这只是名词替换。修正：“我本来想用Agent节省时间，连续30天记录后发现，最大成本不是Token而是维护。”它加入了新的观察变量和结论方向。</p>
+</details>
+<h2 id="c3-12-本章检查点">本章检查点</h2>
+<p>面对一个爆款，你能分别说出题材、结构、情绪、观众情境和可迁移部分，而不是只感叹“这个标题很好”。</p></section><section class="chapter" id="chapter-4" data-chapter="4"><div class="chapter-kicker">Chapter 04</div><h1 id="c4-1-第三章-受众扩圈与包装">第三章 受众扩圈与包装</h1>
+<h2 id="c4-2-专业内容为什么经常只在圈内传播">专业内容为什么经常只在圈内传播</h2>
+<p>Paddy Galloway 用 Core–Casual–New（核心、泛兴趣、新受众）检查一个选题的可扩展性。核心受众已经关心专业问题；泛兴趣受众偶尔关注；新受众不关心术语，但可能被问题、故事或结果吸引。</p>
+<blockquote><strong>原课讲解</strong>：Paddy 认为优秀的扩圈选题能同时让核心、泛兴趣和新观众产生点击理由。只服务核心受众会限制规模；只追新受众则可能丢掉频道原本积累的关系。（约 13:04—17:10）</blockquote>
+<h2 id="c4-3-三层受众不是三种内容深度">三层受众不是三种内容深度</h2>
+<p>扩圈不等于“把内容做浅”。真正改变的是进入顺序：</p>
+<ol>
+<li>先提出新受众也能感知的问题；</li>
+<li>再给泛兴趣受众足够的背景；</li>
+<li>最后保留核心受众需要的准确原理和边界。</li>
+</ol>
+<p>例如“MCP与Plugin有什么区别”可以改成：</p>
+<blockquote>AI为什么能像电脑一样不断接外设？Plugin像装好的一整套外设方案，MCP更接近通用连接标准。但这个类比到权限、宿主和服务端时就开始失效。</blockquote>
+<p>新受众从电脑外设进入，核心受众仍能得到类比边界，而不是只听一个错误但好记的比喻。</p>
+<h2 id="c4-4-包装是内容的一部分">包装是内容的一部分</h2>
+<p>Paddy 在访谈中将创意来源分为内部经验、外部样本和包装，并强调标题的小幅改进可能造成巨大的分发差异。（约 00:29）这里不能误读为“标题比内容重要”，更准确的理解是：平台必须先获得一次点击或停留，内容质量才有机会被体验。</p>
+<p>包装包含四个要素：</p>
+<ul>
+<li><strong>对象</strong>：这件事关于谁或什么；</li>
+<li><strong>变化</strong>：发生了什么反差；</li>
+<li><strong>利害</strong>：观众为什么需要关心；</li>
+<li><strong>未完成信息</strong>：点开后才能获得什么答案。</li>
+</ul>
+<p>例如“AI工作台搭建教程”只有对象；“所有人都说AI工作台一键搭建，我做完才发现最贵的不是服务器”同时具备对象、反差、利害和信息缺口。</p>
+<h2 id="c4-5-核心-泛兴趣-新受众改写法">核心—泛兴趣—新受众改写法</h2>
+<div class="table-wrap"><table><thead><tr>
+<th>层级</th>
+<th>示例标题</th>
+<th>作用</th>
+</tr></thead><tbody>
+<tr>
+<td>核心</td>
+<td>DeepSeek Harness 为什么需要缓存命中</td>
+<td>精准服务已有技术兴趣的人</td>
+</tr>
+<tr>
+<td>泛兴趣</td>
+<td>为什么同一个模型接不同Agent，费用能差好几倍</td>
+<td>把技术问题转为成本问题</td>
+</tr>
+<tr>
+<td>新受众</td>
+<td>你以为AI贵在答案，其实大部分钱花在“重复读题”</td>
+<td>用反常识生活语言进入</td>
+</tr>
+</tbody></table></div>
+<p>三种版本没有绝对高下。你的内容组合可以是：每四条中两条泛兴趣、一条核心、一条用于探索新受众。发布后看关注转化、主页访问、收藏理由和评论质量，而不是只看播放。</p>
+<h2 id="c4-6-诅咒-知道得越多-标题越容易写窄">诅咒：知道得越多，标题越容易写窄</h2>
+<p>Paddy 提到知识诅咒：创作者熟悉一个领域后，会误以为基础问题已经没人关心，持续追求更细、更专业的新东西。（约 15:25）对你的风险是标题里出现越来越多产品名、版本号和架构词，普通人连“为什么值得知道”都来不及建立。</p>
+<p>解决方式不是放弃术语，而是先问：术语背后改变了什么现实选择？</p>
+<h2 id="c4-7-练习-一题三写">练习：一题三写</h2>
+<p>选择五个候选选题，各写核心、泛兴趣和新受众三个标题。然后给每个标题补一句“正文必须兑现的承诺”。若三版正文完全一样，只是标题越来越夸张，说明你没有真正调整入口。</p>
+<details><summary>参考答案：Skill蒸馏书籍</summary>
+<ul>
+<li>核心：把一本畅销书蒸馏成Skill，为什么很可能只是上下文重复？</li>
+<li>泛兴趣：AI已经读过这本书，你为什么还要再喂它一次？</li>
+<li>新受众：别再让AI替你“读完一本书”了，问题可能从第一步就错了。</li>
+</ul>
+<p>三版共同核心是知识是否已存在，但需要分别补充上下文、模型训练常识和日常阅读误区。</p>
+</details>
+<h2 id="c4-8-本章检查点">本章检查点</h2>
+<p>你能够在不牺牲准确性的情况下，把一个圈内术语改写成普通人能感知的现实问题，并能指出这条内容主要服务三层中的哪一层。</p></section><section class="chapter" id="chapter-5" data-chapter="5"><div class="chapter-kicker">Chapter 05</div><h1 id="c5-1-第四章-教程型内容的双重任务">第四章 教程型内容的双重任务</h1>
+<h2 id="c5-2-搜索答案和推荐观看-是两个不同场景">搜索答案和推荐观看，是两个不同场景</h2>
+<p>Thomas Frank 建立 Notion 教程频道时，希望它成为用户想到 Notion 学习时会立即进入的“目的地”。他原以为频道主要依赖搜索，后来发现来自首页浏览和相关推荐的流量更大。（访谈约 00:10—05:35）</p>
+<p>搜索型观众已经知道问题，推荐型观众尚未意识到自己需要这个答案。因此，教程内容承担两个任务：解决明确问题，以及让更多人发现“原来这件事与我有关”。</p>
+<div class="table-wrap"><table><thead><tr>
+<th>维度</th>
+<th>搜索型教程</th>
+<th>推荐型教程</th>
+</tr></thead><tbody>
+<tr>
+<td>进入状态</td>
+<td>已有具体问题</td>
+<td>只有模糊兴趣或痛点</td>
+</tr>
+<tr>
+<td>标题重点</td>
+<td>准确、可检索</td>
+<td>结果、反差、代价</td>
+</tr>
+<tr>
+<td>开头</td>
+<td>快速确认能解决</td>
+<td>先建立为什么值得看</td>
+</tr>
+<tr>
+<td>结构</td>
+<td>步骤和故障排查</td>
+<td>故事推进中嵌入步骤</td>
+</tr>
+<tr>
+<td>生命周期</td>
+<td>可能长期被搜索</td>
+<td>依赖当下包装和传播</td>
+</tr>
+</tbody></table></div>
+<p>同一个素材可以形成一对内容：</p>
+<ul>
+<li>搜索版：《Codex安装Skill完整步骤与常见报错》</li>
+<li>推荐版：《我给Codex装了一个Skill，它真的学会新能力了吗？》</li>
+</ul>
+<p>前者进入资料库，后者承担账号增长。推荐版不是把教程藏起来，而是先建立观看动机。</p>
+<h2 id="c5-3-目的地感-主页要像一套课程-不像杂物抽屉">目的地感：主页要像一套课程，不像杂物抽屉</h2>
+<p>Thomas 另开频道不是因为算法一定惩罚内容混杂，而是希望观众点入主页后，立刻理解这里提供什么。（约 04:19）这对你不一定意味着分账号，更现实的做法是建立清晰系列：</p>
+<ul>
+<li>AI黑话翻译；</li>
+<li>反割韭菜实测；</li>
+<li>从AI聊天到AI干活；</li>
+<li>普通人Agent入门；</li>
+<li>AI学习方法纠偏。</li>
+</ul>
+<p>每个系列至少应有一个入口内容、两个深化内容和一个能独立搜索的工具内容。这样，一条爆款带来的主页访问才有后续去处。</p>
+<h2 id="c5-4-平台风险与内容过期">平台风险与内容过期</h2>
+<p>Thomas 将平台依赖比作火箭燃料：依赖大型平台带来加速，同时也带来风险；创作者不能因为追求完全自主，就用“自己造的自行车”去完成需要火箭的任务。（约 12:42—13:27）</p>
+<p>对于 AI 教程，风险有三层：</p>
+<ol>
+<li>发布平台改变分发；</li>
+<li>被讲解的工具更换界面、价格或功能；</li>
+<li>账号过度绑定一个产品，产品衰退后受众也随之流失。</li>
+</ol>
+<p>因此教程要增加版本和日期，并尽量解释不会很快过期的原理。操作步骤回答“现在怎么做”，原理回答“变化后怎么重新判断”。</p>
+<blockquote><strong>当前情境更新（核对至2026-08-20）</strong>：AI工具、模型版本、免费额度和API规则变化很快。本课程不保留任何未经当前官方页面核实的价格或额度结论。你的教程发布前应重新核验，并在画面或文案中标注日期。</blockquote>
+<h2 id="c5-5-教程体验设计">教程体验设计</h2>
+<p>一条高完成度教程应包含：</p>
+<ul>
+<li>开头展示最终结果与适用人群；</li>
+<li>开始前列出账号、设备、费用和权限条件；</li>
+<li>每一步解释“为什么做”，而不只是点哪里；</li>
+<li>明确正常状态和错误状态；</li>
+<li>给出一条最短成功路径，再补充高级分支；</li>
+<li>结尾告诉观众如何验证成功。</li>
+</ul>
+<h2 id="c5-6-练习-一份素材-两种成片">练习：一份素材，两种成片</h2>
+<p>选择一个你真正操作过的AI工具，分别写搜索版与推荐版简报。两版可以共享录屏，但必须重新写标题、前15秒、信息顺序和结尾行动。</p>
+<details><summary>自检答案</summary>
+<p>搜索版如果花很久讲背景，会让明确求解的用户失去耐心；推荐版如果第一秒就进入界面按钮，尚未建立需求的观众会离开。两版共享知识，不共享完整叙事。</p>
+</details>
+<h2 id="c5-7-本章检查点">本章检查点</h2>
+<p>你能判断一条教程主要服务搜索还是推荐，并知道怎样让主页上的下一条内容承接它，而不是让观众解决完问题就离开。</p></section><section class="chapter" id="chapter-6" data-chapter="6"><div class="chapter-kicker">Chapter 06</div><h1 id="c6-1-第五章-短视频的故事与留存">第五章 短视频的故事与留存</h1>
+<h2 id="c6-2-短视频不是长视频的压缩版">短视频不是长视频的压缩版</h2>
+<p>Jenny Hoyos 的方法建立在一个关键差异上：短视频流里的观众通常没有主动点击，内容必须在第一帧同时完成“这是什么”和“为什么值得继续”。她强调第一帧要足够视觉化、简单，即使静音也能大致理解，并认为故事、个人目标和反差能让普通题材获得投入感。（访谈约 01:18—02:34）</p>
+<p>“强钩子”不是音量大、表情夸张或故意隐瞒答案。它是一份清楚的观看合同：告诉观众接下来要解决什么，同时保留过程未知。</p>
+<h2 id="c6-3-五段式观点短视频">五段式观点短视频</h2>
+<p>适合你的60—120秒结构：</p>
+<ol>
+<li><strong>结论冲突</strong>：给出一句足够具体的反常识判断；</li>
+<li><strong>合理反驳</strong>：替观众说出最强的不同意见；</li>
+<li><strong>具体证据</strong>：个人测试、真实案例或可核查资料；</li>
+<li><strong>原理拆解</strong>：指出争议来自哪个隐藏前提；</li>
+<li><strong>边界结论</strong>：说明什么时候成立，什么时候不成立。</li>
+</ol>
+<p>以“不要用Skill蒸馏畅销书”为例：</p>
+<ul>
+<li>冲突：不要把一本畅销书直接蒸馏成Skill，它大概率没有你想象的价值。</li>
+<li>反驳：但我没读过，AI替我总结不是节省时间吗？</li>
+<li>证据：强模型训练中可能已经接触过这本畅销书及大量评论；再次塞入并不会自动形成更好的判断。</li>
+<li>原理：内容存在、提示能调用、工作流稳定执行，是三个不同问题。</li>
+<li>边界：内部资料、个人笔记、冷门技术文档或必须遵循的私有流程仍然可能很有价值。</li>
+</ul>
+<p>这样的结尾不会为了立场绝对化而牺牲准确性，也更符合你的“祛魅但不说教”风格。</p>
+<h2 id="c6-4-每一段都要推进-而不是只换说法">每一段都要推进，而不是只换说法</h2>
+<p>Jenny 认为短视频里每一秒都重要，并建议承诺一旦兑现就迅速结束。（约 00:42）这不等于每秒必须剪辑，而是每个段落至少完成一种推进：</p>
+<ul>
+<li>增加新证据；</li>
+<li>缩小答案范围；</li>
+<li>提高后果；</li>
+<li>反转此前理解；</li>
+<li>回答一个问题，同时生成下一个问题。</li>
+</ul>
+<p>如果连续两句话只是在重复“这件事很重要”，应该删掉其中一句。</p>
+<h2 id="c6-5-个人性不是讲私生活-而是让选择有主人">个人性不是讲私生活，而是让选择有主人</h2>
+<p>Jenny 通过“厨房坏了，所以靠做饭赚钱修厨房”的个人目标与反差，让普通的做饭题材产生故事。（约 01:37）迁移到知识内容，个人性可以来自：</p>
+<ul>
+<li>你为什么开始测试；</li>
+<li>你原本相信什么；</li>
+<li>哪一步让你改变判断；</li>
+<li>你承担了什么真实成本；</li>
+<li>你的职业经验让你看见了什么。</li>
+</ul>
+<p>“我测试了一个工具”不够个人；“我本来想证明小白也能一键搭建，结果第三次部署后才发现，真正门槛不是代码”才形成故事。</p>
+<h2 id="c6-6-留存数据不能单独解释内容质量">留存数据不能单独解释内容质量</h2>
+<p>Jenny 的“留存没那么重要”是一种纠偏，不是说留存无用。高留存可能来自极短时长、误导性悬念或重复播放；低留存也可能因为包装吸引了错误受众。复盘必须联合查看：</p>
+<ul>
+<li>开头停留：观看合同是否清楚；</li>
+<li>中段流失：是否缺少推进或证据；</li>
+<li>完播与重播：长度和信息密度是否匹配；</li>
+<li>收藏与转发：是否有长期价值或社交表达价值；</li>
+<li>关注和主页访问：内容是否加强了身份认知；</li>
+<li>评论内容：观众理解的是不是你真正想表达的结论。</li>
+</ul>
+<h2 id="c6-7-平台迁移提醒">平台迁移提醒</h2>
+<p>YouTube Shorts、抖音和小红书的用户期待、互动方式与分发信号不同。不要机械照搬“最佳秒数”或某个留存阈值。可以迁移的是：第一帧清晰、承诺与兑现一致、每段推进、结尾不拖延；具体长度由你自己账号的对照实验决定。</p>
+<h2 id="c6-8-练习-做一次删减测试">练习：做一次删减测试</h2>
+<p>拿一篇现有口播稿，在每一段旁标记它属于“证据、范围、后果、反转、回答”中的哪一种推进。没有标签的句子先删除，再读一遍。如果逻辑没有损失，说明它原本只是重复。</p>
+<details><summary>参考判断</summary>
+<p>情绪、停顿和人物气息不必全部删除。删减测试针对的是没有功能的解释重复，不是把口语稿压成新闻提要。你的自然节奏、具体细节和思考毛边仍然是人物感的一部分。</p>
+</details>
+<h2 id="c6-9-本章检查点">本章检查点</h2>
+<p>你能写出一个准确的观看合同，并保证中间每个段落都在推进，同时让结尾兑现开头而不过度绝对化。</p></section><section class="chapter" id="chapter-7" data-chapter="7"><div class="chapter-kicker">Chapter 07</div><h1 id="c7-1-第六章-创作系统与结课项目">第六章 创作系统与结课项目</h1>
+<h2 id="c7-2-把五套方法装进一条工作流">把五套方法装进一条工作流</h2>
+<p>前五章分别解决了五个问题：观众怎样记住你、选题从哪里来、怎样让圈外人进入、教程如何兼顾搜索与推荐、短视频怎样持续推进。现在把它们组合为发布前的六个决策门。</p>
+<div class="table-wrap"><table><thead><tr>
+<th>决策门</th>
+<th>必答问题</th>
+<th>不通过时回到哪里</th>
+</tr></thead><tbody>
+<tr>
+<td>身份</td>
+<td>这条内容怎样加强“我是谁”</td>
+<td>第一章格式卡</td>
+</tr>
+<tr>
+<td>需求</td>
+<td>目标观众处于什么具体情境</td>
+<td>第二章受众描述</td>
+</tr>
+<tr>
+<td>证据</td>
+<td>我参考了什么样本，又增加了什么一手信息</td>
+<td>第二章样本表</td>
+</tr>
+<tr>
+<td>入口</td>
+<td>核心、泛兴趣、新受众谁是主入口</td>
+<td>第三章CCN改写</td>
+</tr>
+<tr>
+<td>体验</td>
+<td>搜索求解还是推荐发现</td>
+<td>第四章双版本</td>
+</tr>
+<tr>
+<td>兑现</td>
+<td>每一段如何推进，结尾如何收束</td>
+<td>第五章结构稿</td>
+</tr>
+</tbody></table></div>
+<h2 id="c7-3-你的内容组合-不应该只有一种成功">你的内容组合，不应该只有一种成功</h2>
+<p>建议以四条为一个小周期：</p>
+<ul>
+<li>两条稳定引擎：低到中成本，强化格式记忆；</li>
+<li>一条核心深度：服务已有受众，建立专业信任；</li>
+<li>一条实验作品：尝试新叙事、新受众或更高制作规格。</li>
+</ul>
+<p>不要要求四条都以播放量证明价值。分别定义成功：引擎看稳定完成和识别，深度看收藏与评论质量，实验看新受众反应，代表作看长期引用与主页承接。</p>
+<h2 id="c7-4-结课项目-从15个想法到一条可拍作品">结课项目：从15个想法到一条可拍作品</h2>
+<h3 id="c7-5-第一步-建立候选池">第一步：建立候选池</h3>
+<p>从第二章的异常样本研究中生成15个想法，每个用一句话写明目标情境和独有证据。删除只有热点、没有问题的条目。</p>
+<h3 id="c7-6-第二步-五项打分">第二步：五项打分</h3>
+<p>每项0—2分，总分10分：</p>
+<div class="table-wrap"><table><thead><tr>
+<th>维度</th>
+<th>0分</th>
+<th>1分</th>
+<th>2分</th>
+</tr></thead><tbody>
+<tr>
+<td>受众需求</td>
+<td>推测</td>
+<td>有零散信号</td>
+<td>评论/搜索反复出现</td>
+</tr>
+<tr>
+<td>身份匹配</td>
+<td>谁都能讲</td>
+<td>有个人观点</td>
+<td>有职业/实测证据</td>
+</tr>
+<tr>
+<td>格式匹配</td>
+<td>需要重造</td>
+<td>勉强适配</td>
+<td>可直接进入成熟格式</td>
+</tr>
+<tr>
+<td>包装潜力</td>
+<td>只有术语</td>
+<td>有一个利害点</td>
+<td>反差、利害和缺口清楚</td>
+</tr>
+<tr>
+<td>制作可行</td>
+<td>本周做不了</td>
+<td>需要压缩</td>
+<td>现有条件能完成</td>
+</tr>
+</tbody></table></div>
+<p>选择总分最高的三项，不要直接选你最兴奋的一项。</p>
+<h3 id="c7-7-第三步-完成创作简报">第三步：完成创作简报</h3>
+<p>复制并填写：</p>
+<p><strong>一句话题目：</strong> <strong>目标观众情境：</strong> <strong>主要受众层：核心 / 泛兴趣 / 新受众</strong> <strong>所属格式：</strong> <strong>已经验证的结构样本：</strong> <strong>我的新证据或不同判断：</strong> <strong>标题A（准确）：</strong> <strong>标题B（更强入口）：</strong> <strong>第一帧画面：</strong> <strong>前15秒观看合同：</strong> <strong>五段推进：</strong> <strong>结论边界：</strong> <strong>需要拍摄/录屏的证据：</strong> <strong>发布后主要观察指标：</strong></p>
+<h3 id="c7-8-第四步-做一次反向审稿">第四步：做一次反向审稿</h3>
+<p>分别扮演三类观众：</p>
+<ol>
+<li>完全不懂AI的人：我能否知道这与我有什么关系？</li>
+<li>已经懂一点的人：我是否获得了新判断，而不只是基础科普？</li>
+<li>熟悉这个领域的人：类比、因果和结论边界是否准确？</li>
+</ol>
+<p>一条内容不一定同时让三者满意，但不能让任何一层因为误导而进入。</p>
+<h2 id="c7-9-复盘模板-不要只问-为什么没爆">复盘模板：不要只问“为什么没爆”</h2>
+<p>发布48小时后记录：</p>
+<ul>
+<li>包装吸引来的是否是目标人群？证据是什么？</li>
+<li>流失发生在承诺不清、证据不足还是节奏停滞？</li>
+<li>评论复述的核心结论与我的本意一致吗？</li>
+<li>观众是否进入主页或继续观看同系列？</li>
+<li>哪个变量下次保持，哪个变量只改一个？</li>
+</ul>
+<p>每次只改变一到两个主要变量，否则无法知道变化来自哪里。</p>
+<h2 id="c7-10-综合测验">综合测验</h2>
+<ol>
+<li>为什么“AI/科技”不是一个足够的内容格式？</li>
+<li>异常样本研究与复制爆款的关键区别是什么？</li>
+<li>CCN扩圈为什么不等于降低专业深度？</li>
+<li>同一教程的搜索版和推荐版最应该改变哪三部分？</li>
+<li>高留存为什么不能单独证明内容有效？</li>
+<li>引擎格式和作品格式分别承担什么任务？</li>
+</ol>
+<details><summary>参考答案</summary>
+<ol>
+<li>它只说明领域，没有规定观众、冲突、兑现过程和识别信号。</li>
+<li>前者迁移已验证的结构并加入新证据；后者只替换题材或表达。</li>
+<li>扩圈改变进入问题的入口和解释顺序，准确原理与边界仍应保留。</li>
+<li>标题、前15秒和信息顺序；必要时结尾行动也应变化。</li>
+<li>它受到时长、错误受众、悬念和重播等因素影响，需要联合关注、收藏、评论理解等指标。</li>
+<li>引擎保证可持续交付与记忆；作品保留实验、深度与代表性表达。</li>
+</ol>
+</details>
+<h2 id="c7-11-五分钟结课复习">五分钟结课复习</h2>
+<ul>
+<li>定位不是“我讲什么”，而是“我反复帮助谁作出什么判断”。</li>
+<li>格式固定价值兑现，允许题材和表达变化。</li>
+<li>研究异常样本，迁移结构，不复制表面。</li>
+<li>先确定主要受众层，再决定入口语言。</li>
+<li>教程既可以解决搜索，也可以创造需求。</li>
+<li>短视频每一段都要推进，观看合同必须兑现。</li>
+<li>稳定引擎和代表作品应当共存。</li>
+</ul>
+<p>最后重新回答开篇三个基准问题。如果答案从领域标签变成了具体观众、判断任务和可重复过程，这门课已经完成了最重要的改变。</p>
+<h2 id="c7-12-来源">来源</h2>
+<ul>
+<li><a href="https://podcast.creatorscience.com/colinandsamir/">Colin &amp; Samir：长期频道、格式与品牌</a>，2025-07-15。</li>
+<li><a href="https://podcast.creatorscience.com/richard-1of10-replay/">Richard / 1of10：数据化选题系统</a>，2026-08-11重播版本。</li>
+<li><a href="https://podcast.creatorscience.com/paddy-galloway-2/">Paddy Galloway：Core–Casual–New与包装</a>，2024-09-03。</li>
+<li><a href="https://podcast.creatorscience.com/thomas-frank-2/">Thomas Frank：教程频道与平台风险</a>，2024-03-05。</li>
+<li><a href="https://podcast.creatorscience.com/jenny-hoyos/">Jenny Hoyos：短视频钩子、故事与留存</a>，2023-10-10。</li>
+</ul></section></main><script>
+const sidebar = document.querySelector('.sidebar');
+const toggle = document.querySelector('.nav-toggle');
+const search = document.querySelector('#toc-search');
+const links = [...document.querySelectorAll('nav a')];
+toggle?.addEventListener('click', () => sidebar?.classList.toggle('open'));
+links.forEach(link => link.addEventListener('click', () => sidebar?.classList.remove('open')));
+search?.addEventListener('input', event => {
+  const query = event.target.value.trim().toLowerCase();
+  links.forEach(link => {
+    link.hidden = query && !link.textContent.toLowerCase().includes(query);
+  });
+});
+const observer = new IntersectionObserver(entries => {
+  entries.filter(entry => entry.isIntersecting).forEach(entry => {
+    links.forEach(link => link.classList.toggle('active', link.hash === '#' + entry.target.id));
+  });
+}, { rootMargin: '-10% 0px -80% 0px' });
+document.querySelectorAll('h1[id], h2[id], h3[id]').forEach(heading => observer.observe(heading));
+
+</script></body></html>

@@ -1,545 +1,346 @@
-# study-open-courses
-
-[![Agent Skills](https://img.shields.io/badge/Agent%20Skills-compatible-5b45e0)](https://agentskills.io/specification)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-
-**A learner-first Agent Skill that finds a proven resource, acquires the real material, and rebuilds it into something a human can actually learn from.**
-
-[English](#english) · [简体中文](#简体中文)
-
-> **Popularity is a filter, not the ranking.** Community validation decides what is credible enough to recommend; learner fit decides what comes first.
-
-## English
-
-### Why this project exists
-
-This project began with a very practical problem.
-
-I wanted to learn from high-quality courses on the internet, but I work during the day and take care of my child in the evening. It is difficult to find a long, uninterrupted block of time to sit down and watch hours—or sometimes dozens of hours—of video.
-
-What I needed was something I could read whenever time became available: a few pages during a commute, one lesson between tasks, or another section after my child had fallen asleep. It needed to work naturally on a phone or tablet and let me stop and continue without losing the learning thread.
-
-But I did not want a ten-hour course reduced to a few hundred words. Aggressive summarization often removes the parts that make a course genuinely useful: the relationships between concepts, the instructor's reasoning, essential examples, necessary context, and the practice required to move from “I understand this” to “I can use this.”
-
-That need became `study-open-courses`.
-
-Within lawful access and authorization boundaries, it attempts to locate trustworthy and sufficiently complete course material, then reconstruct video, audio, captions, notes, and other resources into a readable learning experience—while preserving the original knowledge structure, important explanations, examples, practice, and provenance.
-
-It is not designed to bypass or replace the original course, nor to redistribute copyrighted transcripts. It exists to answer a practical question for ordinary learners:
-
-> When I do not have a large block of time to watch a long course, how can I still use fragmented time to learn it as completely and reliably as possible?
-
-That is why this Skill checks integrity first, reconstructs the learning experience second, and only then decides what can safely be compressed. It can start from a goal such as “I want to understand AI agents without becoming a programmer,” or from a named course, book, PDF, playlist, podcast, interview, tutorial, or documentation set.
-
-It does more than summarize:
-
-- it asks only the learner questions that can change the choice;
-- it filters proactive recommendations through real community validation;
-- it ranks validated resources by the learner's level, outcome, time, language, access, and constraints;
-- it decides whether the source should become a course, a companion guide, or remain irreplaceable;
-- it resolves the actual lessons or chapters rather than treating a landing page as content;
-- it finds text, transcripts, captions, media, or scans and processes them with available host capabilities;
-- it checks missing lessons, duplicates, versions, ASR/OCR errors, and provenance before reconstruction;
-- it rebuilds the material around learning dependencies, explanations, examples, practice, and understanding checks;
-- it publishes a complete course in Markdown, self-contained HTML, and PDF by default.
-
-The intended reader is a person trying to learn—not a model waiting to ingest compressed knowledge.
-
-### Install in one command
-
-Install globally with the open-source [`skills` CLI](https://github.com/vercel-labs/skills):
-
-```bash
-npx skills add lix06231/study-open-courses -g
-```
-
-The CLI will detect supported agents and let you choose where to install the skill. For a non-interactive installation, select an agent explicitly:
-
-```bash
-# Codex
-npx skills add lix06231/study-open-courses -g -a codex -y
-
-# Claude Code
-npx skills add lix06231/study-open-courses -g -a claude-code -y
-
-# Gemini CLI
-npx skills add lix06231/study-open-courses -g -a gemini-cli -y
-
-# Cursor
-npx skills add lix06231/study-open-courses -g -a cursor -y
-```
-
-You need a recent Node.js installation so that `npx` is available. You can also clone the repository and place the skill in a directory supported by your agent.
-
-### Quick start
-
-Start with only a learning goal:
-
-```text
-I have a non-technical background and three hours per week.
-I want to understand AI agents well enough to evaluate tools and workflows.
-Use study-open-courses to recommend a well-validated primary resource first.
-```
-
-Or name the source immediately:
-
-```text
-Use study-open-courses to reconstruct this public video course for a beginner.
-I have not downloaded the videos or captions. Resolve and acquire the lawful
-source material yourself, verify course completeness, then build the course.
-```
-
-For a formal deliverable:
-
-```text
-Finish this as a complete downloadable course. Include the source map,
-integrity gaps, exercises, and understanding checks.
-```
-
-That last request activates the default Markdown + HTML + PDF delivery contract.
-
-### How the workflow works
-
-```text
-Learning goal or named resource
-                │
-                ▼
-Resource discovery
-                │
-                ▼
-Community Validation ── admission gate
-                │
-                ▼
-Learner Fit Ranking ──── ordering
-                │
-                ▼
-Learning Suitability
-                │
-                ▼
-Source Resolver → Content Ingestion
-                │
-                ▼
-Integrity Check + Evidence & Provenance
-                │
-                ▼
-Learning Reconstruction
-                │
-                ▼
-Learning Compression, when useful
-                │
-                ▼
-Publishing
-```
-
-#### 1. Community Validation admits candidates
-
-A resource is not considered proven because it has a large view count, a prestigious logo, or an impressive syllabus. The skill looks for sustained adoption, substantive learner feedback, independent community discussion, repeated recommendations, credible expertise, time-tested reputation, and freshness where the subject changes quickly.
-
-Evidence is reported as **Strong**, **Moderate**, **Weak**, or **Unverifiable**. Weak or unverifiable resources are normally supplements, although a user-specified resource can still be processed with its limitation disclosed.
-
-A proactive primary recommendation requires Strong validation. If a reasonable search finds only Moderate options, the skill labels that limitation and asks the learner to accept the fallback rather than silently promoting it.
-
-#### 2. Learner Fit ranks admitted candidates
-
-Once candidates pass the validation gate, the skill compares prerequisites, desired outcome, time, clarity, completeness, freshness, language, cost, registration, region, and accessibility. A famous advanced course should lose to a proven beginner course when the learner is a beginner.
-
-#### 3. Learning Suitability protects the original
-
-Not everything should be compressed into a substitute course:
-
-- **Course reconstruction:** structured knowledge, skills, technology, and methods.
-- **Assisted learning:** reading, viewing, or listening guides when the original experience matters.
-- **Do not replace the original:** literary, artistic, experiential, or deeply context-dependent work.
-
-A guide to *To Live* can provide historical context, character relationships, questions, and a reading path. It should not promise to replace the novel in two hours.
-
-### What happens when you provide no files
-
-Once a named resource is identifiable—or a primary recommendation is confirmed—“the user did not provide materials” is not a blocker when its real content must be assessed or processed.
-
-The skill requires the agent to inspect its available capabilities and follow this source order:
-
-1. native or official text;
-2. official transcript;
-3. official or platform captions;
-4. official notes, slides, exercises, code, or companion documents;
-5. lawfully accessible audio/video processed with speech-to-text;
-6. scans or images processed with OCR.
-
-If only media is available and the host can lawfully access and transcribe it, the agent should do so without asking you to perform the download or transcription. The resulting transcript is checked for lesson boundaries, missing or duplicated segments, language, timestamps, speaker changes, names, technical terms, numbers, formulas, and code.
-
-The agent pauses only for a real blocker: authentication, payment, DRM, region restrictions, copyright or permission ambiguity, inaccessible material, unavailable host capabilities, or a missing dependency that changes the learning outcome. It never asks you to paste passwords, session tokens, or cookies; when the host supports it, you authenticate in the interface you control.
-
-Automatic acquisition is therefore a required decision process, not a promise that every host can download or transcribe every source.
-
-### Integrity and provenance before “AI rewriting”
-
-A course page, syllabus, table of contents, review, or search result is metadata. It cannot support a faithful reconstruction by itself.
-
-Before rewriting, the skill creates a source manifest and checks expected versus acquired items, order, duplicates, truncation, conflicting editions, ASR/OCR quality, attachments, diagrams, exercises, and prerequisites. Whole-resource integrity or formal-completion requests default to all canonical lessons, pages, appendices, exercises, and relevant companion items; scope can narrow only for a real disclosed blocker accepted by the learner. For scanned material, processed pages and visually verified pages are tracked separately, and final units map back to precise page or slide ranges. Gaps are classified as blocking or non-blocking. Missing lessons are never silently invented.
-
-The final work keeps a source map that separates:
-
-- source facts and instructor positions;
-- community evidence about validation or learner experience;
-- the agent's explanations, synthesis, and new examples;
-- uncertainty, corrections, substitutions, and omissions.
-
-### Learning reconstruction before compression
-
-The skill does not shrink the original in place. It first rebuilds a learning sequence around the learner's target outcome:
-
-- prerequisite-aware concept order;
-- explanations at the learner's level;
-- essential examples and worked reasoning;
-- practice, reflection, or application;
-- checks for understanding and feedback guidance;
-- transitions that connect each unit to the final outcome.
-
-Only then does it compress, based on the learner's available time. Prerequisites, causal links, transfer-critical examples, practice, and limitations must survive. When compression would break learning, the scope becomes smaller rather than the claim becoming larger.
-
-### Output contract
-
-| Request | Delivery |
-|---|---|
-| Formal complete course or downloadable final artifact | Markdown + self-contained HTML + PDF |
-| Recommendation, outline, preview, or checkpoint | Smallest useful format; files are optional |
-| Explicit format request | Exactly the requested format or formats |
-
-The three formal formats derive from one canonical content master and must contain equivalent lessons, exercises, checks, sources, gaps, and compression notes. HTML navigation and local assets are verified. PDF text extraction, page count, multilingual fonts, representative pages, tables, clipping, blank pages, and page breaks are checked before completion is claimed.
-
-If a required renderer is unavailable, the skill reports the blocked format and remaining work. It does not silently deliver Markdown only and call the course complete.
-
-### How this differs from general knowledge distillation
-
-This project borrows useful architectural ideas from broader content-processing systems: multiple input types, separation of acquisition from processing, and traceable sources. Its product boundary is different.
-
-| Dimension | study-open-courses | General content / knowledge distillation |
-|---|---|---|
-| Primary user | A human learner | A knowledge base, automation, model, or general reader |
-| First question | What proven resource fits this learner? | How can this input be extracted or compressed? |
-| Recommendation | Validation gate, then learner-fit ranking | Usually not central |
-| Processing order | Verify → reconstruct learning → optionally compress | Extraction or compression may be the main goal |
-| Irreplaceable works | Companion guidance rather than substitution | May still be treated as compressible input |
-| Typical output | Course, guide, workbook, practice, learning checks | Summary, knowledge graph, chunks, or model context |
-
-In one sentence: broad content systems help acquire and trace material; `study-open-courses` decides what a person should learn and how to make that learning work.
-
-### Compatibility
-
-The repository follows the open [Agent Skills specification](https://agentskills.io/specification). Portability still has layers:
-
-| Host or layer | Status |
-|---|---|
-| Agent Skills package structure | Compatible |
-| Discovery through the `skills` CLI | Supported by the CLI for the agent identifiers shown above |
-| Codex behavior | Tested for the core workflow and delivery decisions |
-| Claude Code, Gemini CLI, Cursor behavior | Structurally installable; full behavior not yet independently verified by this project |
-| Caption extraction, downloads, ASR, OCR | Depends on lawful access and the host's available tools |
-| HTML and PDF generation | Depends on the host's document/rendering capabilities |
-
-Installation compatibility does not guarantee identical tools or behavior. The skill is designed to degrade honestly: it names the missing capability and the exact remaining work instead of pretending a partial result is complete.
-
-### Safety and copyright boundaries
-
-- No bypassing logins, payment, DRM, regional controls, or platform restrictions.
-- No implied access to material that was not actually acquired.
-- No raw or near-complete copyrighted transcript redistribution without the necessary rights.
-- No hidden substitution of reviews or community posts for primary course content.
-- No external upload, Git commit, push, repository change, or publication without separate authorization.
-
-The skill may use lawfully accessed material to create original learning explanations, exercises, limited quotations where permitted, and provenance notes. Access permission is not redistribution permission.
-
-### Repository structure
-
-```text
-study-open-courses/
-├── SKILL.md                         # Portable workflow and routing
-├── references/
-│   ├── source-acquisition.md        # Source resolution, ASR/OCR, integrity, provenance
-│   └── publishing.md                # MD/HTML/PDF delivery and validation
-├── docs/
-│   ├── superpowers/                 # Design and implementation records
-│   └── validation/                  # Behavioral validation evidence
-├── README.md
-└── LICENSE
-```
-
-### Contributing
-
-Issues and pull requests are welcome. The most valuable contributions are concrete learning scenarios, lawful source-acquisition edge cases, behavior results from additional agent hosts, and fixes that preserve the learner-first boundary.
-
-When proposing a new capability, explain how it improves human learning—not merely how it processes more content.
-
-### License
-
-Released under the [MIT License](LICENSE).
+<div align="center">
+  <img src="assets/icon.svg" width="96" alt="study-open-courses icon">
+  <h1>study-open-courses</h1>
+  <p><strong>把值得学的公开课程，重建成普通人真正学得完的课程书。</strong></p>
+  <p>先验证，再重构，最后才压缩。</p>
+
+  [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-compatible-5b45e0)](https://agentskills.io/specification)
+  [![Version](https://img.shields.io/badge/version-4.1.0-2563eb)](SKILL.md)
+  [![Pipeline tests](https://img.shields.io/badge/pipeline%20tests-8%20passed-16a34a)](docs/validation/v4.1-deterministic-pipeline-results.md)
+  [![License: MIT](https://img.shields.io/badge/license-MIT-0f766e)](LICENSE)
+
+  [中文](#凌晨-2247你终于有空学习) · [English](#english)
+</div>
 
 ---
 
-## 简体中文
+## 凌晨 22:47，你终于有空学习
 
-### 为什么做这个项目
+白天上班，晚上陪孩子。等家里安静下来，你只剩二十分钟。
 
-这个项目最初来自一个非常具体的困境。
+收藏夹里躺着一门 40 小时的好课。它有名、免费、内容扎实，但视频默认你拥有整块时间：打开播放器，找回上次进度，听十分钟铺垫，再在关键例子出现时被打断。第二天重新开始，前后的逻辑已经断了。
 
-我想学习网络上的优质课程，但白天需要上班，晚上还要带孩子，很难再留出一整段不被打断的时间，坐下来观看几个小时甚至几十个小时的视频课程。
+你缺的通常不是更多课程，也不是一份把标题缩短的摘要。你需要的是另一种学习载体：
 
-相比视频，我更需要一种可以随时拿出来阅读的学习材料：通勤时看几页，工作间隙读一节，孩子睡着后再继续。它应该适合手机和平板，也应该允许我随时停下来，再从上次的位置接着学习。
+| 原来的困境 | 重建后的学习体验 |
+|---|---|
+| 40 小时视频，只能从头顺着看 | 按概念依赖重排的章节，随时停、明天接着学 |
+| 讲师一句话带过，初学者跟不上 | 保留原教学，再加入明确标注的 AI 解释 |
+| 例子、图、练习散在不同课节 | 关键例子、教学视觉和练习回到对应概念旁边 |
+| 看完觉得懂了，遇到真实问题不会用 | 每个单元都有理解检查、应用和反馈线索 |
+| 不知道 Agent 到底拿到了多少原始内容 | 每个结论都能回到课节、时间戳、页码或幻灯片 |
 
-但我不想要的，只是一份把十几个小时课程压缩成几百字的摘要。过度总结往往会丢掉课程真正重要的部分：概念之间的关系、讲师的推理过程、关键例子、必要的上下文，以及从“听懂”走向“学会”所需要的练习。
+`study-open-courses` 就是为这个问题做的 Agent Skill。它寻找或接收一门合法免费可访问的课程，核对真实内容和缺口，按学习者的目标重建教学结构，再输出一套可以阅读、练习、恢复进度和追溯来源的课程书。
 
-于是有了 `study-open-courses`。
+> **它不是“把视频变短”。它是把一段难以持续的观看过程，改造成一条能走完的学习路径。**
 
-它尝试在合法访问和授权范围内，找到可信且足够完整的课程内容，将视频、音频、字幕、讲义和其他学习资料重新组织成适合阅读的学习体验，同时保留原课程的知识结构、关键解释、例子、练习和来源信息。
+## 最终会拿到什么
 
-它不是为了绕过或取代原课程，也不是为了重新分发受版权保护的完整逐字稿。它想解决的是一个普通学习者很现实的问题：
+当你要求一份正式课程时，默认交付恰好三份主文件。三份文件来自同一份 Markdown 母版，避免内容在不同格式里悄悄分叉。
 
-> 当我没有大块时间坐下来看完一门长课程时，怎样仍然能够利用碎片时间，尽可能完整、可靠地把它学下来？
+```text
+course-pack/
+├── book-manifest.json              # 标题、语言、范围和诚实的学习时长
+├── run-ledger.json                 # 可恢复的执行状态，不怕长任务中断
+├── chapters/                       # 分章编写的内容母材
+├── sources/                        # 合法取得的字幕、讲义与来源记录
+├── evidence/
+│   ├── evidence-ledger.csv         # 结论 → 课节 / 时间戳 / 页码 / 幻灯片
+│   ├── concept-coverage.csv        # 每个核心概念是否真的 READY
+│   ├── visual-ledger.csv           # 教学图像的来源与用途
+│   └── learning-qa.json            # 学习与格式复核证据
+└── dist/
+    ├── course-book.md              # 完整、可编辑
+    ├── course-book-standalone.html # CSS、JS、图片内联，离线可读
+    └── course-book.pdf             # 适合阅读、打印与分享
+```
 
-这也是这个 Skill 坚持“先检查完整性，再重构学习，最后才决定是否压缩”的原因。它既可以从“我想学 AI Agent，但不是程序员”这样的目标开始，也可以直接处理用户指定的课程、书籍、PDF、视频系列、播客、访谈、教程或官方文档。
+课程正文会保留不同信息的身份：
 
-它不只是总结内容，而是完成一整条学习工作流：
+| 标记 | 代表什么 |
+|---|---|
+| `Course teaching` | 讲师实际讲过或写过的内容，并带精确定位 |
+| `AI explanation` | 为当前学习者重新讲解的内容 |
+| `AI supplement` | 新增背景、桥接知识或额外例子 |
+| `Current-context update` | 课程版本之后发生、且会影响理解的变化 |
+| `Uncertain` | 尚未解决的问题，不用流畅措辞掩盖 |
 
-- 只补问真正会改变资源选择的问题；
-- 先用真实的大众验证筛掉不够可靠的主动推荐；
-- 再按学习者水平、目标、时间、语言和访问条件排序；
-- 判断应该重构成课程、做成伴读/伴看指南，还是不应替代原作；
-- 找到实际课节和正文，而不是把课程落地页当成课程内容；
-- 利用宿主 Agent 具备的能力寻找正文、字幕、媒体或扫描件并处理；
-- 在重构前检查缺课、重复、版本冲突、ASR/OCR 错误和来源映射；
-- 围绕学习依赖、解释、例子、练习和理解检查重新组织内容；
-- 正式完整课程默认交付 Markdown、自包含 HTML 和 PDF。
+## 九十秒开始
 
-它服务的是一个真正想学会东西的人，而不是等待被注入压缩知识的模型。
+### 1. 只有目标，还没选课
 
-### 一条命令安装
+```text
+请使用 study-open-courses。
+我是非技术背景，每周能投入 3 小时，想系统理解 AI Agent，
+目标是能判断一个 Agent 工具是否真的适合自己的工作。
+请先找经过验证、合法免费可访问的主学习源，说明为什么适合我，
+也说明哪些信息你没有验证到。
+```
 
-使用开源的 [`skills` CLI](https://github.com/vercel-labs/skills) 全局安装：
+### 2. 已经有一门公开课程
+
+```text
+请使用 study-open-courses 处理这套公开讲座。
+我没有提前下载视频或字幕，请自行寻找合法可访问的真实教学内容，
+核对课节、字幕、视觉材料和练习是否缺失或重复，
+再重构成适合初学者学习的课程。
+```
+
+### 3. 要一套正式成品
+
+```text
+请把它完成为正式课程包：保留来源映射、完整性缺口、关键例子、
+练习、理解检查和学习时长，交付完整 Markdown、单文件 HTML 和 PDF。
+```
+
+这会启动三文件交付契约。生成课程文件不等于获得发布权限；上传、提交、推送或发布到外部平台仍由你单独决定。
+
+## 它怎样把“看起来完成”拦下来
+
+```mermaid
+flowchart LR
+    A[学习目标或指定课程] --> B{免费访问门禁}
+    B -->|可处理| C[真实内容摄入]
+    B -->|付费或权限受限| X[仅报告公开信息]
+    C --> D{完整性检查}
+    D -->|有阻塞缺口| Y[缩小范围或说明阻塞]
+    D -->|证据足够| E[按学习者重构]
+    E --> F{Learning QA}
+    F -->|未通过| E
+    F -->|通过| G[生成 MD + HTML + PDF]
+    G --> H{封存与哈希校验}
+    H -->|文件被改动| F
+    H -->|一致| I[课程包完成]
+```
+
+### 门禁一：材料真的允许处理吗
+
+每个可识别资源在摄入前先分类：
+
+| 访问类别 | 处理方式 |
+|---|---|
+| `free_access` | 可以处理真实教学内容 |
+| `paid_or_entitlement_gated` | 只报告公开元数据与社区证据，不打开课程内容 |
+| `public_excerpt` | 只处理公开片段的真实覆盖范围 |
+| `official_free_edition` | 作为独立版本重新核对范围与完整性 |
+| `unknown` | 分类解决前停止摄入 |
+
+购买过、已经登录、没有 DRM、只供个人使用或用户明确授权，都不会把付费教学内容变成可处理来源。这是 Skill 自己选择的工作边界。
+
+### 门禁二：这门课值得推荐给这个人吗
+
+热度只负责提供线索。主动推荐主学习源，需要检查持续采用、独立评价、完成反馈、专业可信度、版本时效和反方意见，并达到 **Strong** 社区验证。
+
+进入候选后再按学习者排序：真实起点、先修知识、目标、可投入时间、语言、设备和学习方式都会改变结果。一门名气更大的进阶课，可能输给一门讲得清楚、刚好适合当前阶段的基础课。
+
+### 门禁三：原始材料完整吗
+
+Skill 分开核对语音、视觉、练习和附件。缺失的课节、被截断的字幕、只存在于画面里的公式、版本冲突，都要记录为阻塞或非阻塞缺口。
+
+落地页、课程大纲、目录、评测文章和搜索摘要只能用于发现资源，不能冒充教学内容。
+
+### 门禁四：它真的能教会人吗
+
+Learning QA 检查概念是否讲清、例子是否足够、练习能否检验理解、前后依赖是否连续、来源能否定位，以及三种格式是否一致可用。
+
+机械校验能确认记录、状态、覆盖数和文件没有自相矛盾；教学质量仍需要 Agent 或人实际阅读和判断。项目明确保留这条边界，不会用“测试通过”替代真实学习复核。
+
+## v4.1：一条可以恢复、复核和封存的流水线
+
+长课程可能跨越多次执行。`run-ledger.json` 记录每一步的真实状态：
+
+```text
+initialized
+    ↓
+acquired
+    ↓
+integrity_checked
+    ↓
+reconstructed
+    ↓
+qa_passed
+    ↓
+published
+    ↓
+sealed
+```
+
+它同时维护五个由明细记录计算出的覆盖总数：
+
+| 字段 | 含义 |
+|---|---|
+| `expected` | 声明范围里本来应该有的内容 |
+| `acquired` | 实际取得的内容 |
+| `processed` | 已转换成可用文本、字幕或图像记录的内容 |
+| `verified` | 已核对顺序、质量、截断和出处的内容 |
+| `reconstructed` | 已进入最终学习单元的内容 |
+
+只要来源、版本、范围或章节正文发生变化，旧 QA 就会变成 `stale`。最终文件再通过 SHA-256 与 QA 记录绑定；复核后偷偷改一个字，校验都会失败。
+
+```bash
+# 1. 初始化课程包和状态记录
+python scripts/init_course_pack.py ./course-pack --title "课程标题"
+
+# 2. 填充真实章节、来源、覆盖记录和 QA 证据后构建
+cd course-pack
+python ../scripts/build_course_book.py book-manifest.json
+
+# 3. 实际查看 HTML 与 PDF，确认教学和渲染结果
+
+# 4. QA 通过后封存，再做最终校验
+python ../scripts/seal_course_pack.py .
+python ../scripts/validate_course_pack.py .
+```
+
+> 初始化只会得到骨架，不会得到“已完成”的课程。`validate_course_pack.py` 返回非零状态，就不能把课程包称为完成。
+
+### 这些脚本分别负责什么
+
+| 脚本 | 责任 |
+|---|---|
+| [`init_course_pack.py`](scripts/init_course_pack.py) | 创建 manifest、ledger、章节和证据骨架 |
+| [`build_course_book.py`](scripts/build_course_book.py) | 从章节生成权威 Markdown、HTML 与 PDF |
+| [`seal_course_pack.py`](scripts/seal_course_pack.py) | 将通过的 QA 绑定到精确文件哈希 |
+| [`validate_course_pack.py`](scripts/validate_course_pack.py) | 交叉检查状态、覆盖、定位、QA 与哈希 |
+| [`export_pdf_cdp.js`](scripts/export_pdf_cdp.js) | 处理 PDF 书签、tagged PDF 和渲染兜底 |
+
+构建 PDF 时，脚本会在临时打印副本中展开 `<details>` 里的答案，打印完成后删除副本。这样交付的 HTML 保留可折叠练习，PDF 又不会漏掉答案。
+
+## 已经实际验证了什么
+
+v4.1 当前有 8 个确定性回归场景：
+
+1. 记录完整并正确封存的课程包可以通过；
+2. 未填写的初始化骨架不能冒充完成；
+3. 旧版本 QA 会被拒绝；
+4. 运行时依赖远程图片的 HTML 会被拒绝；
+5. QA 之后被修改的交付文件会因哈希不一致被拒绝；
+6. 虚假的本地来源定位会被拒绝；
+7. 本地 PNG 会被嵌入单文件 HTML；
+8. 试图逃出课程包目录的 manifest 路径会被拒绝。
+
+完整记录见 [`docs/validation/v4.1-deterministic-pipeline-results.md`](docs/validation/v4.1-deterministic-pipeline-results.md)。
+
+这些测试证明流水线能拦截上述状态和文件错误。它们不等于一次真实长课程的端到端教学验收，也不证明所有 Agent 宿主都会作出完全相同的判断。
+
+## 诚实地降级
+
+如果宿主没有浏览器、PDF 渲染器、ASR 或 OCR，或者合法来源只能取得一部分，Skill 会说明：
+
+- 哪个格式或内容被卡住；
+- 缺少什么能力或来源；
+- 缺口是阻塞还是非阻塞；
+- 已经完成到哪个级别；
+- 最小的下一步是什么。
+
+它不会编造缺失课节、视觉解释、练习或翻译。当压缩会破坏学习，应该缩小课程范围，而不是放大完成结论。
+
+## 安装
+
+使用开源的 [`skills` CLI](https://github.com/vercel-labs/skills)：
 
 ```bash
 npx skills add lix06231/study-open-courses -g
 ```
 
-命令会检测支持的 Agent，并让你选择安装位置。如果希望无交互安装，可以明确指定：
+也可以指定 Agent：
 
 ```bash
-# Codex
 npx skills add lix06231/study-open-courses -g -a codex -y
-
-# Claude Code
 npx skills add lix06231/study-open-courses -g -a claude-code -y
-
-# Gemini CLI
 npx skills add lix06231/study-open-courses -g -a gemini-cli -y
-
-# Cursor
 npx skills add lix06231/study-open-courses -g -a cursor -y
 ```
 
-电脑需要安装较新的 Node.js，确保可以使用 `npx`。也可以克隆本仓库，再把技能目录放进所用 Agent 支持的 skills 目录。
+仓库遵循 [Agent Skills 规范](https://agentskills.io/specification)。目录结构和 CLI 安装是兼容的；当前核心流程与回归测试在 Codex 环境完成。Claude Code、Gemini CLI、Cursor 的完整行为仍需分别验证。
 
-### 快速开始
+## 适合与不适合
 
-只有学习目标也可以开始：
+适合：
 
-```text
-我是非技术背景，每周能投入 3 小时。
-我想系统理解 AI Agent，达到能够判断工具和工作流的程度。
-请使用 study-open-courses，先推荐经过大量真实学习者验证、适合我的主课程。
-```
+- 从公开课程、讲座、字幕、讲义或 PDF 重建可学习的课程；
+- 从目标出发寻找经过验证、适合当前学习者的免费资源；
+- 把长视频课程改造成按碎片时间学习的课程书；
+- 保留来源、版本、缺口、练习和复核记录；
+- 为小说、纪录片等不可替代作品制作伴读、伴看或伴听材料。
 
-也可以直接指定资源：
+不适合：
 
-```text
-请使用 study-open-courses，把这套公开视频课程重构成适合小白的课程。
-我没有下载视频，也没有字幕。请自行解析并获取合法可访问的内容，
-检查课节完整性后再开始重构。
-```
+- 获取、转录或重构付费和权限受限的课程内容；
+- 用摘要承诺替代文学、艺术或体验型原作；
+- 只凭播放量、名校名称或一篇好评认定“最佳课程”；
+- 在没有真实教学材料时，按目录猜出一门“完整课程”。
 
-需要正式成果时可以说：
-
-```text
-把它完成为可以下载的正式课程，包含来源映射、完整性缺口、练习和理解检查。
-```
-
-最后一种请求会触发默认的 Markdown + HTML + PDF 三格式交付。
-
-### 完整工作流
-
-```text
-学习目标或指定资源
-        │
-        ▼
-资源发现
-        │
-        ▼
-Community Validation ── 准入门槛
-        │
-        ▼
-Learner Fit Ranking ──── 适配排序
-        │
-        ▼
-Learning Suitability
-        │
-        ▼
-Source Resolver → Content Ingestion
-        │
-        ▼
-Integrity Check + Evidence & Provenance
-        │
-        ▼
-Learning Reconstruction
-        │
-        ▼
-Learning Compression（需要时）
-        │
-        ▼
-Publishing
-```
-
-#### 1. 大众验证负责入围
-
-播放量很大、学校很有名、大纲写得漂亮，都不能单独证明一份资源适合作为主学习源。Skill 会综合长期学习人数或读者、完成反馈、独立社区讨论、多个来源的重复推荐、专业信誉、时间积累，以及快速变化领域的时效性。
-
-验证结果分为 **强验证、中等验证、弱验证、无法验证**。弱验证或无法验证的资源通常只做补充；如果是用户自己指定，仍然可以处理，但必须明确说明局限。
-
-主动推荐的主学习源必须达到强验证。如果经过合理搜索后只有中等验证选项，Skill 会明确说明没有找到强验证资源，并在用户确认后才把它作为退而求其次的主源，不会静默升级。
-
-#### 2. 学习适配负责排名
-
-候选资源通过准入门槛后，再比较先修要求、学习结果、可投入时间、讲解质量、完整性、版本时效、语言、费用、注册、地区和无障碍条件。
-
-因此，对一个非技术小白来说，经过验证的入门课程应该排在名气更大但难度过高的课程前面。
-
-#### 3. Learning Suitability 保护原作
-
-不是所有好内容都应该被压缩成替代品：
-
-- **适合课程重构：** 知识、技能、技术和结构化方法；
-- **适合辅助学习：** 原始阅读、观看或聆听体验仍然重要；
-- **不应替代原作：** 文学、艺术、强体验或强语境作品。
-
-例如《活着》适合做时代背景、人物关系、主题问题和阅读路径，但不应该承诺“两小时替代原作”。
-
-### 用户没有提供任何文件时会发生什么
-
-只要用户指定的资源能够被识别，或者主学习资源已经确认，当任务需要评估或处理真实内容时，“用户没有给材料”本身就不是停止理由。
-
-Skill 会要求 Agent 先检查自己具备的能力，然后按以下顺序寻找内容：
-
-1. 原生正文或官方文本；
-2. 官方 Transcript；
-3. 官方字幕或平台字幕；
-4. 官方讲义、Slides、练习、代码和配套文档；
-5. 合法可访问的音视频，再使用语音转文字；
-6. 没有可靠文字层的扫描件或图片，再使用 OCR。
-
-如果只有音视频，而宿主 Agent 能够合法访问并转录，它应该自行完成，不应先让用户下载或转录。转录结果还要检查课节边界、缺失和重复片段、语言、时间轴、说话人变化、人名、术语、数字、公式和代码。
-
-只有真正遇到阻塞才暂停：登录、付费、DRM、地区限制、版权或授权不清、资源不可访问、宿主没有相应工具，或者关键缺失会改变课程目标。Agent 不会要求你粘贴密码、会话令牌或 Cookie；宿主支持时，应由你在自己控制的界面完成登录。
-
-所以，“主动获取”是一套必须执行的决策流程，不是承诺每个 Agent 都能下载或转录互联网上的任何内容。
-
-### 先做完整性和来源检查，再让 AI 重写
-
-课程页面、syllabus、目录、评测文章和搜索结果都只是元数据，不能冒充课程正文。
-
-重构前，Skill 会建立来源清单，核对预期与实际取得的课节、顺序、重复、截断、版本冲突、ASR/OCR 质量、附件、图表、练习和先修依赖。整份资源完整性评估或正式完整成果默认覆盖所有规范课节、页面、附录、练习及相关配套材料；只有遇到真实阻塞、明确说明影响并取得学习者接受后才能缩小范围。扫描材料会分别记录“已处理页面”和“已视觉核验页面”，最终单元必须映射到具体页码或幻灯片范围。缺口分为阻塞与非阻塞，绝不悄悄编造缺失课节。
-
-最终成果还要保留来源映射，并区分：
-
-- 原始事实和讲师观点；
-- 用来证明口碑或学习体验的社区证据；
-- Agent 新增的解释、综合和例子；
-- 不确定性、纠错、替代和删减。
-
-### 先重构学习，再决定压缩
-
-Skill 不会简单地沿原顺序缩写。它先围绕学习者目标重新建立课程：
-
-- 按知识依赖安排顺序；
-- 用适合当前水平的语言解释；
-- 保留真正影响迁移的例子和推理过程；
-- 加入练习、反思或应用；
-- 加入理解检查和反馈方法；
-- 把每个单元连接到最终学习结果。
-
-然后才根据时间决定压缩深度。先修知识、因果关系、关键例子、练习和限制不能被压没。如果压缩会破坏学习，就缩小课程范围，而不是夸大学习结果。
-
-### 交付格式
-
-| 用户请求 | 交付方式 |
-|---|---|
-| 正式完整课程或可下载最终成果 | Markdown + 自包含 HTML + PDF |
-| 推荐、提纲、预览或中间检查 | 使用最小有用格式，不强制生成文件 |
-| 明确指定格式 | 只交付用户指定的一种或多种格式 |
-
-正式三格式必须来自同一份内容母版，课程结构、解释、练习、理解检查、来源、缺口和压缩说明保持一致。HTML 会检查目录导航与本地资源；PDF 会检查文字可提取性、页数、多语言字体、代表页面、表格、裁切、空白页和分页。
-
-如果宿主没有某个必需的渲染能力，Skill 会明确报告被阻塞的格式和剩余工作，不会只交付 Markdown 却声称正式课程已经完成。
-
-### 与通用知识蒸馏／仓颉类思路的区别
-
-本项目借鉴了更广泛内容处理系统的有价值思想：支持多种输入、把获取与处理解耦、让来源可追溯。但产品边界不同。
-
-| 维度 | study-open-courses | 通用内容／知识蒸馏 |
-|---|---|---|
-| 主要服务对象 | 人类学习者 | 知识库、自动化、模型或普通读者 |
-| 第一个问题 | 哪份经过验证的资源最适合这个人？ | 怎样提取或压缩这份输入？ |
-| 推荐逻辑 | 大众验证准入，再按学习适配排序 | 通常不是核心 |
-| 处理顺序 | 验证 → 重构学习 → 需要时压缩 | 提取或压缩可能就是主要目标 |
-| 不可替代作品 | 做伴读、伴看或伴听，不冒充替代品 | 仍可能被视为可压缩输入 |
-| 常见产物 | 课程、指南、工作簿、练习、理解检查 | 摘要、知识图谱、分块或模型上下文 |
-
-一句话概括：通用内容系统帮助可靠地获取和追踪材料；`study-open-courses` 负责判断人该学什么，以及怎样才真正学得会。
-
-### 兼容性
-
-仓库遵循开放的 [Agent Skills 规范](https://agentskills.io/specification)。但“兼容”需要分层说明：
-
-| 宿主或能力 | 当前状态 |
-|---|---|
-| Agent Skills 目录与文件结构 | 兼容 |
-| 通过 `skills` CLI 发现和安装 | CLI 支持上文列出的 Agent 标识 |
-| Codex 核心流程与交付决策 | 已进行行为验证 |
-| Claude Code、Gemini CLI、Cursor 的完整行为 | 可以按结构安装；本项目尚未逐一完成独立行为验证 |
-| 字幕提取、媒体获取、ASR、OCR | 取决于合法访问条件和宿主提供的工具 |
-| HTML 与 PDF 生成 | 取决于宿主提供的文档和渲染能力 |
-
-能安装不等于所有宿主拥有相同工具或表现完全一致。Skill 的降级方式是如实说明缺少的能力和剩余工作，而不是把半成品包装成完成品。
-
-### 安全与版权边界
-
-- 不绕过登录、付费、DRM、地区和平台限制；
-- 不假装已经取得实际没有访问到的内容；
-- 没有相应权利时，不重新分发完整或近乎完整的版权字幕、逐字稿或 OCR 文本；
-- 不用评测文章或社区讨论悄悄替代原始课程内容；
-- 未经单独授权，不上传、不提交 Git、不推送、不修改远程仓库或外部平台。
-
-Skill 可以在合法访问范围内，把材料用于原创解释、练习、允许范围内的少量引用和来源说明。能够访问，不等于拥有重新分发权。
-
-### 仓库结构
+## 仓库地图
 
 ```text
 study-open-courses/
-├── SKILL.md                         # 通用工作流与路由
-├── references/
-│   ├── source-acquisition.md        # 来源解析、ASR/OCR、完整性、可追溯性
-│   └── publishing.md                # MD/HTML/PDF 交付与验证
-├── docs/
-│   ├── superpowers/                 # 设计与实施记录
-│   └── validation/                  # 行为验证证据
-├── README.md
-└── LICENSE
+├── SKILL.md                 # 核心路由、门禁和完成标准
+├── references/              # 发现、画像、获取、教学、QA 与发布规范
+├── scripts/                 # 初始化、构建、封存和校验工具
+├── assets/                  # 课程书样式、脚本、图标与参考模板
+├── tests/                   # 确定性流程回归测试
+├── agents/openai.yaml       # Agent UI 元数据
+├── docs/validation/         # 可追溯的验证记录
+└── README.md
 ```
 
-### 参与贡献
+想了解 Agent 实际执行规则，请从 [`SKILL.md`](SKILL.md) 开始。构建正式课程包时，再按需阅读 [`publishing-spec.md`](references/publishing-spec.md)、[`run-ledger-schema.md`](references/run-ledger-schema.md) 和 [`learning-quality.md`](references/learning-quality.md)。
 
-欢迎提交 Issue 和 Pull Request。最有价值的贡献包括：真实学习场景、合法来源获取的边界案例、更多 Agent 宿主的行为测试，以及不破坏“面向人类学习”定位的改进。
+## 安全与版权边界
 
-如果要增加新能力，请说明它怎样改善人的学习，而不只是怎样处理更多内容。
+- 不绕过登录、付费、DRM、地区限制或平台规则；
+- 不要求用户粘贴密码、Cookie、会话令牌或其他可复用凭据；
+- 不把没访问到的内容写成已经核验；
+- 没有相应权利时，不重新分发完整或近乎完整的版权字幕、逐字稿或 OCR 文本；
+- 不用社区评论和二手评测替代课程原始教学内容；
+- 未获单独授权时，不上传、提交、推送或发布到外部平台。
 
-### 开源许可证
+能够访问，不代表拥有重新分发权。课程包应以原创解释、练习、必要的少量引用和清楚的来源说明为主体。
 
-本项目采用 [MIT License](LICENSE) 开源。
+## English
+
+**study-open-courses turns trustworthy, legally free learning resources into course books that fit real life.**
+
+It is designed for the learner who has twenty minutes tonight, not four uninterrupted hours. The skill can discover or accept a course, verify that its instructional content is actually accessible, check source integrity, reconstruct the teaching around a learner's goal, and publish one canonical course in three formats:
+
+- complete Markdown;
+- a literally single-file, offline-readable HTML edition;
+- a complete PDF edition.
+
+The project follows one rule: **verify first, reconstruct learning second, compress third.** Landing pages, syllabi, reviews, and search snippets are discovery metadata; they are never treated as the instructional content of a faithful course.
+
+### The four gates
+
+1. **Free-access gate:** paid or entitlement-gated instruction is report-only and is never ingested.
+2. **Community validation and learner fit:** popularity supplies signals; it does not choose the winner.
+3. **Source integrity:** speech, visuals, practice, attachments, sequence, versions, and gaps are checked separately.
+4. **Learning QA:** a polished file cannot claim completion unless the teaching and format reviews are current and evidenced.
+
+Version 4.1 adds a deterministic `init → build → review → seal → validate` pipeline. A resumable run ledger tracks coverage and state. QA becomes stale when sources, scope, revisions, or chapters change. Final files are sealed to exact SHA-256 hashes, so a post-review edit cannot silently inherit an earlier pass.
+
+Eight regression scenarios currently verify the main mechanical failure modes. They do not replace human or model judgment about teaching quality, nor do they constitute a full cross-host behavioral evaluation.
+
+### Install
+
+```bash
+npx skills add lix06231/study-open-courses -g
+```
+
+Then ask your Agent:
+
+```text
+Use study-open-courses to find a strongly validated, legally free course for my goal.
+Explain why it fits my current level and time, disclose what you could not verify,
+and build the formal three-file course pack only after the source and Learning QA gates pass.
+```
+
+The repository follows the open [Agent Skills specification](https://agentskills.io/specification). Core workflow and pipeline tests are verified in Codex. Full behavioral parity across Claude Code, Gemini CLI, Cursor, and other hosts remains to be tested independently.
+
+## Contributing
+
+Issues and pull requests are welcome. The most useful contributions bring a real learning scenario, a lawful-source edge case, results from an untested Agent host, or a fix that helps a person learn rather than merely process more content.
+
+## License
+
+[MIT](LICENSE)

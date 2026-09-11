@@ -1,0 +1,43 @@
+# Project changelog
+
+## 2026-09-11 — v4.1 merged into main
+
+- Rewrote the public README around the current v4.1 behavior with a Chinese-first learner story, concrete course-pack output, four blocking gates, a visual pipeline, executable setup, and a concise English overview.
+- Reduced duplicated documentation while preserving installation, compatibility, provenance, copyright, validation, and evidence-boundary details.
+- Formally merged `codex/v4.1-deterministic-pipeline` into `main` after the merged tree passed the eight pipeline regressions, Skill validation, README link checks, syntax checks, and remote-head verification.
+- `course-products/` remained local and untracked; no GitHub Release or marketplace publication was created.
+
+## 2026-09-11 — v4.1 branch published
+
+- Pushed `codex/v4.1-deterministic-pipeline` to the GitHub `origin` after the repository copy passed eight regression tests, Skill validation, syntax checks, and staged-path review.
+- The implementation commit is `6f23cdb`; `course-products/` remained untracked and outside the push.
+
+## 2026-09-11
+
+- Upgraded the runtime Skill to v4.1.0 with a deterministic init/build/seal/validate contract.
+- Added machine-readable run-ledger and Learning QA templates, item-derived coverage reconciliation, source-locator validation, and exact artifact revision/hash binding.
+- Added canonical Markdown output, all-local-image inlining for standalone HTML, forced-open answers in the temporary PDF print copy, and course-pack path containment.
+- Added `seal_course_pack.py` and eight regression scenarios covering valid completion and critical false-completion failures.
+- Passed Skill structure validation, Python syntax checks, all regression scenarios, and source-to-installed-copy SHA-256 parity before repository synchronization.
+- Preserved the previous installed v3.2.2 Skill as a dated backup. The later merge into `main` is recorded above.
+
+## 2026-08-28
+
+- Migrated the existing Git repository to `D:\Lix-Agent\02-Shared-Projects\study-open-courses` as a shared project.
+- Verified 100 files, 235,848 bytes, zero SHA-256 mismatches, HEAD `683238c`, and a clean `git fsck` before deleting the A-drive copies.
+- Designated Codex as Primary Agent and started the v3.2 execution-hardening work on branch `codex/v3.2-execution-hardening`.
+- Recorded a new paid-course baseline: v3.1 allows an Agent to use an authenticated paid course and transcribe it when the user authorizes access.
+- Added the v3.2 Free-Access Processing Gate. Paid and entitlement-gated instructional content is report-only even after purchase, login, or explicit authorization; especially suitable paid resources may be disclosed only as manual-study options while free alternatives are sought.
+- Added explicit artifact levels, persistent run-ledger state, five coverage totals, resume-first execution, batch failure isolation, provisional reconstruction, and deadline scope freeze.
+- Added complete speech/visual/practice/attachment acquisition, visual-only teaching checks, stronger ASR verification, translation verification, and expanded source-manifest fields.
+- Added artifact-level Learning QA before every exact completion label, plus literal one-file HTML and damaged-PDF failure rules.
+- Updated the English and Chinese README for v3.2 and added `docs/validation/v3.2-results.md` with decision-scenario and mechanical validation evidence.
+- Added representative verbatim evidence from three fresh simulated evaluator groups covering paid-resource pressure, access classification, resumption, multimodal gaps, ASR, translation, deadlines, Learning QA, self-contained HTML, and damaged PDF behavior.
+- Corrected README validation wording to distinguish simulated evaluator behavior from static/structural checks and from untested hosts or models; synchronized completed implementation-plan checkboxes and project state.
+- Persisted stable raw evaluator reports with complete prompts and returned outputs, model/reasoning identity, date/time zone, exact tested commit `f789cb0`, and the later evidence-recording boundary.
+- Closed final-review gaps: paid resources can never trigger an authentication handoff; Moderate confirmation and QA state persist across resumes and invalidate on relevant revisions; official free editions may be separate processing primaries; actual-content assessment is scoped; and completion/publishing gates now differ honestly by artifact level.
+- Added a fresh GREEN execution-policy evaluation at runtime commit `e473aa7` and retrospective v3.1 replay evidence pinned to `683238c`, preserving old PASS outcomes and identifying unavailable timestamps/session IDs instead of inventing them.
+- Corrected the final `official_free_edition` routing contradiction: separately resolved official free editions now enter the processing-primary candidate set consistently. Marked the earlier evaluator result as invalid evidence for that scenario rather than overstating it.
+- Hardened v3.2.1 course-delivery intent: “write/make/create a course” now locks a formal reconstructed artifact and three primary files by default. Agents may not downgrade it to an outline or replace the single Markdown/HTML/PDF files with chapter folders or a multi-page site.
+- Added the v3.2.2 canonical course-book HTML template and visual acceptance gate, based on the user's approved `course-book-standalone.html` design.
+- Kept release boundaries unchanged: no push, merge, publication, release, or installed-copy synchronization was authorized or performed.

@@ -1,0 +1,149 @@
+:root {
+  --ink: #18201d; --muted: #64706b; --paper: #fbfaf6; --panel: #f0eee6;
+  --line: #d9ddd6; --accent: #146c5a; --accent-soft: #dff1ea;
+  --warm: #9b5d27; --sidebar: 18rem; color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; color: var(--ink); background: var(--paper);
+  font-family: Inter, "Noto Sans CJK SC", "Microsoft YaHei", system-ui, sans-serif;
+  line-height: 1.75;
+}
+.sidebar {
+  position: fixed; inset: 0 auto 0 0; width: var(--sidebar); padding: 2rem 1.25rem;
+  overflow-y: auto; border-right: 1px solid var(--line); background: #f4f2eb; z-index: 3;
+}
+.sidebar-title { font-weight: 800; line-height: 1.3; margin-bottom: 1.25rem; }
+.search-label { display: grid; gap: .35rem; color: var(--muted); font-size: .8rem; }
+#toc-search {
+  width: 100%; padding: .65rem .75rem; border: 1px solid var(--line);
+  border-radius: .55rem; background: white;
+}
+nav { display: grid; gap: .15rem; margin-top: 1rem; }
+nav a {
+  color: #33413b; padding: .35rem .45rem; border-radius: .35rem;
+  text-decoration: none; font-size: .88rem;
+}
+nav a:hover, nav a.active { background: var(--accent-soft); color: var(--accent); }
+.toc-level-3 { padding-left: 1.25rem; color: var(--muted); }
+main { margin-left: var(--sidebar); }
+.cover, .chapter { max-width: 58rem; margin: 0 auto; padding: 5rem 3.5rem; }
+.cover {
+  min-height: 72vh; display: grid; align-content: center; border-bottom: 1px solid var(--line);
+}
+.eyebrow, .chapter-kicker {
+  color: var(--accent); font-weight: 800; letter-spacing: .12em; font-size: .76rem;
+}
+.cover h1 {
+  margin: 1rem 0 .5rem; font-family: "Noto Serif CJK SC", "Songti SC", Georgia, serif;
+  font-size: clamp(2.4rem, 6vw, 5.2rem); line-height: 1.05;
+}
+.subtitle { max-width: 42rem; color: var(--muted); font-size: 1.25rem; }
+.metadata { color: var(--muted); font-size: .9rem; }
+.chapter { border-bottom: 1px solid var(--line); }
+h1, h2, h3, h4 { scroll-margin-top: 2rem; line-height: 1.3; }
+h2 {
+  margin-top: 3.5rem; font-family: "Noto Serif CJK SC", "Songti SC", Georgia, serif;
+  font-size: 2rem;
+}
+h3 { margin-top: 2.5rem; font-size: 1.35rem; }
+p, li { max-width: 46rem; }
+a { color: var(--accent); }
+blockquote, .provenance {
+  margin: 1.4rem 0; padding: 1rem 1.2rem; border-left: .25rem solid var(--accent);
+  background: var(--accent-soft); border-radius: 0 .5rem .5rem 0;
+}
+.provenance p { margin: .3rem 0 0; }
+.ai-supplement, .current-context-update { border-color: var(--warm); background: #f8eadc; }
+.uncertain { border-color: #a64040; background: #f8e0e0; }
+pre, code { font-family: "SFMono-Regular", Consolas, monospace; }
+pre {
+  overflow-x: auto; padding: 1rem; color: #eff7f2; background: #1d2924;
+  border-radius: .6rem;
+}
+code { font-size: .9em; }
+:not(pre) > code { padding: .12em .35em; background: var(--panel); border-radius: .25rem; }
+.table-wrap { overflow-x: auto; margin: 1.5rem 0; }
+table { width: 100%; border-collapse: collapse; font-size: .94rem; }
+th, td {
+  padding: .7rem .8rem; border: 1px solid var(--line); text-align: left; vertical-align: top;
+}
+th { background: var(--panel); }
+figure { margin: 2rem 0; }
+figure img {
+  display: block; max-width: 100%; height: auto; margin: 0 auto; border-radius: .45rem;
+}
+figcaption { margin-top: .55rem; color: var(--muted); font-size: .88rem; text-align: center; }
+details {
+  margin: 1rem 0; padding: .8rem 1rem; border: 1px solid var(--line);
+  border-radius: .5rem; background: white;
+}
+summary { cursor: pointer; font-weight: 700; }
+.nav-toggle { display: none; }
+@media (max-width: 860px) {
+  .sidebar {
+    transform: translateX(-100%); transition: transform .2s ease; box-shadow: 0 0 2rem #0002;
+  }
+  .sidebar.open { transform: translateX(0); }
+  main { margin-left: 0; }
+  .cover, .chapter { padding: 4rem 1.35rem; }
+  .nav-toggle {
+    display: block; position: fixed; top: .8rem; left: .8rem; z-index: 4;
+    border: 0; border-radius: 50%; width: 2.7rem; height: 2.7rem;
+    background: var(--accent); color: white;
+  }
+}
+
+/* ── printable TOC ───────────────────────────────────────────────── */
+.print-toc { max-width: 58rem; margin: 0 auto; padding: 5rem 3.5rem 2rem; }
+.print-toc h1 {
+  margin: .4rem 0 1rem; font-family: "Noto Serif CJK SC", "Songti SC", Georgia, serif;
+  font-size: 2.2rem;
+}
+.toc-note { max-width: 46rem; color: var(--muted); font-size: .86rem; margin-bottom: 1.6rem; }
+.toc-block { display: grid; gap: .3rem; }
+.toc-row { display: flex; align-items: baseline; gap: .5rem; color: inherit; text-decoration: none; }
+.toc-chapter {
+  font-weight: 800; margin-top: .9rem; padding-top: .55rem;
+  border-top: 1px solid var(--line);
+}
+.toc-chapter:first-child { border-top: 0; margin-top: 0; padding-top: 0; }
+.toc-section { padding-left: 1.7rem; color: #3a4640; font-size: .94rem; }
+.toc-title { white-space: nowrap; }
+.toc-dots { flex: 1 1 auto; min-width: 1rem; border-bottom: 1px dotted #b9c0ba; transform: translateY(-.22em); }
+.toc-page { font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--muted); }
+
+@media print {
+  @page {
+    size: A4;
+    margin: 18mm 16mm 25mm;
+    @bottom-center {
+      content: "— " counter(page) " —";
+      font-family: Inter, "Microsoft YaHei", sans-serif;
+      font-size: 8pt;
+      color: #999;
+    }
+  }
+  body { background: white; font-size: 10.5pt; }
+  .sidebar, .nav-toggle { display: none !important; }
+  main { margin: 0; }
+  .cover, .chapter { max-width: none; padding: 0; border: 0; }
+  .cover { min-height: 250mm; page-break-after: always; }
+  .chapter { page-break-before: always; }
+  .print-toc { max-width: none; padding: 0; }
+  .print-toc h1 { font-size: 1.8rem; }
+  .toc-chapter { border-top-color: #bbb; }
+  .toc-row { break-inside: avoid; }
+  h2, h3 { break-after: avoid; }
+  figure, table, pre, blockquote, .provenance, details { break-inside: avoid; }
+
+  /* Auto-expand details in print */
+  details > summary { display: block; font-weight: 700; margin-bottom: .5rem; }
+  details > summary::-webkit-details-marker { display: none; }
+  details > summary::before { content: "▸ "; }
+  details > :not(summary) { display: block !important; }
+
+  a { color: inherit; text-decoration: none; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .8em; color: #999; }
+}
