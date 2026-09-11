@@ -1,5 +1,10 @@
 # Project changelog
 
+## 2026-09-11 — v4.1 branch published
+
+- Pushed `codex/v4.1-deterministic-pipeline` to the GitHub `origin` after the repository copy passed eight regression tests, Skill validation, syntax checks, and staged-path review.
+- The implementation commit is `6f23cdb`; `course-products/` remained untracked and outside the push.
+
 ## 2026-09-11
 
 - Upgraded the runtime Skill to v4.1.0 with a deterministic init/build/seal/validate contract.

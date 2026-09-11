@@ -10,7 +10,7 @@
 - [x] Seal QA to exact Markdown, HTML, and PDF hashes.
 - [x] Reject stale QA, fake locators, remote runtime images, post-QA mutations, and path escapes.
 - [x] Pass eight pipeline regression scenarios, Skill structure validation, Python syntax checks, and installed-copy hash verification.
-- [ ] Push `codex/v4.1-deterministic-pipeline` to GitHub.
+- [x] Push `codex/v4.1-deterministic-pipeline` to GitHub.
 
 ## v3.2 execution hardening
 

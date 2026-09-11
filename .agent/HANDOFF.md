@@ -5,7 +5,7 @@
 - Primary Agent: Codex
 - Active branch: `codex/v4.1-deterministic-pipeline`
 - Repository root: `D:\Lix-Agent\02-Shared-Projects\study-open-courses`
-- Remote changes: push authorized by the user on 2026-09-11; status is recorded in the final task report.
+- Remote changes: `codex/v4.1-deterministic-pipeline` was pushed to `origin` on 2026-09-11; merge, release creation, and marketplace publication remain separate actions.
 - Runtime version in this repository: 4.1.0
 - Implementation status: the v3.2 policy gates are preserved. v4.1 adds a deterministic init/build/seal/validate pipeline, machine-readable run and QA records, reconciled item coverage, exact artifact hashes, offline standalone assets, printable `<details>` answers, source-locator checks, and course-pack path containment.
 - v3.2.1 adds a hard delivery-intent contract after a Kilo run downgraded “帮我写一份课程” and substituted multi-file HTML/PDF output. Kilo's uncommitted v3.1 runtime overwrite was backed up before restoring v3.2.
