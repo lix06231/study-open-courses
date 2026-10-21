@@ -10,7 +10,7 @@ description: >-
 license: MIT
 metadata:
   author: "lix06231"
-  version: "4.1.0"
+  version: "4.2.0"
   merged_from: "workspace v3.2.2 (learner-first workflow) + marketplace v2.0.0 (course discovery & engineering)"
   compatibility: "Internet access is needed for discovery; media, transcription, OCR, rendering, and PDF export depend on host capabilities."
 ---
@@ -28,13 +28,17 @@ This is a learner-first workflow. It accepts multiple content types only when th
 For any task that accesses eligible instructional content or produces a durable learning artifact, use the course-pack pipeline rather than keeping state only in chat:
 
 1. initialize or resume the pack and read `run-ledger.json` before doing new work;
-2. update its expected items and five coverage counts at each acquisition, integrity, reconstruction, QA, and publishing checkpoint;
-3. increment `artifact_revision` and set both QA states to `stale` whenever source, scope, chapter content, or edition changes;
-4. record the nine learning checks and four format checks with concrete evidence in `evidence/learning-qa.json` using [references/run-ledger-schema.md](references/run-ledger-schema.md);
-5. after reviewing the final rendered files, run `scripts/seal_course_pack.py` to bind QA to their exact hashes; and
-6. run `scripts/validate_course_pack.py` after sealing. A non-zero result blocks the formal completion name.
+2. retain the canonical inventory and actual instructional content, fill `evidence/source-manifest.json`, and run `scripts/validate_source_evidence.py` **before drafting learner-facing teaching**; follow [references/content-evidence-contract.md](references/content-evidence-contract.md);
+3. update expected items and five coverage counts at acquisition, integrity, reconstruction, QA, and publishing checkpoints; never remove a failed item to improve the denominator;
+4. write only from the acquired scope, create claim-level `evidence/source-map.json` citations, and increment `artifact_revision` whenever source, scope, chapter content, or edition changes;
+5. build the final files with `scripts/build_course_book.py`, which rechecks source evidence and marks old QA `stale`;
+6. run `scripts/capture_qa_snapshot.py` **before reviewing the built files**; it records exact input/output hashes, preserves prior QA in history, clears current checks and leaves QA `stale`;
+7. perform content and rendered-format review, record nine learning and four format checks with local report locators and hashes using [references/run-ledger-schema.md](references/run-ledger-schema.md), then run `scripts/seal_course_pack.py`; seal verifies existing review hashes and cannot grant a new review pass; and
+8. run `scripts/validate_course_pack.py` after sealing. A non-zero result blocks the formal completion name.
 
 The ledger is the resumable state of the work; prose status messages are summaries of it. `READY`, `pass`, and coverage totals are claims supported by locators or review evidence, not labels to fill in optimistically. Use `scripts/init_course_pack.py` for a new formal pack, then replace every scaffold value before validation.
+
+**No-content stop rule:** a URL, title, syllabus, search snippet, community review, another Agent's summary, model recollection, or an AI-written substitute is not acquired instructional content. Never draft the named course from these inputs, even with `[AI explanation]` labels. If acquisition fails, preserve the requested scope, return the evidence-backed blocker or metadata artifact, and continue permitted acquisition where practical. Changing to an original AI-created course or a smaller scope requires the user's instruction. Never edit validators, invent source files or acquisition/review logs, skip a gate, or use a compatibility flag to obtain a completion result. Script PASS verifies consistency; it does not certify authenticity, faithful reconstruction, or teaching quality.
 
 ## 1. Route the request
 
@@ -188,7 +192,7 @@ Match the artifact to the suitability decision: course, study guide, reading/vie
 
 Unless the user explicitly requests different formats, a formal reconstructed course requires **exactly three primary deliverables derived from one canonical master**: one complete Markdown file, one literally single-file self-contained HTML document, and one complete PDF. Split lesson files, a multi-page HTML site, an asset directory, and per-chapter PDFs may be optional extras only; they never replace the three primary files. The HTML must use the course-book visual family defined by the reference template; raw Markdown styling, generic landing pages, dashboards, and arbitrary multi-page themes fail delivery.
 
-When file creation is available, build the formats through the deterministic pipeline rather than hand-editing separate bodies. Read [references/publishing-spec.md](references/publishing-spec.md) for the `init_course_pack.py` → `build_course_book.py` → rendered review → `seal_course_pack.py` → `validate_course_pack.py` sequence, and [references/build-and-pdf-pitfalls.md](references/build-and-pdf-pitfalls.md) for optional engineering adaptations. The builder opens `<details>` in a temporary print copy, preserves collapsible answers in the delivered HTML, and must inline all required CSS, JS, and images in the standalone file.
+When file creation is available, build formats through the deterministic pipeline rather than hand-editing separate bodies. Read [references/publishing-spec.md](references/publishing-spec.md) for the init → source gate → draft → build → snapshot → actual review → seal → validate sequence, and [references/build-and-pdf-pitfalls.md](references/build-and-pdf-pitfalls.md) for optional engineering adaptations. The builder opens `<details>` in a temporary print copy, preserves collapsible answers in delivered HTML, and inlines required CSS, JS and images.
 
 Publishing prepares the artifact. It does not authorize an upload, post, repository change, push, or other external mutation.
 

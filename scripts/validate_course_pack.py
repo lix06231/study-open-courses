@@ -18,6 +18,11 @@ import json
 import re
 from pathlib import Path
 
+try:
+    from .source_gate import validate_sources, review_errors
+except ImportError:
+    from source_gate import validate_sources, review_errors
+
 
 EVIDENCE_FIELDS = {
     "unit_id", "title", "official_duration", "source_type", "source_locator",
@@ -121,7 +126,7 @@ def read_json(path: Path, errors: list[str]) -> dict:
     return value
 
 
-def validate_completion_state(root: Path, manifest: dict, errors: list[str]) -> tuple[dict, dict]:
+def validate_completion_state(root: Path, manifest: dict, errors: list[str], *, require_sealed: bool = True) -> tuple[dict, dict]:
     run_path = pack_path(root, manifest.get("run_ledger", "run-ledger.json"), "run_ledger", errors)
     qa_path = pack_path(root, manifest.get("qa_record", "evidence/learning-qa.json"), "qa_record", errors)
     run = read_json(run_path, errors)
@@ -161,7 +166,7 @@ def validate_completion_state(root: Path, manifest: dict, errors: list[str]) -> 
         errors.append(f"{run_path}: formal pack requires delivery_contract three_primary_files")
     if run.get("artifact_status") != "complete" or run.get("integrity_status") != "pass":
         errors.append(f"{run_path}: artifact_status must be complete and integrity_status must be pass")
-    if run.get("checkpoint_status") != "sealed":
+    if require_sealed and run.get("checkpoint_status") != "sealed":
         errors.append(f"{run_path}: checkpoint_status must be sealed")
     if run.get("completion_name") != "reconstructed learning artifact complete":
         errors.append(f"{run_path}: invalid or missing formal completion_name")
@@ -225,7 +230,7 @@ def validate_completion_state(root: Path, manifest: dict, errors: list[str]) -> 
         errors.append(f"{qa_path}: current Learning QA must pass in both records")
     if qa.get("failed_checks") != []:
         errors.append(f"{qa_path}: failed_checks must be empty at completion")
-    if blank(str(qa.get("sealed_at", ""))):
+    if require_sealed and blank(str(qa.get("sealed_at", ""))):
         errors.append(f"{qa_path}: missing sealed_at")
 
     for group, required in (("checks", REQUIRED_QA_CHECKS), ("format_checks", REQUIRED_FORMAT_CHECKS)):
@@ -268,6 +273,8 @@ def main() -> int:
         return 1
 
     run, _qa = validate_completion_state(root, manifest, errors)
+    errors.extend(validate_sources(root, manifest))
+    errors.extend(review_errors(root, manifest, _qa))
 
     chapters = manifest.get("chapters") or []
     if not chapters:
@@ -494,7 +501,7 @@ def main() -> int:
             if not extracted.strip():
                 errors.append(f"{pdf_path}: PDF has no extractable text")
         except ImportError:
-            warnings.append("No supported PDF parser; PDF page-count and text extraction were not checked")
+            errors.append("No supported PDF parser; required PDF checks are unverified")
         except Exception as exc:
             errors.append(f"{pdf_path}: PDF structure/text check failed: {exc}")
 

@@ -31,7 +31,7 @@ Create `evidence/concept-coverage.csv` before final synthesis. Use one row per m
 
 `concept_id,chapter,concept,source_units,lecture_evidence,explanation,reasoning,example,boundaries,visual,quick_check,application,status`
 
-Use file/section anchors in the coverage fields, not only `yes`. Use `NOT_NEEDED: reason` only when an element genuinely does not apply. Set `status` to `READY` only when:
+For formal v4.2 packs use precise local chapter line ranges for explanation, reasoning, example, boundaries, quick check and application. If an element is minimal, point to its brief actual discussion; do not replace it with `yes`, a nonexistent anchor or `NOT_NEEDED`. The visual field may use `NOT_NEEDED: reason` when justified by actual source inspection. Follow [content-evidence-contract.md](content-evidence-contract.md). Set `status` to `READY` only when:
 
 - the concept is grounded in actual teaching content;
 - necessary reasoning or procedural steps are preserved;

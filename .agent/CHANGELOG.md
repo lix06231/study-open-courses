@@ -1,5 +1,14 @@
 # Project changelog
 
+## 2026-10-21 — v4.2 content-evidence hardening
+
+- Reproduced a v4.1 false-completion path in which one placeholder source sentence, invented evidence size, and generic QA prose could pass the formal validator.
+- Added a fail-closed acquisition gate requiring retained canonical inventory, actual local instructional content, hashes, exact excerpts, access classification, required source channels, and complete scope partitioning before drafting.
+- Added claim-level source mapping and exact chapter-range validation; metadata, AI generation, generated chapters, missing channels, truncated captions, unmapped teaching blocks, and unauthorized denominator reduction now fail.
+- Added a pre-review snapshot. Builds stale prior QA, review hashes bind source/scope/context/chapters/artifacts before inspection, and sealing can no longer mint approval hashes after content changes.
+- Expanded deterministic coverage from 8 to 40 tests and passed Skill validation, Python syntax, CLI stop-path, local-link, and installed-copy parity checks.
+- Preserved the explicit boundary that these checks establish consistency, not source authenticity, semantic fidelity, visual understanding, or teaching quality.
+
 ## 2026-09-11 — v4.1 merged into main
 
 - Rewrote the public README around the current v4.1 behavior with a Chinese-first learner story, concrete course-pack output, four blocking gates, a visual pipeline, executable setup, and a concise English overview.

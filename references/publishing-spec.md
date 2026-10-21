@@ -14,6 +14,9 @@ course-pack/
 │   ├── evidence-ledger.csv
 │   ├── concept-coverage.csv
 │   ├── visual-ledger.csv
+│   ├── source-manifest.json
+│   ├── source-map.json
+│   ├── acquisition-gate.json
 │   └── learning-qa.json
 ├── assets/
 │   └── ...used teaching visuals...
@@ -52,6 +55,8 @@ Create `book-manifest.json` with at least:
   "visual_ledger": "evidence/visual-ledger.csv",
   "run_ledger": "run-ledger.json",
   "qa_record": "evidence/learning-qa.json",
+  "source_manifest": "evidence/source-manifest.json",
+  "source_map": "evidence/source-map.json",
   "chapters": [
     {"path": "chapters/01-introduction.md", "title": "Introduction"}
   ],
@@ -73,7 +78,13 @@ Create the deterministic structure first when starting a new pack:
 python /path/to/study-open-courses/scripts/init_course_pack.py ./course-pack --title "Course title"
 ```
 
-Then run from the course-pack directory:
+Acquire and verify real content using [content-evidence-contract.md](content-evidence-contract.md), then run this **before drafting teaching**:
+
+```bash
+python /path/to/study-open-courses/scripts/validate_source_evidence.py ./course-pack
+```
+
+Draft from the acquired scope, add claim-level citations, and run from the course-pack directory:
 
 ```bash
 python /path/to/study-open-courses/scripts/build_course_book.py book-manifest.json
@@ -107,7 +118,13 @@ PDF must have usable pagination, headings, figures, captions, page margins, and 
 
 ## Validate
 
-After Learning QA and rendered-file inspection, bind the review to the exact files:
+Before final content and rendered-file inspection capture current files and inputs (this resets current QA, preserving history):
+
+```bash
+python /path/to/study-open-courses/scripts/capture_qa_snapshot.py .
+```
+
+Review those exact files against originals and record local report locators/hashes for required checks. After Learning QA, seal verifies the existing snapshot without generating a new approval:
 
 ```bash
 python /path/to/study-open-courses/scripts/seal_course_pack.py .

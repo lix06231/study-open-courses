@@ -61,6 +61,8 @@ def main() -> int:
         "visual_ledger": "evidence/visual-ledger.csv",
         "run_ledger": "run-ledger.json",
         "qa_record": "evidence/learning-qa.json",
+        "source_manifest": "evidence/source-manifest.json",
+        "source_map": "evidence/source-map.json",
         "chapters": [{"path": "chapters/01-course-book.md", "title": "Course Book"}],
         "output_dir": "dist",
         "output_basename": "course-book",
@@ -131,6 +133,13 @@ def main() -> int:
         "format_checks": [],
     }
     write_new(root / "evidence/learning-qa.json", json.dumps(qa_record, ensure_ascii=False, indent=2) + "\n")
+    write_new(root / "evidence/source-manifest.json", json.dumps({
+        "schema_version": 1,
+        "inventory": {"origin": "", "local_path": "", "sha256": "", "locator": "", "items": []},
+        "scope": {"basis": "", "included_item_ids": [], "exclusions": []},
+        "records": [],
+    }, ensure_ascii=False, indent=2) + "\n")
+    write_new(root / "evidence/source-map.json", '{"schema_version": 1, "citations": []}\n')
     print(root)
     return 0
 

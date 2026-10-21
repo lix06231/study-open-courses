@@ -1,5 +1,16 @@
 # Tasks
 
+## v4.2 content-evidence hardening
+
+- [x] Reproduce the v4.1 false-completion path using one placeholder source sentence, invented evidence size, and generic QA text.
+- [x] Require retained canonical inventory, actual local instructional content, hashes, exact excerpts, access pairs, channel coverage, and locked scope before drafting.
+- [x] Require claim-level source mapping and local chapter ranges for teaching and concept coverage.
+- [x] Add acquisition and pre-review snapshots so build changes stale QA and sealing cannot retroactively approve changed files.
+- [x] Reject missing speech/visual/practice channels, truncated captions, metadata/AI sources, silent denominator reduction, duplicate or inapplicable core QA, missing PDF checks, and output path escape.
+- [x] Pass 40 deterministic pipeline regressions, Skill structure validation, Python syntax, CLI stop-path, link, and installed-copy parity checks.
+- [x] Synchronize the validated v4.2 files to the Codex installed copy.
+- [x] Commit and push v4.2 to GitHub `main` and verify the remote SHA.
+
 ## v4.1 deterministic course-pack pipeline
 
 - [x] Add a deterministic execution contract to the runtime entrypoint.

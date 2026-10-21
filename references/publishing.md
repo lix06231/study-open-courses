@@ -1,6 +1,6 @@
 # Publishing and Delivery
 
-Read this reference when preparing downloadable files or claiming a learning artifact is formally complete. Complete Learning QA first under [learning-quality.md](learning-quality.md); format polish cannot turn `learning_qa: fail` into a completed artifact.
+Read this reference when preparing downloadable files or claiming a learning artifact is formally complete. Build and capture the current review snapshot before final Learning QA under [learning-quality.md](learning-quality.md); format polish cannot turn `learning_qa: fail` into a completed artifact. Follow [run-ledger-schema.md](run-ledger-schema.md) for the v4.2 source-gate/build/snapshot/review/seal/validate sequence.
 
 Publishing means preparing and validating the artifact. It never authorizes an external upload, post, repository creation or change, commit, push, or other remote mutation.
 

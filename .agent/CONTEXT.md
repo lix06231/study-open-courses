@@ -13,4 +13,4 @@
 
 ## Current version goal
 
-Version 4.1 makes the course-pack path deterministic: initialized machine-readable state, item-derived coverage totals, verifiable source locators, artifact-revision and hash binding, canonical Markdown, offline standalone HTML, printable answers, path containment, and regression-tested completion validation.
+Version 4.2 makes content-level acquisition a hard prerequisite for formal reconstruction. A retained canonical inventory, exact local instructional excerpts, required-channel coverage, scope authorization, source hashes, claim-level mappings, and pre-review input/output snapshots now block URL-only, metadata-only, truncated, self-authored, scope-shrunk, or stale-QA completion paths. Script success establishes record consistency; it does not authenticate sources or replace content and visual review.

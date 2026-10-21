@@ -5,8 +5,8 @@
   <p>先验证，再重构，最后才压缩。</p>
 
   [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-compatible-5b45e0)](https://agentskills.io/specification)
-  [![Version](https://img.shields.io/badge/version-4.1.0-2563eb)](SKILL.md)
-  [![Pipeline tests](https://img.shields.io/badge/pipeline%20tests-8%20passed-16a34a)](docs/validation/v4.1-deterministic-pipeline-results.md)
+  [![Version](https://img.shields.io/badge/version-4.2.0-2563eb)](SKILL.md)
+  [![Pipeline tests](https://img.shields.io/badge/pipeline%20tests-40%20passed-16a34a)](docs/validation/v4.2-content-evidence-audit.md)
   [![License: MIT](https://img.shields.io/badge/license-MIT-0f766e)](LICENSE)
 
   [中文](#凌晨-2247你终于有空学习) · [English](#english)
@@ -145,7 +145,7 @@ Learning QA 检查概念是否讲清、例子是否足够、练习能否检验�
 
 机械校验能确认记录、状态、覆盖数和文件没有自相矛盾；教学质量仍需要 Agent 或人实际阅读和判断。项目明确保留这条边界，不会用“测试通过”替代真实学习复核。
 
-## v4.1：一条可以恢复、复核和封存的流水线
+## v4.2：先取得课程正文，再允许编写
 
 长课程可能跨越多次执行。`run-ledger.json` 记录每一步的真实状态：
 
@@ -156,13 +156,19 @@ acquired
     ↓
 integrity_checked
     ↓
+acquisition_gate_passed（保存正文、范围与资料指纹）
+    ↓
 reconstructed
+    ↓
+built_pending_review
+    ↓
+review_pending（检查前记录文件指纹，旧验收失效）
     ↓
 qa_passed
     ↓
-published
-    ↓
 sealed
+    ↓
+validated
 ```
 
 它同时维护五个由明细记录计算出的覆盖总数：
@@ -175,21 +181,27 @@ sealed
 | `verified` | 已核对顺序、质量、截断和出处的内容 |
 | `reconstructed` | 已进入最终学习单元的内容 |
 
-只要来源、版本、范围或章节正文发生变化，旧 QA 就会变成 `stale`。最终文件再通过 SHA-256 与 QA 记录绑定；复核后偷偷改一个字，校验都会失败。
+网页链接、课程目录、别人的总结和模型记忆，都不能证明拿到了课程正文。v4.2 要求保留实际字幕、原文、必要视觉与练习资料，核对本地引用、原始文件指纹和课程目录。缺必需资料时，构建会停止。详见[内容证据规范](references/content-evidence-contract.md)。
+
+资料和范围在编写前记录指纹；成品在实际验收前记录指纹。来源、版本、范围、章节或交付文件变化后，需要重新核对。封存只核验已有验收，不能给改过的文件补签。
 
 ```bash
 # 1. 初始化课程包和状态记录
 python scripts/init_course_pack.py ./course-pack --title "课程标题"
 
-# 2. 填充真实章节、来源、覆盖记录和 QA 证据后构建
-cd course-pack
-python ../scripts/build_course_book.py book-manifest.json
+# 2. 获取真实正文、原始目录、必需的视觉与练习资料，填写来源记录
+python scripts/validate_source_evidence.py ./course-pack
 
-# 3. 实际查看 HTML 与 PDF，确认教学和渲染结果
+# 3. 通过资料关卡后编写章节与逐项引用，再构建
+python scripts/build_course_book.py ./course-pack/book-manifest.json
 
-# 4. QA 通过后封存，再做最终校验
-python ../scripts/seal_course_pack.py .
-python ../scripts/validate_course_pack.py .
+# 4. 在实际检查前保存验收指纹；此时 QA 仍然未通过
+python scripts/capture_qa_snapshot.py ./course-pack
+
+# 5. 对照原文核对课程，查看 HTML/PDF，记录具体检查结果及报告指纹
+# 6. 只有实际验收通过才封存，再做最终校验
+python scripts/seal_course_pack.py ./course-pack
+python scripts/validate_course_pack.py ./course-pack
 ```
 
 > 初始化只会得到骨架，不会得到“已完成”的课程。`validate_course_pack.py` 返回非零状态，就不能把课程包称为完成。
@@ -199,8 +211,10 @@ python ../scripts/validate_course_pack.py .
 | 脚本 | 责任 |
 |---|---|
 | [`init_course_pack.py`](scripts/init_course_pack.py) | 创建 manifest、ledger、章节和证据骨架 |
-| [`build_course_book.py`](scripts/build_course_book.py) | 从章节生成权威 Markdown、HTML 与 PDF |
-| [`seal_course_pack.py`](scripts/seal_course_pack.py) | 将通过的 QA 绑定到精确文件哈希 |
+| [`validate_source_evidence.py`](scripts/validate_source_evidence.py) | 编写前校验实际内容、目录、范围和必需资料，保存指纹 |
+| [`build_course_book.py`](scripts/build_course_book.py) | 资料关卡通过才构建 Markdown、HTML 与 PDF，并使旧 QA 失效 |
+| [`capture_qa_snapshot.py`](scripts/capture_qa_snapshot.py) | 实际验收前保存输入与成品指纹，保留历史并重置当前验收 |
+| [`seal_course_pack.py`](scripts/seal_course_pack.py) | 核验已有验收及文件指纹，不能替改过的文件补签 |
 | [`validate_course_pack.py`](scripts/validate_course_pack.py) | 交叉检查状态、覆盖、定位、QA 与哈希 |
 | [`export_pdf_cdp.js`](scripts/export_pdf_cdp.js) | 处理 PDF 书签、tagged PDF 和渲染兜底 |
 
@@ -208,7 +222,7 @@ python ../scripts/validate_course_pack.py .
 
 ## 已经实际验证了什么
 
-v4.1 当前有 8 个确定性回归场景：
+v4.2 当前有 40 个确定性回归场景，覆盖以下重点：
 
 1. 记录完整并正确封存的课程包可以通过；
 2. 未填写的初始化骨架不能冒充完成；
@@ -219,7 +233,7 @@ v4.1 当前有 8 个确定性回归场景：
 7. 本地 PNG 会被嵌入单文件 HTML；
 8. 试图逃出课程包目录的 manifest 路径会被拒绝。
 
-完整记录见 [`docs/validation/v4.1-deterministic-pipeline-results.md`](docs/validation/v4.1-deterministic-pipeline-results.md)。
+新增反例还覆盖：只有网页、目录冒充正文、AI 生成冒充获取、伪造引用及资料大小、字幕只拿到开头、漏取视觉与练习、讲义替代口述、缩减分母、课程拿自身当来源、核心验收填“不适用”、旧验收补签，以及缺少 PDF 检查能力。完整审查与验证记录见[内容证据审查报告](docs/validation/v4.2-content-evidence-audit.md)。
 
 这些测试证明流水线能拦截上述状态和文件错误。它们不等于一次真实长课程的端到端教学验收，也不证明所有 Agent 宿主都会作出完全相同的判断。
 
@@ -317,7 +331,7 @@ The project follows one rule: **verify first, reconstruct learning second, compr
 3. **Source integrity:** speech, visuals, practice, attachments, sequence, versions, and gaps are checked separately.
 4. **Learning QA:** a polished file cannot claim completion unless the teaching and format reviews are current and evidenced.
 
-Version 4.1 adds a deterministic `init → build → review → seal → validate` pipeline. A resumable run ledger tracks coverage and state. QA becomes stale when sources, scope, revisions, or chapters change. Final files are sealed to exact SHA-256 hashes, so a post-review edit cannot silently inherit an earlier pass.
+Version 4.2 requires `init → retained-source gate → draft → build → snapshot → actual review → seal → validate`. URLs, metadata, AI summaries and model recollection cannot serve as acquired instructional evidence. Scope, required channels, exact source excerpts and claim mappings are checked. Review hashes are captured before inspection; sealing cannot retroactively approve changed files. These consistency checks do not authenticate sources or replace content/visual review.
 
 Eight regression scenarios currently verify the main mechanical failure modes. They do not replace human or model judgment about teaching quality, nor do they constitute a full cross-host behavioral evaluation.
 

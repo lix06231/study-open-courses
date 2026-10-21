@@ -178,6 +178,8 @@ Keep acquisition notes outside the reconstructed lesson text. Failed and deferre
 
 ## Integrity Check
 
+For formal packs use [content-evidence-contract.md](content-evidence-contract.md) as the executable schema. Retain inventory and actual content, then run `scripts/validate_source_evidence.py` before drafting. URLs remain useful origins but do not satisfy retained content evidence. Eligibility labels and `acquired: true` alone never unlock reconstruction. Do not weaken `required_channels` or substitute generated text when acquisition fails.
+
 Run this gate before Learning Reconstruction. Verify:
 
 - access classification and processing eligibility for every source set;

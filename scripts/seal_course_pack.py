@@ -9,6 +9,13 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
+try:
+    from .source_gate import validate_sources, review_errors
+    from .validate_course_pack import validate_completion_state
+except ImportError:
+    from source_gate import validate_sources, review_errors
+    from validate_course_pack import validate_completion_state
+
 
 def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -47,6 +54,14 @@ def main() -> int:
     run = load_object(run_path)
     qa = load_object(qa_path)
 
+    errors = validate_sources(root, manifest)
+    validate_completion_state(root, manifest, errors, require_sealed=False)
+    errors.extend(review_errors(root, manifest, qa))
+    if errors:
+        for error in errors:
+            print(f"ERROR {error}")
+        return 1
+
     if run.get("learning_qa") != "pass" or qa.get("learning_qa") != "pass":
         raise ValueError("record Learning QA pass in both records before sealing")
     if run.get("artifact_revision") != qa.get("artifact_revision"):
@@ -68,8 +83,9 @@ def main() -> int:
     if manifest.get("build_content_sha256") != content_hash:
         raise ValueError("canonical Markdown changed after the last build; rebuild and re-run QA")
     run["artifact_content_sha256"] = content_hash
-    qa["artifact_content_sha256"] = content_hash
-    qa["artifact_hashes"] = {name: digest(path) for name, path in files.items()}
+    if qa.get("artifact_content_sha256") != content_hash:
+        raise ValueError("QA reviewed different Markdown; capture and review the current files")
+    # Never mint fresh review hashes here; they were captured before review.
     timestamp = datetime.now(timezone.utc).isoformat()
     run["last_updated_at"] = timestamp
     run["checkpoint_status"] = "sealed"

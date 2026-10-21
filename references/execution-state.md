@@ -1,5 +1,7 @@
 # Execution State, Coverage, and Completion
 
+Formal v4.2 course packs must also satisfy [content-evidence-contract.md](content-evidence-contract.md): retained content and canonical inventory, pre-drafting acquisition snapshot, claim-level source mapping, and pre-review input/output hashes. URL locators and Boolean coverage claims alone cannot satisfy acquired or verified instructional coverage. Earlier-level artifacts never unlock the formal builder or completion name.
+
 Read this reference whenever eligible real instructional content will be assessed, acquired, reconstructed, compressed, or published, and whenever any exact artifact-level completion name will be used. Apply the Free-Access Processing Gate in `SKILL.md` first. A `report_only` resource may have a public-metadata ledger and metadata-index completion, but never enters instructional-content acquisition or processing.
 
 ## Artifact levels

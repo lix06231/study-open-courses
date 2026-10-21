@@ -28,6 +28,11 @@ import zipfile
 from pathlib import Path
 from urllib.parse import urlparse
 
+try:
+    from .source_gate import load, validate_sources
+except ImportError:
+    from source_gate import load, validate_sources
+
 SKILL_DIR = Path(__file__).resolve().parent.parent
 ASSET_DIR = SKILL_DIR / "assets"
 
@@ -634,6 +639,22 @@ def main() -> int:
     manifest_path = Path(args.manifest).resolve()
     root = manifest_path.parent
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    errors = validate_sources(root, manifest)
+    if errors:
+        for error in errors:
+            print(f"ERROR {error}", file=sys.stderr)
+        return 1
+    # A rebuild invalidates earlier review even when a PDF export later fails.
+    for relative in (manifest.get("run_ledger", "run-ledger.json"), manifest.get("qa_record", "evidence/learning-qa.json")):
+        record = load(root, relative)
+        if relative == manifest.get("qa_record", "evidence/learning-qa.json") and (record.get("checks") or record.get("sealed_at")):
+            record.setdefault("history", []).append({k: v for k, v in record.items() if k != "history"})
+        record["learning_qa"] = "stale"
+        record.pop("sealed_at", None)
+        if relative == manifest.get("run_ledger", "run-ledger.json"):
+            record["checkpoint_status"] = "built_pending_review"
+            record["completion_name"] = None
+        safe_pack_path(root, relative).write_text(json.dumps(record, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     output_dir = safe_pack_path(root, manifest.get("output_dir", "dist"))
     output_dir.mkdir(parents=True, exist_ok=True)
     basename = manifest.get("output_basename", "course-book")
